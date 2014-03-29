@@ -1,0 +1,2 @@
+create database oa;		#Êı¾İ¿â
+use oa;

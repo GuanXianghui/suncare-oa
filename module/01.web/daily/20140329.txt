@@ -1,0 +1,12 @@
+1.导入依赖包
+
+2.搭好基础代码布局：
+日志文件：yyyyMMdd.txt
+sql:table.txt
+配置文件：全局配置，log4j配置，web配置，struts2配置
+src：dao，entity，filter，interface，util，action
+web：ajax，js，css，image，jsp
+
+3.在StrutsFilter中判token非空，判token有效防止重复提交，判登陆
+
+4.写好登陆功能

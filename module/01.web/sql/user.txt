@@ -1,0 +1,40 @@
+create table user( #用户表
+    #1
+	id int auto_increment primary key comment '主键 自增',
+	name varchar(30) unique not null comment '姓名 不为空',
+	password varchar(32) not null comment '密码 md5签名 不为空',
+	letter varchar(50) not null comment '拼音 不为空',
+	state int not null comment '状态 不为空',
+    #2
+	company varchar(50) comment '公司 不为空',
+	dept varchar(50) comment '部门 可为空 董事长，总经理不属于某个部门',
+	position varchar(50) comment '职位 不为空',
+	desk varchar(50) comment '工位 可为空',
+    #3
+    sex int not null comment '性别 1 男 0 女',
+    birthday varchar(8) comment '生日',
+	office_tel varchar(20) comment '办公电话 可为空',
+	mobile_tel varchar(20) comment '移动电话 可为空',
+	email varchar(100) comment '邮件 不为空',
+	qq varchar(20) comment 'qq 可为空',
+	msn varchar(50) comment 'msn 可为空',
+	address varchar(100) comment '地址 可为空',
+    #4
+	head_photo varchar(500) not null comment '头像地址 不为空',
+	website varchar(100) comment '网站 可为空',
+    #5
+	register_date varchar(8) not null comment '注册日期 不为空',
+	register_time varchar(6) not null comment '注册时间 不为空',
+	register_ip varchar(20) not null comment '注册IP 不为空',
+	visit_date varchar(8) comment '最后访问日期 不为空',
+	visit_time varchar(6) comment '最后访问时间 不为空',
+	visit_ip varchar(20) comment '最后访问IP 不为空'
+);
+
+#初始sql
+#User user2 = new User("关向辉", "123qwe", "gxh", 1, "上海申成门窗有限公司", "市场部",
+#            "软件工程师", "新厂一楼销售部会议室", 1, "19890916", "61596500-8233", "13764603603",
+#            "419066357@163.com", "419066357", "4190663572008@live.cn", "上海市广衍路18弄申云小区5号楼501室",
+#            "images/header/default_head.jpg", "http://go.johst.cn/gxx/", "20140329", "220000", "127.0.0.1",
+#            "20140329", "220000", "127.0.0.1");
+#UserDao.insertUser(user2);

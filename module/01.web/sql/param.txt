@@ -1,0 +1,4 @@
+create table param(		#启动参数表
+	key varchar(30) primary key,	#键 主键
+	value varchar(500) not null #值 不为空
+);
