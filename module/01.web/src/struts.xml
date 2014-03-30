@@ -6,9 +6,9 @@
 <struts>
 
     <constant name="struts.devMode" value="true"/>
+    <constant name="struts.action.extension" value="do"/>
     <package name="default" namespace="/" extends="struts-default">
-        <!--<action name="createTopic" class="com.gxx.record.CreateTopicAction">-->
-        <!--</action>-->
+        <action name="updatePassword" class="com.gxx.oa.UpdatePasswordAction"/>
     </package>
 
     <!--

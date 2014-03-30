@@ -1,20 +1,7 @@
-<%@ page import="com.gxx.oa.utils.PropertyUtil" %>
-<%@ page import="com.gxx.oa.interfaces.BaseInterface" %>
-<%@ page import="com.gxx.oa.utils.TokenUtil" %>
+<%@ page import="com.gxx.oa.utils.BaseUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="headerWithOutCheckLogin.jsp" %>
 <%
-    //域名链接
-    String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
-    //md5 key
-    String md5Key = PropertyUtil.getInstance().getProperty(BaseInterface.MD5_KEY);
-    //token串
-    String token = TokenUtil.createToken(request);
+    //判登录
+    BaseUtil.checkLogin(request, response);
 %>
-<script type="text/javascript">
-    //域名链接
-    var baseUrl = "<%=baseUrl%>";
-    //md5 key
-    var md5Key = "<%=md5Key%>";
-    //token穿
-    var token = "<%=token%>";
-</script>

@@ -21,7 +21,7 @@ create table user( #用户表
 	address varchar(100) comment '地址 可为空',
     #4
 	head_photo varchar(500) not null comment '头像地址 不为空',
-	website varchar(100) comment '网站 可为空',
+	website varchar(100) comment '个人网站 可为空',
     #5
 	register_date varchar(8) not null comment '注册日期 不为空',
 	register_time varchar(6) not null comment '注册时间 不为空',
@@ -32,7 +32,7 @@ create table user( #用户表
 );
 
 #初始sql
-#User user2 = new User("关向辉", "123qwe", "gxh", 1, "上海申成门窗有限公司", "市场部",
+#User user2 = new User("关向辉", "123qwe MD5", "GXH", 1, "上海申成门窗有限公司", "市场部",
 #            "软件工程师", "新厂一楼销售部会议室", 1, "19890916", "61596500-8233", "13764603603",
 #            "419066357@163.com", "419066357", "4190663572008@live.cn", "上海市广衍路18弄申云小区5号楼501室",
 #            "images/header/default_head.jpg", "http://go.johst.cn/gxx/", "20140329", "220000", "127.0.0.1",

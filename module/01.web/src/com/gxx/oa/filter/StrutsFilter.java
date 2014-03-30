@@ -1,6 +1,7 @@
 package com.gxx.oa.filter;
 
 import com.gxx.oa.interfaces.BaseInterface;
+import com.gxx.oa.utils.BaseUtil;
 import com.gxx.oa.utils.IPAddressUtil;
 import com.gxx.oa.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
@@ -44,29 +45,35 @@ public class StrutsFilter extends StrutsPrepareAndExecuteFilter implements BaseI
         if (-1 != url.indexOf("/ueditor/jsp/")) {
             chain.doFilter(req, res);
         } else {
-            String ip = IPAddressUtil.getIPAddress(request);
-            String token = request.getParameter(TOKEN_KEY);
-            logger.info("ip:[" + ip + "]，token:[" + token + "]");
+            //.do结尾才要这些判断
+            if(url.endsWith(".do")){
+                String ip = IPAddressUtil.getIPAddress(request);
+                String token = request.getParameter(TOKEN_KEY);
+                logger.info("ip:[" + ip + "]，token:[" + token + "]");
 
-            // 1.判token为空
-            if (StringUtils.isBlank(token)) {
-                logger.error("token为空");
-                ((HttpServletResponse) res).sendRedirect(request.getContextPath() + "error.jsp");
-                return;
-            }
+                // 1.判token为空
+                if (StringUtils.isBlank(token)) {
+                    logger.error("token为空");
+                    ((HttpServletResponse) res).sendRedirect(request.getContextPath() + "error.jsp");
+                    return;
+                }
 
-            // 2.判token是否失效
-            if (!TokenUtil.checkToken(request, token)) {
-                logger.error("token已失效");
-                ((HttpServletResponse) res).sendRedirect(request.getContextPath() + "error.jsp");
-                return;
-            }
+                // 2.判token是否失效
+                if (!TokenUtil.checkToken(request, token)) {
+                    logger.error("token已失效");
+                    ((HttpServletResponse) res).sendRedirect(request.getContextPath() + "error.jsp");
+                    return;
+                }
 
-            // 3.判登录(登录为ajax请求*.jsp不过StrutsFilter)
-            if (null == request.getSession().getAttribute(USER_KEY)) {
-                logger.error("用户未登录");
-                ((HttpServletResponse) res).sendRedirect(request.getContextPath() + "error.jsp");
-                return;
+                // 3.判登录(登录为ajax请求*.jsp不过StrutsFilter)
+                if (null == request.getSession().getAttribute(USER_KEY)) {
+                    logger.error("用户未登录");
+                    ((HttpServletResponse) res).sendRedirect(request.getContextPath() + "error.jsp");
+                    return;
+                }
+
+                // 4.更新dao+session用户访问信息
+                BaseUtil.refreshUserVisit(request);
             }
 
             super.doFilter(req, res, chain);
