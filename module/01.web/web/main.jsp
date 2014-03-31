@@ -20,10 +20,12 @@
                     </a>
                 </td>
                 <td>
-                    <div align="center">
-                        <div style="background-color: green; width: 50px; height: 50px;"></div>
-                    </div>
-                    <div align="center">用户管理</div>
+                    <a href="<%=baseUrl%>orgStructureManage.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">组织架构管理</div>
+                    </a>
                 </td>
                 <td>
                     <div align="center">

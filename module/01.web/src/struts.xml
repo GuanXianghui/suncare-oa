@@ -9,6 +9,8 @@
     <constant name="struts.action.extension" value="do"/>
     <package name="default" namespace="/" extends="struts-default">
         <action name="updatePassword" class="com.gxx.oa.UpdatePasswordAction"/>
+        <action name="manageOrgStructure" class="com.gxx.oa.ManageOrgStructureAction"/>
+        <action name="updatePosition" class="com.gxx.oa.UpdatePositionAction"/>
     </package>
 
     <!--

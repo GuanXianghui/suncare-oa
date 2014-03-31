@@ -6,9 +6,9 @@ create table user( #用户表
 	letter varchar(50) not null comment '拼音 不为空',
 	state int not null comment '状态 不为空',
     #2
-	company varchar(50) comment '公司 不为空',
-	dept varchar(50) comment '部门 可为空 董事长，总经理不属于某个部门',
-	position varchar(50) comment '职位 不为空',
+	company int comment '公司 可为空',
+	dept int comment '部门 可为空 董事长，总经理不属于某个部门',
+	position int comment '职位 可为空',
 	desk varchar(50) comment '工位 可为空',
     #3
     sex int not null comment '性别 1 男 0 女',
@@ -32,8 +32,7 @@ create table user( #用户表
 );
 
 #初始sql
-#User user2 = new User("关向辉", "123qwe MD5", "GXH", 1, "上海申成门窗有限公司", "市场部",
-#            "软件工程师", "新厂一楼销售部会议室", 1, "19890916", "61596500-8233", "13764603603",
+#User user2 = new User("关向辉", "123qwe MD5", "GXH", 1, 0,0,0, "新厂一楼销售部会议室", 1, "19890916", "61596500-8233", "13764603603",
 #            "419066357@163.com", "419066357", "4190663572008@live.cn", "上海市广衍路18弄申云小区5号楼501室",
 #            "images/header/default_head.jpg", "http://go.johst.cn/gxx/", "20140329", "220000", "127.0.0.1",
 #            "20140329", "220000", "127.0.0.1");

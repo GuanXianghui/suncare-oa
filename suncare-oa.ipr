@@ -221,7 +221,9 @@
   <component name="ProjectDictionaryState">
     <dictionary name="sky">
       <words>
+        <w>colspan</w>
         <w>jdbc</w>
+        <w>pids</w>
         <w>pstmt</w>
         <w>suncare</w>
         <w>ueditor</w>

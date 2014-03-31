@@ -13,9 +13,9 @@ public class User {
     String password;
     String letter;
     int state;
-    String company;
-    String dept;
-    String position;
+    int company;
+    int dept;
+    int position;
     String desk;
     int sex;
     String birthday;
@@ -62,8 +62,8 @@ public class User {
      * @param visitTime
      * @param visitIp
      */
-    public User(String name, String password, String letter, int state, String company, String dept,
-                String position, String desk, int sex, String birthday, String officeTel, String mobileTel,
+    public User(String name, String password, String letter, int state, int company, int dept,
+                int position, String desk, int sex, String birthday, String officeTel, String mobileTel,
                 String email, String qq, String msn, String address, String headPhoto, String website,
                 String registerDate, String registerTime, String registerIp, String visitDate, String visitTime,
                 String visitIp) {
@@ -122,8 +122,8 @@ public class User {
      * @param visitTime
      * @param visitIp
      */
-    public User(int id, String name, String password, String letter, int state, String company, String dept,
-                String position, String desk, int sex, String birthday, String officeTel, String mobileTel,
+    public User(int id, String name, String password, String letter, int state, int company, int dept,
+                int position, String desk, int sex, String birthday, String officeTel, String mobileTel,
                 String email, String qq, String msn, String address, String headPhoto, String website,
                 String registerDate, String registerTime, String registerIp, String visitDate, String visitTime,
                 String visitIp) {
@@ -194,27 +194,27 @@ public class User {
         this.state = state;
     }
 
-    public String getCompany() {
+    public int getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(int company) {
         this.company = company;
     }
 
-    public String getDept() {
+    public int getDept() {
         return dept;
     }
 
-    public void setDept(String dept) {
+    public void setDept(int dept) {
         this.dept = dept;
     }
 
-    public String getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 

@@ -1,4 +1,5 @@
 create table param(		#启动参数表
-	key varchar(30) primary key,	#键 主键
-	value varchar(500) not null #值 不为空
+	name varchar(30) primary key comment '键 主键',
+	value varchar(500) not null comment '值 不为空',
+	info varchar(50) not null comment '描述 不为空'
 );

@@ -1,6 +1,39 @@
 //符号集合
-var SYMBOL_ARRAY_1 = new Array("=","&","'","\"");
-var SYMBOL_ARRAY_2 = new Array(",","=","&","'","\"");
+var SYMBOL_COMMA = ",";
+var SYMBOL_EQUAL = "=";
+var SYMBOL_BIT_AND = "&";
+var SYMBOL_SINGLE_QUOT = "'";
+var SYMBOL_DOUBLE_QUOT = "\"";
+var SYMBOL_WAVE = "~";
+var SYMBOL_EXCLAMATION = "!";
+var SYMBOL_MOUSE = "@";
+var SYMBOL_WELL = "#";
+var SYMBOL_DOLLAR = "$";
+var SYMBOL_PERCENT = "%";
+var SYMBOL_BIT_DIFF = "^";
+var SYMBOL_STAR = "*";
+var SYMBOL_SLASH = "/";
+var SYMBOL_DOT = ".";
+var SYMBOL_COLON = ":";
+var SYMBOL_ARRAY_ALL = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT
+    ,SYMBOL_WAVE,SYMBOL_EXCLAMATION,SYMBOL_MOUSE,SYMBOL_WELL,SYMBOL_DOLLAR,SYMBOL_PERCENT,SYMBOL_BIT_DIFF,
+    SYMBOL_STAR,SYMBOL_SLASH,SYMBOL_DOT,SYMBOL_COLON);
+var SYMBOL_ARRAY_1 = new Array(SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
+var SYMBOL_ARRAY_2 = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
+
+/**
+ * 计算str1中还有几个str2
+ * @param str1
+ * @param str2
+ */
+function containCount(str1, str2) {
+    var count = 0;
+    while(str1.indexOf(str2) > -1) {
+         count ++;
+        str1 = str1.substr(str1.indexOf(str2) + str2.length);
+    }
+    return count;
+}
 
 /**
  * 判断字符串是否含有非法字符

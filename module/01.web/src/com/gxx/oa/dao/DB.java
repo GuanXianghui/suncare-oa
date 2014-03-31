@@ -1,5 +1,6 @@
 package com.gxx.oa.dao;
 
+import com.gxx.oa.entities.User;
 import com.gxx.oa.interfaces.BaseInterface;
 import com.gxx.oa.utils.PropertyUtil;
 import org.apache.log4j.Logger;

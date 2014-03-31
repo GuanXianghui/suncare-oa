@@ -40,9 +40,9 @@ public class UserDao {
                 String password = rs.getString("password");
                 String letter = rs.getString("letter");
                 int state = rs.getInt("state");
-                String company = rs.getString("company");
-                String dept = rs.getString("dept");
-                String position = rs.getString("position");
+                int company = rs.getInt("company");
+                int dept = rs.getInt("dept");
+                int position = rs.getInt("position");
                 String desk = rs.getString("desk");
                 int sex = rs.getInt("sex");
                 String birthday = rs.getString("birthday");
@@ -97,9 +97,9 @@ public class UserDao {
                 String password = rs.getString("password");
                 String letter = rs.getString("letter");
                 int state = rs.getInt("state");
-                String company = rs.getString("company");
-                String dept = rs.getString("dept");
-                String position = rs.getString("position");
+                int company = rs.getInt("company");
+                int dept = rs.getInt("dept");
+                int position = rs.getInt("position");
                 String desk = rs.getString("desk");
                 int sex = rs.getInt("sex");
                 String birthday = rs.getString("birthday");
@@ -155,8 +155,8 @@ public class UserDao {
                 "register_ip,visit_date,visit_time,visit_ip)" +
                 "values" +
                 "(null,'" + user.getName() + "','" + user.getPassword() + "','" + user.getLetter() + "'," +
-                user.getState() + ",'" + user.getCompany() + "','" + user.getDept() + "','" + user.getPosition() +
-                "','" + user.getDesk() + "'," + user.getSex() + ",'" + user.getBirthday() + "','" +
+                user.getState() + "," + user.getCompany() + "," + user.getDept() + "," + user.getPosition() +
+                ",'" + user.getDesk() + "'," + user.getSex() + ",'" + user.getBirthday() + "','" +
                 user.getOfficeTel() + "','" + user.getMobileTel() + "','" + user.getEmail() + "','" + user.getQq() +
                 "','" + user.getMsn() + "','" + user.getAddress() + "','" + user.getHeadPhoto() + "','" +
                 user.getWebsite() + "','" + user.getRegisterDate() + "','" + user.getRegisterTime() + "','" +
@@ -218,8 +218,8 @@ public class UserDao {
      * @throws Exception
      */
     public static void updateUserInfo(User user) throws Exception {
-        String sql = "update user set letter='" + user.getLetter() + "',company='" + user.getCompany() +
-                "',dept='" + user.getDept() + "',position='" + user.getPosition() + "',desk='" + user.getDesk() +
+        String sql = "update user set letter='" + user.getLetter() + "',company=" + user.getCompany() +
+                ",dept=" + user.getDept() + ",position=" + user.getPosition() + ",desk='" + user.getDesk() +
                 "',sex=" + user.getSex() + ",birthday='" + user.getBirthday() + "',office_tel='" +
                 user.getOfficeTel() + "',mobile_tel='" + user.getMobileTel() + "',email='" + user.getEmail() +
                 "',qq='" + user.getQq() + "',msn='" + user.getMsn() + "',address='" + user.getAddress() +

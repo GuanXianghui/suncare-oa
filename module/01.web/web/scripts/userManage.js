@@ -6,6 +6,12 @@ function beforeUpdatePassword(){
     document.getElementById("password").value = "";
 }
 
+//取消修改密码
+function cancelUpdatePassword(){
+    document.getElementById("before_update_password_td").style.display = "";
+    document.getElementById("update_password_td").style.display = "none";
+}
+
 //点击修改密码
 function updatePassword(){
     //密码md5签名
