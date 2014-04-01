@@ -1,4 +1,4 @@
-//·ûºÅ¼¯ºÏ
+//ç¬¦å·é›†åˆ
 var SYMBOL_COMMA = ",";
 var SYMBOL_EQUAL = "=";
 var SYMBOL_BIT_AND = "&";
@@ -22,7 +22,7 @@ var SYMBOL_ARRAY_1 = new Array(SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SY
 var SYMBOL_ARRAY_2 = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
 
 /**
- * ¼ÆËãstr1ÖĞ»¹ÓĞ¼¸¸östr2
+ * è®¡ç®—str1ä¸­è¿˜æœ‰å‡ ä¸ªstr2
  * @param str1
  * @param str2
  */
@@ -36,9 +36,9 @@ function containCount(str1, str2) {
 }
 
 /**
- * ÅĞ¶Ï×Ö·û´®ÊÇ·ñº¬ÓĞ·Ç·¨×Ö·û
- * Ğ£ÑéÍ¨¹ı·µ»Øresult["isSuccess"]=true
- * Ğ£ÑéÊ§°Ü·µ»Øresult["isSuccess"]=false,result["symbol"]=°üº¬µÄ·Ç·¨×Ö·û
+ * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦å«æœ‰éæ³•å­—ç¬¦
+ * æ ¡éªŒé€šè¿‡è¿”å›result["isSuccess"]=true
+ * æ ¡éªŒå¤±è´¥è¿”å›result["isSuccess"]=false,result["symbol"]=åŒ…å«çš„éæ³•å­—ç¬¦
  * @param value
  * @param symbolArray
  */
@@ -47,7 +47,7 @@ function checkStr(value, symbolArray) {
     for(var i=0;i<symbolArray.length;i++){
         if(value.indexOf(symbolArray[i]) > -1) {
             if("'" == symbolArray[i]){
-                //¶Ôµ¥ÒıºÅÌØÊâ´¦Àí
+                //å¯¹å•å¼•å·ç‰¹æ®Šå¤„ç†
                 result = "{isSuccess:false,symbol:\"\'\"}";
             } else {
                 result = "{isSuccess:false,symbol:'" + symbolArray[i] + "'}";
@@ -63,13 +63,13 @@ function checkStr(value, symbolArray) {
 }
 
 /**
- * ÍË³ö
- * ×¢Òâ£ºÓÃµ½$.ajax£¬ËùÒÔµÃÒÀÀµjquery-min.js
- * ×¢Òâ£ºÓÃµ½±äÁ¿baseUrl£¬ËùÒÔµÃÒÀÀµheader.jsp
+ * é€€å‡º
+ * æ³¨æ„ï¼šç”¨åˆ°$.ajaxï¼Œæ‰€ä»¥å¾—ä¾èµ–jquery-min.js
+ * æ³¨æ„ï¼šç”¨åˆ°å˜é‡baseUrlï¼Œæ‰€ä»¥å¾—ä¾èµ–header.jsp
  */
 function logOut(){
-    //ajaxÍË³ö
-    var SUCCESS_STR = "success";//³É¹¦±àÂë
+    //ajaxé€€å‡º
+    var SUCCESS_STR = "success";//æˆåŠŸç¼–ç 
     $.ajax({
         type:"post",
         async:false,
@@ -78,15 +78,15 @@ function logOut(){
         success:function (data, textStatus) {
             if ((SUCCESS_STR == textStatus) && (null != data)) {
                 data = eval("(" + data + ")");
-                //ÅĞÍË³öÊÇ·ñ³É¹¦
+                //åˆ¤é€€å‡ºæ˜¯å¦æˆåŠŸ
                 if (false == data["isSuccess"]) {
                     alert(data["message"]);
                     return;
                 } else {
-                    //ÍË³ö³É¹¦
+                    //é€€å‡ºæˆåŠŸ
                     alert(data["message"]);
                 }
-                //ÊÇ·ñÌø×ªÒ³Ãæ
+                //æ˜¯å¦è·³è½¬é¡µé¢
                 if (data["isRedirect"]) {
                     var redirectUrl = data["redirectUrl"];
                     location.href = redirectUrl;

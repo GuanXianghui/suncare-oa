@@ -1,3 +1,9 @@
+/**
+ * md5Ç©Ãû
+ * @param sMessage
+ * @return {String}
+ * @constructor
+ */
 function MD5(sMessage) {
     function RotateLeft(lValue, iShiftBits) { return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits)); }
     function AddUnsigned(lX,lY) {

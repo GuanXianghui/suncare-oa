@@ -1,0 +1,12 @@
+(1)从20140401开始，这个项目编码如下：
+utf8编码文件：jsp，js，css，xml
+gbk编码编码文件：txt，java，properties
+
+(2)如果需要转编码可以用notepad++来转码，操作方法：
+1.打开文件
+2.选择格式菜单
+2.1.转码成gbk选择：以ANSI格式编码
+2.2.转码成utf8选择：以utf-8无BOM格式编码
+3.保存文件
+
+(3)尽量把JavaScript和css放到独立的文件中
