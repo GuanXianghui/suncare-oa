@@ -4,6 +4,7 @@ import com.gxx.oa.dao.StructureDao;
 import com.gxx.oa.dao.UserDao;
 import com.gxx.oa.entities.Structure;
 import com.gxx.oa.entities.User;
+import com.gxx.oa.interfaces.StructureInterface;
 import com.gxx.oa.utils.TokenUtil;
 
 /**
@@ -13,7 +14,7 @@ import com.gxx.oa.utils.TokenUtil;
  * @module oa
  * @datetime 14-3-31 23:07
  */
-public class UpdatePositionAction extends BaseAction {
+public class UpdatePositionAction extends BaseAction implements StructureInterface {
     /**
      * 公司架构id
      */
@@ -35,19 +36,19 @@ public class UpdatePositionAction extends BaseAction {
             if(null == temp) {
                 break;
             }
-            if(temp.getType() == Structure.TYPE_COMPANY) {
+            if(temp.getType() == TYPE_COMPANY) {
                 if(null == company) {
                     company = temp;
                 }
                 break;//有了公司 就不管部门
             }
-            if(temp.getType() == Structure.TYPE_DEPT) {
+            if(temp.getType() == TYPE_DEPT) {
                 if(null == dept) {
                     dept = temp;
                 }
                 pid = dept.getPid();
             }
-            if(temp.getType() == Structure.TYPE_POSITION) {
+            if(temp.getType() == TYPE_POSITION) {
                 pid = temp.getPid();//继续往上
             }
         }

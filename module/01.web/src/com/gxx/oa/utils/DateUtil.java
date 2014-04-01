@@ -295,6 +295,25 @@ public class DateUtil {
     }
 
     /**
+     * 转换成中国汉语日期
+     *
+     * @param date
+     * @return
+     */
+    public static String getCNDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        if (date == null) {
+            return StringUtils.EMPTY;
+        }
+        try {
+            return sdf.format(date);
+        } catch (Exception e) {
+            logger.error("异常发生~", e);
+            return StringUtils.EMPTY;
+        }
+    }
+
+    /**
      * 转换成中国汉语日期时间
      *
      * @param date
@@ -303,13 +322,13 @@ public class DateUtil {
     public static String getCNDateTime(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
         if (date == null) {
-            return null;
+            return StringUtils.EMPTY;
         }
         try {
             return sdf.format(date);
         } catch (Exception e) {
             logger.error("异常发生~", e);
-            return null;
+            return StringUtils.EMPTY;
         }
     }
 

@@ -42,6 +42,11 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
     String token;
 
     /**
+     * ÏûÏ¢
+     */
+    String message;
+
+    /**
      * request£¬response
      */
     HttpServletRequest request;
@@ -114,6 +119,14 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public void setServletRequest(HttpServletRequest request) {

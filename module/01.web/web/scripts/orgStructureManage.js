@@ -47,7 +47,8 @@ function processWithJson() {
             for(var j=0;j<structureArray.length;j++) {
                 if(structureArray[j]["pid"] == array[i]) {
                     hasSon = true;
-                    var className = (1== structureArray[j]["type"])?"company":((2== structureArray[j]["type"])?"dept":"position");
+                    var className = (STRUCTURE_TYPE_COMPANY== structureArray[j]["type"])?"company":
+                        ((STRUCTURE_TYPE_DEPT== structureArray[j]["type"])?"dept":"position");
                     tempStr += "<td onclick='chooseTd(this, " + structureArray[j]["id"] +
                         ")' class='" + className + "' colspan='" +
                         calculateSize(structureArray[j]["id"]) + "'>" +

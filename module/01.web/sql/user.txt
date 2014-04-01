@@ -20,7 +20,7 @@ create table user( #用户表
 	msn varchar(50) comment 'msn 可为空',
 	address varchar(100) comment '地址 可为空',
     #4
-	head_photo varchar(500) not null comment '头像地址 不为空',
+	head_photo varchar(500) not null comment '头像地址 相对路径 不为空',
 	website varchar(100) comment '个人网站 可为空',
     #5
 	register_date varchar(8) not null comment '注册日期 不为空',

@@ -74,6 +74,63 @@ public class UserDao {
     }
 
     /**
+     * 根据id查用户
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public static User getUserById(int id) throws Exception {
+        String sql = "SELECT name,password,letter,state,company,dept,position,desk,sex,birthday," +
+                "office_tel,mobile_tel,email,qq,msn,address,head_photo,website,register_date," +
+                "register_time,register_ip,visit_date,visit_time,visit_ip FROM user WHERE id=" +
+                id + " order by id";
+        Connection c = DB.getConn();
+        Statement stmt = DB.createStatement(c);
+        ResultSet rs = DB.executeQuery(c, stmt, sql);
+        try {
+            if (rs == null) {
+                throw new RuntimeException("数据库操作出错，请重试！");
+            }
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String letter = rs.getString("letter");
+                int state = rs.getInt("state");
+                int company = rs.getInt("company");
+                int dept = rs.getInt("dept");
+                int position = rs.getInt("position");
+                String desk = rs.getString("desk");
+                int sex = rs.getInt("sex");
+                String birthday = rs.getString("birthday");
+                String officeTel = rs.getString("office_tel");
+                String mobileTel = rs.getString("mobile_tel");
+                String email = rs.getString("email");
+                String qq = rs.getString("qq");
+                String msn = rs.getString("msn");
+                String address = rs.getString("address");
+                String headPhoto = rs.getString("head_photo");
+                String website = rs.getString("website");
+                String registerDate = rs.getString("register_date");
+                String registerTime = rs.getString("register_time");
+                String registerIp = rs.getString("register_ip");
+                String visitDate = rs.getString("visit_date");
+                String visitTime = rs.getString("visit_time");
+                String visitIp = rs.getString("visit_ip");
+                User user = new User(id, name, password, letter, state, company, dept, position, desk, sex, birthday,
+                        officeTel, mobileTel, email, qq, msn, address, headPhoto, website, registerDate, registerTime,
+                        registerIp, visitDate, visitTime, visitIp);
+                return user;
+            }
+            return null;
+        } finally {
+            DB.close(rs);
+            DB.close(stmt);
+            DB.close(c);
+        }
+    }
+
+    /**
      * 根据姓名查用户
      *
      * @param name

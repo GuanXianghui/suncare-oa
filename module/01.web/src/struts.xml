@@ -11,6 +11,15 @@
         <action name="updatePassword" class="com.gxx.oa.UpdatePasswordAction"/>
         <action name="manageOrgStructure" class="com.gxx.oa.ManageOrgStructureAction"/>
         <action name="updatePosition" class="com.gxx.oa.UpdatePositionAction"/>
+        <action name="uploadHeadPhoto" class="com.gxx.oa.UploadHeadPhotoAction">
+            <result>
+                /userManage.jsp
+            </result>
+            <result name="error">
+                /userManage.jsp
+            </result>
+        </action>
+        <action name="updateInfo" class="com.gxx.oa.UpdateInfoAction"/>
     </package>
 
     <!--

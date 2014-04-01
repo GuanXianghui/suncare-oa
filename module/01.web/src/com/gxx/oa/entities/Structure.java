@@ -8,13 +8,6 @@ package com.gxx.oa.entities;
  * @datetime 14-3-31 14:25
  */
 public class Structure {
-    /**
-     * 组织架构类型
-     */
-    public static final int TYPE_COMPANY = 1;
-    public static final int TYPE_DEPT = 2;
-    public static final int TYPE_POSITION = 3;
-
     int id;
     int type;
     String name;

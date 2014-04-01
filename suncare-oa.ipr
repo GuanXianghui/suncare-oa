@@ -225,6 +225,7 @@
     <dictionary name="sky">
       <words>
         <w>colspan</w>
+        <w>depts</w>
         <w>jdbc</w>
         <w>pids</w>
         <w>pstmt</w>

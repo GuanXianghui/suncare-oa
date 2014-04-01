@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+td {
+    border: 1px solid gray;
+    text-align: center;
+    width: 20%;
+}
+td[col2] {width: 40%;}
+td[col3] {width: 60%;}
+td[col4] {width: 80%;}
+td[col5] {width: 100%;}
+.top {
+    background-color: green;
+}
+.company {
+    background-color: #fa8072;
+}
+.dept {
+    background-color: blue;
+}
+.position {
+    background-color: #6a5acd;
+}

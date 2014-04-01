@@ -22,6 +22,19 @@ var SYMBOL_ARRAY_1 = new Array(SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SY
 var SYMBOL_ARRAY_2 = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
 
 /**
+ * 性别: 1男，0女
+ */
+var USER_SEX_X = 1;
+var USER_SEX_O = 0;
+
+/**
+ * 组织架构类型
+ */
+var STRUCTURE_TYPE_COMPANY = 1;
+var STRUCTURE_TYPE_DEPT = 2;
+var STRUCTURE_TYPE_POSITION = 3;
+
+/**
  * 计算str1中还有几个str2
  * @param str1
  * @param str2
@@ -63,6 +76,13 @@ function checkStr(value, symbolArray) {
 }
 
 /**
+ * 跳到用户主页
+ */
+function jump2Main(){
+    location.href = baseUrl + "main.jsp";
+}
+
+/**
  * 退出
  * 注意：用到$.ajax，所以得依赖jquery-min.js
  * 注意：用到变量baseUrl，所以得依赖header.jsp
@@ -99,4 +119,22 @@ function logOut(){
             alert("Connection failed,please try again later!");
         }
     });
+}
+
+/**
+ * email格式校验
+ * @param email
+ */
+function isEmail(email){
+    var re = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    return re.test(email);
+}
+
+/**
+ * num格式校验
+ * @param num
+ */
+function isNum(num){
+    var re = /^[\d]+$/
+    return re.test(num);
 }

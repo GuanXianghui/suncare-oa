@@ -3,10 +3,10 @@
 <html>
 <head>
     <title>登陆页面</title>
-    <script type="text/javascript" src="<%=baseUrl%>/scripts/jquery-min.js"></script>
-    <script type="text/javascript" src="<%=baseUrl%>/scripts/md5.js"></script>
-    <script type="text/javascript" src="<%=baseUrl%>/scripts/base.js"></script>
-    <script type="text/javascript" src="<%=baseUrl%>/scripts/index.js"></script>
+    <script type="text/javascript" src="<%=baseUrl%>scripts/jquery-min.js"></script>
+    <script type="text/javascript" src="<%=baseUrl%>scripts/md5.js"></script>
+    <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
+    <script type="text/javascript" src="<%=baseUrl%>scripts/index.js"></script>
 </head>
 <body>
 <div align="center">

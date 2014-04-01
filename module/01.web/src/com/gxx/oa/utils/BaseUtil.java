@@ -1,10 +1,13 @@
 package com.gxx.oa.utils;
 
+import com.gxx.oa.dao.StructureDao;
 import com.gxx.oa.dao.UserDao;
 import com.gxx.oa.entities.Structure;
 import com.gxx.oa.entities.User;
 import com.gxx.oa.interfaces.BaseInterface;
+import com.gxx.oa.interfaces.StructureInterface;
 import com.gxx.oa.interfaces.SymbolInterface;
+import com.gxx.oa.interfaces.UserInterface;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +64,43 @@ public class BaseUtil implements SymbolInterface {
             }
             result += "{id:" + structure.getId() + ",type:" + structure.getType() + ",name:'" +
                     structure.getName() + "',pid:" + structure.getPid() + ",indexId:" + structure.getIndexId() + "}";
+        }
+        return result;
+    }
+
+    /**
+     * 翻译用户性别
+     * @param sex
+     * @return
+     */
+    public static String translateUserSex(int sex) {
+        if(UserInterface.SEX_X == sex) {
+            return "男";
+        }
+        if(UserInterface.SEX_O == sex) {
+            return "女";
+        }
+        return StringUtils.EMPTY;
+    }
+
+    /**
+     * 从用户集合得到Json数组
+     * @param list
+     * @return
+     */
+    public static String getJsonArrayFromUsers(List<User> list) {
+        String result = StringUtils.EMPTY;
+        for(User user : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_BIT_AND;
+            }
+            result += "{id:" + user.getId() + ",name:'" + user.getName() + "',letter:'" +
+                    user.getLetter() + "',state:" + user.getState() + ",company:" + user.getCompany() +
+                    ",dept:" + user.getDept() + ",position:" + user.getPosition() + ",desk:'" + user.getDesk() +
+                    "',sex:" + user.getSex() +",birthday:'" + user.getBirthday() +"',officeTel:'" + user.getOfficeTel() +
+                    "',mobileTel:'" + user.getMobileTel() +"',email:'" + user.getEmail() +"',qq:'" + user.getQq() +
+                    "',msn:'" + user.getMsn() +"',address:'" + user.getAddress() +"',headPhoto:'" + user.getHeadPhoto() +
+                    "',website:'" + user.getWebsite() + "'}";
         }
         return result;
     }
