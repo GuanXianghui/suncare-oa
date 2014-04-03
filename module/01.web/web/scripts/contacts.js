@@ -20,7 +20,7 @@ $(document).ready(function() {
  */
 function processUserWithJson() {
     //json串转json数组
-    if(userJsonStr != "") {
+    if(userJsonStr != EMPTY) {
         var array = userJsonStr.split(SYMBOL_BIT_AND);
         for(var i=0;i<array.length;i++) {
             userArray[userArray.length] = eval("(" + array[i] + ")");
@@ -33,7 +33,7 @@ function processUserWithJson() {
  */
 function processStructureWithJson() {
     //json串转json数组
-    if(structureJsonStr != "") {
+    if(structureJsonStr != EMPTY) {
         var array = structureJsonStr.split(SYMBOL_BIT_AND);
         for(var i=0;i<array.length;i++) {
             structureArray[structureArray.length] = eval("(" + array[i] + ")");
@@ -96,7 +96,7 @@ function processContacts(){
     /**
      * 依次展现通讯录中的公司架构
      */
-    var html = "";
+    var html = EMPTY;
     for(var i=0;i<companies.length;i++){
         var company = getStructureById(companies[i]);
         html += "<tr><td col5='1' class='company' colspan='5'>" + company["name"] + "</td></tr>";
@@ -279,7 +279,7 @@ function chooseTd(t, id) {
     chooseId = id;
     //修改信息
     document.getElementById("type2").value = 1;
-    document.getElementById("name2").value = "";
+    document.getElementById("name2").value = EMPTY;
     var structure = getStructureById(id);
     if(null != structure) {
         document.getElementById("type2").value = structure["type"];
@@ -311,14 +311,14 @@ function checkNode(type) {
     }
     if("addNode" == type) {
         var name = document.getElementById("name1").value;
-        if(name == "") {
+        if(name == EMPTY) {
             alert("请输入名称");
             return false;
         }
     }
     if("updateNode" == type) {
         var name = document.getElementById("name2").value;
-        if(name == "") {
+        if(name == EMPTY) {
             alert("请输入名称");
             return false;
         }
@@ -349,7 +349,7 @@ function move2Left() {
     if(checkNode("move2Left") == false) {
         return;
     }
-    manageOrgStructure("move2Left", chooseId, 0, "");
+    manageOrgStructure("move2Left", chooseId, 0, EMPTY);
 }
 
 /**
@@ -359,7 +359,7 @@ function move2Right() {
     if(checkNode("move2Right") == false) {
         return;
     }
-    manageOrgStructure("move2Right", chooseId, 0, "");
+    manageOrgStructure("move2Right", chooseId, 0, EMPTY);
 }
 
 /**
@@ -405,7 +405,7 @@ function deleteNode() {
     if(checkNode("deleteNode") == false) {
         return;
     }
-    manageOrgStructure("deleteNode", chooseId, 0, "");
+    manageOrgStructure("deleteNode", chooseId, 0, EMPTY);
 }
 
 /**
@@ -457,7 +457,7 @@ function manageOrgStructure(configType, id, type, name) {
     chooseNode = null;
     chooseId = 0;
     document.getElementById("type1").value = 1;
-    document.getElementById("name1").value = "";
+    document.getElementById("name1").value = EMPTY;
     document.getElementById("type2").value = 1;
-    document.getElementById("name2").value = "";
+    document.getElementById("name2").value = EMPTY;
 }

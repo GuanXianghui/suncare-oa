@@ -46,16 +46,20 @@
             </tr>
             <tr>
                 <td>
-                    <div align="center">
-                        <div style="background-color: green; width: 50px; height: 50px;"></div>
-                    </div>
-                    <div align="center">用户管理</div>
+                    <a href="<%=baseUrl%>configNotice.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">公告管理</div>
+                    </a>
                 </td>
                 <td>
-                    <div align="center">
-                        <div style="background-color: green; width: 50px; height: 50px;"></div>
-                    </div>
-                    <div align="center">用户管理</div>
+                    <a href="<%=baseUrl%>notice.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">公告</div>
+                    </a>
                 </td>
                 <td>
                     <div align="center">

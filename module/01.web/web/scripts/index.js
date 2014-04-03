@@ -3,11 +3,11 @@ function login() {
     var name = document.getElementById("name").value;
     var password = document.getElementById("password").value;
     //判非空
-    if (name == "") {
+    if (name == EMPTY) {
         alert("请输入用户名!");
         return;
     }
-    if (password == "") {
+    if (password == EMPTY) {
         alert("请输入密码!");
         return;
     }
@@ -38,7 +38,7 @@ function login() {
                 //判登陆是否成功
                 if (false == data["isSuccess"]) {
                     alert(data["message"]);
-                    document.getElementById("password").value = "";
+                    document.getElementById("password").value = EMPTY;
                     //判是否有新token
                     if (data["hasNewToken"]) {
                         token = data["token"];

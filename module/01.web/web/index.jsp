@@ -19,11 +19,11 @@
             <table border="1">
                 <tr>
                     <td>用户名：</td>
-                    <td><input type="text" id="name"></td>
+                    <td><input type="text" id="name" value="关向辉"></td>
                 </tr>
                 <tr>
                     <td>密码：</td>
-                    <td><input type="password" id="password"></td>
+                    <td><input type="password" id="password" value="123qwe"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

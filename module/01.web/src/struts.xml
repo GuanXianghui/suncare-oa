@@ -20,6 +20,16 @@
             </result>
         </action>
         <action name="updateInfo" class="com.gxx.oa.UpdateInfoAction"/>
+        <action name="configNotice" class="com.gxx.oa.ConfigNoticeAction">
+            <result>
+                /configNotice.jsp
+            </result>
+            <result name="error">
+                /configNotice.jsp
+            </result>
+        </action>
+        <action name="showNextPageNotices" class="com.gxx.oa.ShowNextPageNoticesAction"/>
+        <action name="operateUserNotice" class="com.gxx.oa.OperateUserNoticeAction"/>
     </package>
 
     <!--

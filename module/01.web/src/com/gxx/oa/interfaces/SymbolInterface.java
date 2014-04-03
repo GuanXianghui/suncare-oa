@@ -28,4 +28,12 @@ public interface SymbolInterface {
      * Ë«ÒýºÅ
      */
     public static final String SYMBOL_DOUBLE_QUOT = "\"";
+    /**
+     * Âß¼­ÓëºÅ
+     */
+    public static final String SYMBOL_LOGIC_AND = "&&";
+    /**
+     * »»ÐÐ·û
+     */
+    public static final String SYMBOL_NEW_LINE = "\r\n";
 }

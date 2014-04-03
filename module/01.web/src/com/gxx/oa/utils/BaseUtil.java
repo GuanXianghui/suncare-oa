@@ -2,6 +2,7 @@ package com.gxx.oa.utils;
 
 import com.gxx.oa.dao.StructureDao;
 import com.gxx.oa.dao.UserDao;
+import com.gxx.oa.entities.Notice;
 import com.gxx.oa.entities.Structure;
 import com.gxx.oa.entities.User;
 import com.gxx.oa.interfaces.BaseInterface;
@@ -101,6 +102,26 @@ public class BaseUtil implements SymbolInterface {
                     "',mobileTel:'" + user.getMobileTel() +"',email:'" + user.getEmail() +"',qq:'" + user.getQq() +
                     "',msn:'" + user.getMsn() +"',address:'" + user.getAddress() +"',headPhoto:'" + user.getHeadPhoto() +
                     "',website:'" + user.getWebsite() + "'}";
+        }
+        return result;
+    }
+
+    /**
+     * 从公告集合得到Json数组
+     * @param list
+     * @return
+     */
+    public static String getJsonArrayFromNotices(List<Notice> list) {
+        String result = StringUtils.EMPTY;
+        for(Notice notice : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            result += "{id:" + notice.getId() + ",title:'" + notice.getTitle() + "',content:'" +
+                    notice.getContent() + "',createDate:'" + notice.getCreateDate() + "',createTime:'" +
+                    notice.getCreateTime() + "',createIp:'" + notice.getCreateIp() + "',updateDate:'" +
+                    notice.getUpdateDate() + "',updateTime:'" + notice.getUpdateTime() + "',updateIp:'" +
+                    notice.getUpdateIp() +"'}";
         }
         return result;
     }

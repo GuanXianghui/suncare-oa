@@ -1,9 +1,13 @@
+//空
+var EMPTY = "";
+
 //符号集合
 var SYMBOL_COMMA = ",";
 var SYMBOL_EQUAL = "=";
 var SYMBOL_BIT_AND = "&";
 var SYMBOL_SINGLE_QUOT = "'";
 var SYMBOL_DOUBLE_QUOT = "\"";
+var SYMBOL_LOGIC_AND = "&&";
 var SYMBOL_WAVE = "~";
 var SYMBOL_EXCLAMATION = "!";
 var SYMBOL_MOUSE = "@";
@@ -15,11 +19,19 @@ var SYMBOL_STAR = "*";
 var SYMBOL_SLASH = "/";
 var SYMBOL_DOT = ".";
 var SYMBOL_COLON = ":";
+var SYMBOL_NEW_LINE = "\r\n";
 var SYMBOL_ARRAY_ALL = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT
     ,SYMBOL_WAVE,SYMBOL_EXCLAMATION,SYMBOL_MOUSE,SYMBOL_WELL,SYMBOL_DOLLAR,SYMBOL_PERCENT,SYMBOL_BIT_DIFF,
     SYMBOL_STAR,SYMBOL_SLASH,SYMBOL_DOT,SYMBOL_COLON);
 var SYMBOL_ARRAY_1 = new Array(SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
 var SYMBOL_ARRAY_2 = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
+
+/**
+ * UE的代码功能，每行都是换行的，写到json里会有问题，所以把换行先转换成一个uuid串，展示之前再转回来
+ * 即：\r\n<->uuid
+ * 注意：该标志要与服务端config.properties配置一致
+ */
+var GXX_OA_NEW_LINE_UUID = "0e8e1794-9ff3-411b-9e4f-f364f663b839";
 
 /**
  * 性别: 1男，0女
@@ -33,6 +45,19 @@ var USER_SEX_O = 0;
 var STRUCTURE_TYPE_COMPANY = 1;
 var STRUCTURE_TYPE_DEPT = 2;
 var STRUCTURE_TYPE_POSITION = 3;
+
+/**
+ * 字段长度
+ */
+var NOTICE_TITLE_LENGTH = 40;//公告标题长度
+var NOTICE_CONTENT_LENGTH = 10000;//公告内容长度
+
+/**
+ * 公告管理类型:add:新增 update:修改 delete:删除
+ */
+var NOTICE_TYPE_ADD = "add";
+var NOTICE_TYPE_UPDATE = "update";
+var NOTICE_TYPE_DELETE = "delete";
 
 /**
  * 计算str1中还有几个str2
@@ -56,7 +81,7 @@ function containCount(str1, str2) {
  * @param symbolArray
  */
 function checkStr(value, symbolArray) {
-    var result = "";
+    var result = EMPTY;
     for(var i=0;i<symbolArray.length;i++){
         if(value.indexOf(symbolArray[i]) > -1) {
             if("'" == symbolArray[i]){
@@ -68,7 +93,7 @@ function checkStr(value, symbolArray) {
             break;
         }
     }
-    if(result == ""){
+    if(result == EMPTY){
         result = "{isSuccess:true}";
     }
     result = eval("(" + result + ")");
@@ -94,7 +119,7 @@ function logOut(){
         type:"post",
         async:false,
         url:baseUrl + "ajax/logOut.jsp",
-        data:"",
+        data:EMPTY,
         success:function (data, textStatus) {
             if ((SUCCESS_STR == textStatus) && (null != data)) {
                 data = eval("(" + data + ")");
@@ -137,4 +162,26 @@ function isEmail(email){
 function isNum(num){
     var re = /^[\d]+$/
     return re.test(num);
+}
+
+/**
+ * 将\r\n->uuid
+ * @param content
+ */
+function changeNewLine(content){
+    while(content.indexOf(SYMBOL_NEW_LINE) > -1) {
+        content = content.replace(SYMBOL_NEW_LINE, GXX_OA_NEW_LINE_UUID);
+    }
+    return content;
+}
+
+/**
+ * 将uuid->\r\n
+ * @param content
+ */
+function changeNewLineBack(content){
+    while(content.indexOf(GXX_OA_NEW_LINE_UUID) > -1) {
+        content = content.replace(GXX_OA_NEW_LINE_UUID, SYMBOL_NEW_LINE);
+    }
+    return content;
 }

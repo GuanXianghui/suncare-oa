@@ -3,7 +3,7 @@ var BIG_LETTERS = new Array("A","B","C","D","E","F","G","H","I","J","K","L","M",
 //中文转拼音
 function codefans_net_CC2PY(l1) {
     var l2 = l1.length;
-    var I1 = "";
+    var I1 = EMPTY;
     var reg = new RegExp('[a-zA-Z0-9\- ]');
     for (var i=0;i<l2;i++) {
         var val = l1.substr(i,1);
@@ -23,16 +23,16 @@ function codefans_net_CC2PY(l1) {
 }
 //得到第一个字母
 function getFirstPinYin(str){
-    if(str == "" || str == null){
-        return "";
+    if(str == EMPTY || str == null){
+        return EMPTY;
     }
     var pinyin = codefans_net_CC2PY(str);
     return pinyin.substr(0,1).toUpperCase();
 }
 //得到每个字的第一个字符
 function getAllFirstPinYin(str){
-    var pinyin = "";
-    if(str == "" || str == null){
+    var pinyin = EMPTY;
+    if(str == EMPTY || str == null){
         return pinyin;
     }
     for(var i=0;i<str.length;i++){

@@ -12,25 +12,25 @@ $(document).ready(function() {
 //点击修改密码
 function beforeUpdatePassword(){
     document.getElementById("before_update_password_td").style.display = "none";
-    document.getElementById("update_password_td").style.display = "";
-    document.getElementById("password").value = "";
+    document.getElementById("update_password_td").style.display = EMPTY;
+    document.getElementById("password").value = EMPTY;
 }
 
 //取消修改密码
 function cancelUpdatePassword(){
-    document.getElementById("before_update_password_td").style.display = "";
+    document.getElementById("before_update_password_td").style.display = EMPTY;
     document.getElementById("update_password_td").style.display = "none";
 }
 
 //点击修改密码
 function beforeUploadHeadPhoto(){
     document.getElementById("before_upload_head_photo_td").style.display = "none";
-    document.getElementById("upload_head_photo_td").style.display = "";
+    document.getElementById("upload_head_photo_td").style.display = EMPTY;
 }
 
 //取消修改密码
 function cancelUploadHeadPhoto(){
-    document.getElementById("before_upload_head_photo_td").style.display = "";
+    document.getElementById("before_upload_head_photo_td").style.display = EMPTY;
     document.getElementById("upload_head_photo_td").style.display = "none";
 }
 
@@ -47,7 +47,7 @@ function uploadHeadPhoto(){
 function updatePassword(){
     //密码md5签名
     var password = document.getElementById("password");
-    if (password.value == "") {
+    if (password.value == EMPTY) {
         alert("请输入密码!");
         return;
     }
@@ -73,12 +73,12 @@ function updatePassword(){
                 //判修改密码是否成功
                 if (false == data["isSuccess"]) {
                     alert(data["message"]);
-                    password.value = "";
+                    password.value = EMPTY;
                     return;
                 } else {
                     //修改密码成功
                     alert(data["message"]);
-                    document.getElementById("before_update_password_td").style.display = "";
+                    document.getElementById("before_update_password_td").style.display = EMPTY;
                     document.getElementById("update_password_td").style.display = "none";
                 }
                 //判是否有新token
@@ -100,7 +100,7 @@ function updatePassword(){
  */
 function processWithJson() {
     //json串转json数组
-    if(structureJsonStr != "") {
+    if(structureJsonStr != EMPTY) {
         var array = structureJsonStr.split(SYMBOL_BIT_AND);
         for(var i=0;i<array.length;i++) {
             structureArray[structureArray.length] = eval("(" + array[i] + ")");
@@ -117,10 +117,10 @@ function processWithJson() {
     //循环每层展示
     while(true) {
         var array = pids.split(SYMBOL_COMMA);
-        pids = "";
+        pids = EMPTY;
         var tempStr = "<tr>";
         for(var i=0;i<array.length;i++) {
-            if(array[i] == "") {
+            if(array[i] == EMPTY) {
                 tempStr += "<td></td>";
                 pids += ",";
                 continue;
@@ -222,7 +222,7 @@ function chooseTd(t, id) {
  * 修改职位
  */
 function updatePosition() {
-    document.getElementById("structure_div").style.display = "";
+    document.getElementById("structure_div").style.display = EMPTY;
 }
 
 /**
@@ -238,19 +238,19 @@ var infoArray = new Array("sex","birthday","office_tel","mobile_tel","desk","ema
 //点击修改信息
 function beforeUpdateInfo(){
     document.getElementById("before_update_info_td").style.display = "none";
-    document.getElementById("update_info_td").style.display = "";
+    document.getElementById("update_info_td").style.display = EMPTY;
     for(var i=0;i<infoArray.length;i++) {
         document.getElementById(infoArray[i] + "_td_1").style.display = "none";
-        document.getElementById(infoArray[i] + "_td_2").style.display = "";
+        document.getElementById(infoArray[i] + "_td_2").style.display = EMPTY;
     }
 }
 
 //取消修改信息
 function cancelUpdateInfo(){
-    document.getElementById("before_update_info_td").style.display = "";
+    document.getElementById("before_update_info_td").style.display = EMPTY;
     document.getElementById("update_info_td").style.display = "none";
     for(var i=0;i<infoArray.length;i++) {
-        document.getElementById(infoArray[i] + "_td_1").style.display = "";
+        document.getElementById(infoArray[i] + "_td_1").style.display = EMPTY;
         document.getElementById(infoArray[i] + "_td_2").style.display = "none";
     }
 }
@@ -260,7 +260,7 @@ function updateInfo(){
     //格式校验
     var sex = document.getElementById("sex_select").value;
     var birthday = document.getElementById("birthday_input").value;
-    if("" != birthday) {
+    if(EMPTY != birthday) {
         if(!isNum(birthday) || birthday.length != 8) {
             alert("生日格式不对!");
             return;
@@ -292,7 +292,7 @@ function updateInfo(){
         return;
     }
     var email = document.getElementById("email_input").value;
-    if("" != email && !isEmail(email)) {
+    if(EMPTY != email && !isEmail(email)) {
         alert("email格式不对!");
         return;
     }
@@ -302,7 +302,7 @@ function updateInfo(){
         return;
     }
     var qq = document.getElementById("qq_input").value;
-    if("" != qq && !isNum(qq)) {
+    if(EMPTY != qq && !isNum(qq)) {
         alert("qq格式不对!");
         return;
     }
@@ -312,7 +312,7 @@ function updateInfo(){
         return;
     }
     var msn = document.getElementById("msn_input").value;
-    if("" != msn && !isEmail(msn)) {
+    if(EMPTY != msn && !isEmail(msn)) {
         alert("msn格式不对!");
         return;
     }

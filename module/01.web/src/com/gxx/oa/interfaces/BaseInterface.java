@@ -28,4 +28,14 @@ public interface BaseInterface {
      * 用户键
      */
     public static final String USER_KEY = "user";
+    /**
+     * 公告页面大小
+     */
+    public static final String NOTICE_PAGE_SIZE = "notice_page_size";
+    /**
+     * uuid配置
+     * UE的代码功能，每行都是换行的，写到json里会有问题，所以把换行先转换成一个uuid串，展示之前再转回来
+     * 注意：该标志要与客户端base.js中配置一致
+     */
+    public static final String GXX_OA_NEW_LINE_UUID = "gxx_oa_new_line_uuid";
 }
