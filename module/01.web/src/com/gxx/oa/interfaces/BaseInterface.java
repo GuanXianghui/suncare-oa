@@ -38,4 +38,8 @@ public interface BaseInterface {
      * 注意：该标志要与客户端base.js中配置一致
      */
     public static final String GXX_OA_NEW_LINE_UUID = "gxx_oa_new_line_uuid";
+    /**
+     * 消息页面大小
+     */
+    public static final String MESSAGE_PAGE_SIZE = "message_page_size";
 }

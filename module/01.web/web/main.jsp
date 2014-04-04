@@ -62,16 +62,20 @@
                     </a>
                 </td>
                 <td>
-                    <div align="center">
-                        <div style="background-color: green; width: 50px; height: 50px;"></div>
-                    </div>
-                    <div align="center">用户管理</div>
+                    <a href="<%=baseUrl%>testMessage.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">测试消息</div>
+                    </a>
                 </td>
                 <td>
-                    <div align="center">
-                        <div style="background-color: green; width: 50px; height: 50px;"></div>
-                    </div>
-                    <div align="center">用户管理</div>
+                    <a href="<%=baseUrl%>message.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">消息</div>
+                    </a>
                 </td>
             </tr>
         </table>

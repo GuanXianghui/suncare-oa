@@ -1,7 +1,7 @@
 package com.gxx.oa.interfaces;
 
 /**
- * 基础接口
+ * 用户基础接口
  *
  * @author Gxx
  * @module oa

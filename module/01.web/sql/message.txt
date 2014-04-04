@@ -1,0 +1,11 @@
+create table message( #消息表
+	id int auto_increment primary key comment '主键 自增',
+	from_user_id int not null comment '消息来源用户id 不为空',
+	from_user_type int not null comment '消息来源用户类型 1:普通用户 2:公众账号 不为空',
+	to_user_id int not null comment '消息接受用户id 不为空',
+    content varchar(500) not null comment '消息内容 不为空',
+	state int not null comment '状态 1:未读 2:已读 删就直接删掉记录了 不为空',
+	date varchar(8) not null comment '操作日期 不为空',
+	time varchar(6) not null comment '操作时间 不为空',
+	ip varchar(20) not null comment '操作IP 不为空'
+);

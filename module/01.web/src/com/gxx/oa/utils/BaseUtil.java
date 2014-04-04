@@ -2,13 +2,8 @@ package com.gxx.oa.utils;
 
 import com.gxx.oa.dao.StructureDao;
 import com.gxx.oa.dao.UserDao;
-import com.gxx.oa.entities.Notice;
-import com.gxx.oa.entities.Structure;
-import com.gxx.oa.entities.User;
-import com.gxx.oa.interfaces.BaseInterface;
-import com.gxx.oa.interfaces.StructureInterface;
-import com.gxx.oa.interfaces.SymbolInterface;
-import com.gxx.oa.interfaces.UserInterface;
+import com.gxx.oa.entities.*;
+import com.gxx.oa.interfaces.*;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -122,6 +117,40 @@ public class BaseUtil implements SymbolInterface {
                     notice.getCreateTime() + "',createIp:'" + notice.getCreateIp() + "',updateDate:'" +
                     notice.getUpdateDate() + "',updateTime:'" + notice.getUpdateTime() + "',updateIp:'" +
                     notice.getUpdateIp() +"'}";
+        }
+        return result;
+    }
+
+    /**
+     * 从消息集合得到Json数组
+     * @param list
+     * @return
+     */
+    public static String getJsonArrayFromMessages(List<Message> list) throws Exception {
+        String result = StringUtils.EMPTY;
+        for(Message message : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            String fromUserName;
+            String headPhoto;
+            String url;
+            if(MessageInterface.USER_TYPE_NORMAL == message.getFromUserType()){//普通用户
+                User user = UserDao.getUserById(message.getFromUserId());
+                fromUserName = user.getName();
+                headPhoto = user.getHeadPhoto();
+                url = "/user.jsp?id=" + message.getFromUserId();
+            } else {//公众账号
+                PublicUser user = PublicUserUtil.getInstance().getPublicUserById(message.getFromUserId());
+                fromUserName = user.getName();
+                headPhoto = user.getHeadPhoto();
+                url = user.getUrl();
+            }
+            result += "{id:" + message.getId() + ",fromUserId:" + message.getFromUserId() + ",fromUserType:" +
+                    message.getFromUserType() + ",toUserId:" + message.getToUserId() + ",content:'" +
+                    message.getContent() + "',state:" + message.getState() + ",date:'" + message.getDate() +
+                    "',time:'" + message.getTime() + "',ip:'" + message.getIp() +"',fromUserName:'" +
+                    fromUserName + "',headPhoto:'" + headPhoto + "',url:'" + url + "'}";
         }
         return result;
     }

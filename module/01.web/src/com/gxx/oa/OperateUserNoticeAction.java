@@ -74,7 +74,7 @@ public class OperateUserNoticeAction extends BaseAction {
                     UserNoticeInterface.STATE_DELETED);
             //下一页公告 limit countNow~countNow+pageSize
             List<Notice> nextPageNotices = NoticeDao.queryNoticesByFromToAndWithoutIds(Integer.parseInt(countNow),
-                    Integer.parseInt(countNow) + Integer.parseInt(PropertyUtil.getInstance().
+                    Integer.parseInt(PropertyUtil.getInstance().
                             getProperty(BaseInterface.NOTICE_PAGE_SIZE)), deleteIds);
             /**
              * 下一页公告Json串

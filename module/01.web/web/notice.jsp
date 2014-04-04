@@ -7,7 +7,7 @@
 <%if(isLogin){%>
 <html>
 <head>
-    <title>公告管理</title>
+    <title>公告</title>
     <script type="text/javascript" src="<%=baseUrl%>scripts/jquery-min.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/notice.js"></script>
@@ -41,7 +41,7 @@
 </head>
 <body>
     <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>公告管理<button onclick="logOut()">退出</button></h1>
+        <h1><button onclick="jump2Main()">主页</button>公告<button onclick="logOut()">退出</button></h1>
         <table id="notice_table" border="1" width="80%" style="text-align: center"></table>
     </div>
     <div align="center">

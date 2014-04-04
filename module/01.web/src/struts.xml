@@ -30,6 +30,15 @@
         </action>
         <action name="showNextPageNotices" class="com.gxx.oa.ShowNextPageNoticesAction"/>
         <action name="operateUserNotice" class="com.gxx.oa.OperateUserNoticeAction"/>
+        <action name="testMessage" class="com.gxx.oa.TestMessageAction">
+            <result>
+                /testMessage.jsp
+            </result>
+            <result name="error">
+                /testMessage.jsp
+            </result>
+        </action>
+        <action name="operateMessage" class="com.gxx.oa.OperateMessageAction"/>
     </package>
 
     <!--

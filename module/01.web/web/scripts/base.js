@@ -60,6 +60,18 @@ var NOTICE_TYPE_UPDATE = "update";
 var NOTICE_TYPE_DELETE = "delete";
 
 /**
+ * 消息用户类型 1:普通用户 2:公众账号
+ */
+var MESSAGE_USER_TYPE_NORMAL = 1;
+var MESSAGE_USER_TYPE_PUBLIC = 2;
+
+/**
+ * 消息状态 1:未读 2:已读 删就直接删掉记录了
+ */
+var MESSAGE_STATE_NOT_READED = 1;
+var MESSAGE_STATE_READED = 2;
+
+/**
  * 计算str1中还有几个str2
  * @param str1
  * @param str2

@@ -1,0 +1,12 @@
+create table public_user( #公众账号表
+	id int auto_increment primary key comment '主键 自增',
+	name varchar(30) unique not null comment '中文名字 不为空',
+	short_name varchar(20) unique not null comment '中文简称 不为空',
+	english_name varchar(30) unique not null comment '英文名 不为空',
+	head_photo varchar(500) not null comment '头像地址 相对路径 不为空',
+	url varchar(500) comment '链接 可为空'
+);
+
+#初始sql
+INSERT INTO PUBLIC_USER(ID,NAME,SHORT_NAME,ENGLISH_NAME,HEAD_PHOTO,URL)VALUES
+(NULL,'SuncareOA消息系统','SOA消息','suncare_oa_remind','images/header/default_head.jpg','http://www.baidu.com');
