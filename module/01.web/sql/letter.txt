@@ -1,0 +1,30 @@
+create table letter( #站内信表
+	id int auto_increment primary key comment '主键 自增',
+	user_id int not null comment '站内信所属用户id 不为空',
+	user_type int not null comment '站内信所属用户类型 1:普通用户 2:公众账号 不为空',
+	send_or_receive int not null comment '发送还是接受 1:发送 2:接受 不为空',
+	from_user_id int not null comment '站内信发送用户id 不为空',
+	from_user_type int not null comment '站内信发送用户类型 1:普通用户 2:公众账号 不为空',
+	to_user_ids varchar(500) not null comment '站内信接受用户id串 逗号分隔 不为空',
+	to_user_types varchar(500) not null comment '站内信接受用户类型串 逗号分隔 不为空',
+	cc_user_ids varchar(500) comment '站内信抄送用户id串 逗号分隔 可为空',
+	cc_user_types varchar(500) comment '站内信抄送用户类型串 逗号分隔 可为空',
+	read_state int not null comment '未读还是已读 1:未读 2:已读 不为空 如果是发送则默认已读',
+	delete_state int not null comment '未删除还是删除 1:未删除 2:删除 不为空',
+	title varchar(500) not null comment '站内信标题 不为空',
+    content varchar(20000) not null comment '站内信内容 不为空',
+	create_date varchar(8) not null comment '创建日期 不为空',
+	create_time varchar(6) not null comment '创建时间 不为空',
+	create_ip varchar(20) not null comment '创建IP 不为空',
+	operate_date varchar(8) comment '操作日期 可为空',
+	operate_time varchar(6) comment '操作时间 可为空',
+	operate_ip varchar(20) comment '操作IP 可为空'
+);
+
+#注意，站内信的操作规则：
+#用户A发送一条站内信，给用户B，C，D，抄送给，E，F，G，则会：
+#1.创建一条user_id=A,user_type=1，send_or_receive=1,read_state=2的站内信
+#2.创建六条user_id=B/C/D/E/F/G，user_type=1，send_or_receive=2,read_state=1的站内信
+#3.from_user_id=A,from_user_type=1,to_user_ids=B,C,D,to_user_types=1,1,1,cc_user_ids=E,F,G,cc_user_types=1,1,1,
+#  delete_state=1,title=标题,content=内容,create_date=创建日期,create_time=创建时间,create_ip=Aip,operate_date=空,
+#  operate_time=空,operate_ip=空，这些列的值一样

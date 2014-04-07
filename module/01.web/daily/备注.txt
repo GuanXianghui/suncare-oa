@@ -14,3 +14,11 @@ gbk编码编码文件：txt，java，properties
 (4)公告管理中，首次查看有代码功能的公告可以渲染代码成功，再次点击查看则渲染失败，不知道为啥！
 
 (5)public_user为公众账号表，为以后与外部系统对接或者搞公众账号做铺垫
+
+(6)站内信的操作规则：
+用户A发送一条站内信，给用户B，C，D，抄送给，E，F，G，则会：
+1.创建一条user_id=A,user_type=1，send_or_receive=1,read_state=2的站内信
+2.创建六条user_id=B/C/D/E/F/G，user_type=1，send_or_receive=2,read_state=1的站内信
+3.from_user_id=A,from_user_type=1,to_user_ids=B,C,D,to_user_types=1,1,1,cc_user_ids=E,F,G,cc_user_types=1,1,1,
+  delete_state=1,title=标题,content=内容,create_date=创建日期,create_time=创建时间,create_ip=Aip,operate_date=空,
+  operate_time=空,operate_ip=空，这些列的值一样

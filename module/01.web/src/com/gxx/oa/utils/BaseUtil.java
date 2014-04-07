@@ -135,7 +135,7 @@ public class BaseUtil implements SymbolInterface {
             String fromUserName;
             String headPhoto;
             String url;
-            if(MessageInterface.USER_TYPE_NORMAL == message.getFromUserType()){//普通用户
+            if(UserInterface.USER_TYPE_NORMAL == message.getFromUserType()){//普通用户
                 User user = UserDao.getUserById(message.getFromUserId());
                 fromUserName = user.getName();
                 headPhoto = user.getHeadPhoto();
@@ -149,9 +149,85 @@ public class BaseUtil implements SymbolInterface {
             result += "{id:" + message.getId() + ",fromUserId:" + message.getFromUserId() + ",fromUserType:" +
                     message.getFromUserType() + ",toUserId:" + message.getToUserId() + ",content:'" +
                     message.getContent() + "',state:" + message.getState() + ",date:'" + message.getDate() +
-                    "',time:'" + message.getTime() + "',ip:'" + message.getIp() +"',fromUserName:'" +
+                    "',time:'" + message.getTime() + "',ip:'" + message.getIp() + "',fromUserName:'" +
                     fromUserName + "',headPhoto:'" + headPhoto + "',url:'" + url + "'}";
         }
+        return result;
+    }
+
+    /**
+     * 从站内信集合得到Json数组
+     * @param list
+     * @param box
+     * @return
+     * @throws Exception
+     */
+    public static String getJsonArrayFromLetters(List<Letter> list, String box) throws Exception {
+        String result = StringUtils.EMPTY;
+        for(Letter letter : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            result += getJsonStrFromLetter(letter, box);
+        }
+        return result;
+    }
+
+    /**
+     * 从站内信得到Json串
+     * @param letter
+     * @param box
+     * @return
+     * @throws Exception
+     */
+    public static String getJsonStrFromLetter(Letter letter, String box) throws Exception{
+        String result = StringUtils.EMPTY;
+        /**
+         * 已发送显示收件人
+         * 收件箱和已删除显示发件人
+         */
+        int displayUserId = 0;//显示用户id
+        int displayUserType = 0;//显示用户类型
+        if(StringUtils.equals(LetterInterface.BOX_SENT, box)){
+            int commaIdIndex = letter.getToUserIds().indexOf(SYMBOL_COMMA);
+            int commaTypeIndex = letter.getToUserTypes().indexOf(SYMBOL_COMMA);
+            if(commaIdIndex == -1){//只有一个收件人
+                displayUserId = Integer.parseInt(letter.getToUserIds());
+                displayUserType = Integer.parseInt(letter.getToUserTypes());
+            } else {//有多个收件人
+                displayUserId = Integer.parseInt(letter.getToUserIds().substring(0, commaIdIndex));
+                displayUserType = Integer.parseInt(letter.getToUserTypes().substring(0, commaTypeIndex));
+            }
+        } else {
+            displayUserId = letter.getFromUserId();
+            displayUserType = letter.getFromUserType();
+        }
+        String fromUserName;
+        String headPhoto;
+        String url;
+        if(UserInterface.USER_TYPE_NORMAL == displayUserType){//普通用户
+            User user = UserDao.getUserById(displayUserId);
+            fromUserName = user.getName();
+            headPhoto = user.getHeadPhoto();
+            url = "/user.jsp?id=" + displayUserId;
+        } else {//公众账号
+            PublicUser user = PublicUserUtil.getInstance().getPublicUserById(displayUserId);
+            fromUserName = user.getName();
+            headPhoto = user.getHeadPhoto();
+            url = user.getUrl();
+        }
+
+        result += "{id:" + letter.getId() + ",userId:" + letter.getUserId() + ",userType:" + letter.getUserType() +
+                ",sendOrReceive:" + letter.getSendOrReceive() + ",fromUserId:" + letter.getFromUserId() +
+                ",fromUserType:" + letter.getFromUserType() + ",toUserIds:'" + letter.getToUserIds() +
+                "',toUserTypes:'" + letter.getToUserTypes() + "',ccUserIds:'" + letter.getCcUserIds() +
+                "',ccUserTypes:'" + letter.getCcUserTypes() + "',readState:" + letter.getReadState() +
+                ",deleteState:" + letter.getDeleteState() + ",title:'" + letter.getTitle() + "',content:'" +
+                letter.getContent() + "',createDate:'" + letter.getCreateDate() + "',createTime:'" +
+                letter.getCreateTime() + "',createIp:'" + letter.getCreateIp() + "',operateDate:'" +
+                letter.getOperateDate() + "',operateTime:'" + letter.getOperateTime() + "',operateIp:'" +
+                letter.getOperateIp() + "',fromUserName:'" + fromUserName + "',headPhoto:'" + headPhoto +
+                "',url:'" + url + "'}";
         return result;
     }
 }

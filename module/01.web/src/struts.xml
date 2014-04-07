@@ -39,6 +39,15 @@
             </result>
         </action>
         <action name="operateMessage" class="com.gxx.oa.OperateMessageAction"/>
+        <action name="writeLetter" class="com.gxx.oa.WriteLetterAction">
+            <result>
+                /writeLetter.jsp
+            </result>
+            <result name="error">
+                /writeLetter.jsp
+            </result>
+        </action>
+        <action name="operateLetter" class="com.gxx.oa.OperateLetterAction"/>
     </package>
 
     <!--

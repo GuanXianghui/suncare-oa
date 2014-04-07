@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
+<%if(isLogin){%>
 <html>
 <head>
     <title>用户主页</title>
@@ -78,7 +79,36 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="<%=baseUrl%>letter.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">站内信</div>
+                    </a>
+                </td>
+                <td>
+                    <div align="center">
+                        <div style="background-color: green; width: 50px; height: 50px;"></div>
+                    </div>
+                    <div align="center">xxx</div>
+                </td>
+                <td>
+                    <div align="center">
+                        <div style="background-color: green; width: 50px; height: 50px;"></div>
+                    </div>
+                    <div align="center">xxx</div>
+                </td>
+                <td>
+                    <div align="center">
+                        <div style="background-color: green; width: 50px; height: 50px;"></div>
+                    </div>
+                    <div align="center">xxx</div>
+                </td>
+            </tr>
         </table>
     </div>
 </body>
 </html>
+<%}%>

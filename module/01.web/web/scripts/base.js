@@ -72,6 +72,24 @@ var MESSAGE_STATE_NOT_READED = 1;
 var MESSAGE_STATE_READED = 2;
 
 /**
+ * 站内信信箱 received:收件箱 sent:已发送 deleted:已删除
+ */
+var LETTER_BOX_RECEIVED = "received";
+var LETTER_BOX_SENT = "sent";
+var LETTER_BOX_DELETED = "deleted";
+
+/**
+ * 未读还是已读 1:未读 2:已读
+ */
+var LETTER_READ_STATE_NOT_READED = 1;
+var LETTER_READ_STATE_READED = 2;
+
+/**
+ * 字段长度
+ */
+var LETTER_CONTENT_LENGTH = 10000;//站内信内容长度
+
+/**
  * 计算str1中还有几个str2
  * @param str1
  * @param str2

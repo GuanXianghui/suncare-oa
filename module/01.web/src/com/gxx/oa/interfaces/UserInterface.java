@@ -26,4 +26,9 @@ public interface UserInterface extends BaseInterface {
      */
     public static final int SEX_X = 1;
     public static final int SEX_O = 0;
+    /**
+     * 用户类型 1:普通用户 2:公众账号
+     */
+    public static final int USER_TYPE_NORMAL = 1;
+    public static final int USER_TYPE_PUBLIC = 2;
 }
