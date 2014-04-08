@@ -46,4 +46,8 @@ public interface BaseInterface {
      * 站内信页面大小
      */
     public static final String LETTER_PAGE_SIZE = "letter_page_size";
+    /**
+     * 工作日志页面大小
+     */
+    public static final String DIARY_PAGE_SIZE = "diary_page_size";
 }

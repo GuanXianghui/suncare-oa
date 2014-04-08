@@ -25,7 +25,6 @@ public class NoticeDao {
      */
     public static int countAllNotices() throws Exception {
         int countNum = 0;
-        List<Notice> list = new ArrayList<Notice>();
         String sql = "SELECT count(1) count_num FROM notice";
         Connection c = DB.getConn();
         Statement stmt = DB.createStatement(c);

@@ -53,9 +53,11 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/BaseAction.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/configNotice.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/diary.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/letter.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/message.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/notice.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/showDiary.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/showLetter.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/userManage.js" charset="UTF-8" />
   </component>

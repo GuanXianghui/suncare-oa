@@ -90,6 +90,16 @@ var LETTER_READ_STATE_READED = 2;
 var LETTER_CONTENT_LENGTH = 10000;//站内信内容长度
 
 /**
+ * 字段长度
+ */
+var DIARY_CONTENT_LENGTH = 1000;//工作日志内容长度
+
+/**
+ * 字段长度
+ */
+var DIARY_REVIEW_CONTENT_LENGTH = 250;//工作日志评论内容长度
+
+/**
  * 计算str1中还有几个str2
  * @param str1
  * @param str2

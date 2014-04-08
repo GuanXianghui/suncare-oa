@@ -48,6 +48,23 @@
             </result>
         </action>
         <action name="operateLetter" class="com.gxx.oa.OperateLetterAction"/>
+        <action name="operateDiary" class="com.gxx.oa.OperateDiaryAction"/>
+        <action name="writeDiary" class="com.gxx.oa.WriteDiaryAction">
+            <result>
+                /writeDiary.jsp
+            </result>
+            <result name="error">
+                /writeDiary.jsp
+            </result>
+        </action>
+        <action name="updateDiary" class="com.gxx.oa.UpdateDiaryAction">
+            <result>
+                /showDiary.jsp?id=${diaryId}
+            </result>
+            <result name="error">
+                /showDiary.jsp?id=${diaryId}
+            </result>
+        </action>
     </package>
 
     <!--

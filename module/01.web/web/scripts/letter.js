@@ -1,4 +1,4 @@
-//消息Json数组
+//站内信Json数组
 var letterArray = new Array();
 
 /**
@@ -8,7 +8,7 @@ $(document).ready(function() {
     //把初始letterJsonStr转换成letterArray
     letterArray = transferInitJsonStr2Array(letterJsonStr);
 
-    //处理消息Json串
+    //处理站内信Json串
     processWithJson();
 
     //检查是否还有下一页
@@ -30,7 +30,7 @@ function transferInitJsonStr2Array(jsonStr){
 }
 
 /**
- * 处理消息Json串
+ * 处理站内信Json串
  */
 function processWithJson(){
     //循环展示
@@ -137,7 +137,7 @@ function deleteLetter(){
                             }
                         }
                     }
-                    //处理消息Json串
+                    //处理站内信Json串
                     processWithJson();
                     //总共站内信的量减去删除的量
                     letterCount -= idArray.length;
@@ -194,7 +194,7 @@ function ctrlDeleteLetter(){
                             }
                         }
                     }
-                    //处理消息Json串
+                    //处理站内信Json串
                     processWithJson();
                     //总共站内信的量减去删除的量
                     letterCount -= idArray.length;
@@ -266,7 +266,7 @@ function setReaded(){
                             }
                         }
                     }
-                    //处理消息Json串
+                    //处理站内信Json串
                     processWithJson();
                     //检查是否还有下一页
                     checkHasNextPage();
@@ -321,7 +321,7 @@ function restore(){
                             }
                         }
                     }
-                    //处理消息Json串
+                    //处理站内信Json串
                     processWithJson();
                     //总共站内信的量减去删除的量
                     letterCount -= idArray.length;
@@ -329,77 +329,6 @@ function restore(){
                     checkHasNextPage();
                     //清空选择站内信ids
                     chooseLetterIds = EMPTY;
-                }
-                //判是否有新token
-                if (data["hasNewToken"]) {
-                    token = data["token"];
-                }
-            } else {
-                alert("Connection failed,please try again later!");
-            }
-        },
-        error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
-        }
-    });
-}
-
-/**
- * 根据id查消息
- * @param messageId
- */
-function getMessageById(messageId){
-    for(var i=0;i<messageArray.length;i++){
-        if(messageId == messageArray[i]["id"]){
-            return messageArray[i];
-        }
-    }
-    return null;
-}
-
-/**
- * 根据id删除消息
- * @param messageId
- */
-function deleteMessageById(messageId){
-    for(var i=0;i<messageArray.length;i++){
-        if(messageId == messageArray[i]["id"]){
-            messageArray.splice(i, 1);
-        }
-    }
-    return null;
-}
-
-/**
- * 删除消息
- * @param messageId
- */
-function deleteMessage(messageId){
-    //ajax请求
-    var SUCCESS_STR = "success";//成功编码
-    $.ajax({
-        type:"post",
-        async:false,
-        url:baseUrl + "operateMessage.do",
-        data:"type=delete&messageId=" + messageId + "&token=" + token,
-        success:function (data, textStatus) {
-            if ((SUCCESS_STR == textStatus) && (null != data)) {
-                data = eval("(" + data + ")");
-                //判请求是否成功
-                if (false == data["isSuccess"]) {
-                    alert(data["message"]);
-                    return;
-                } else {
-                    //请求成功
-                    alert(data["message"]);
-                    //根据id删除消息
-                    deleteMessageById(messageId);
-                    //总共消息的量要减一
-                    messageCount--;
-                    //处理消息Json串
-                    processWithJson();
-                    //检查是否还有下一页
-                    checkHasNextPage();
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -427,7 +356,7 @@ function checkHasNextPage(){
 }
 
 /**
- * 加载下一页消息
+ * 加载下一页站内信
  */
 function showNextPageLetters(){
     //ajax请求
@@ -449,11 +378,11 @@ function showNextPageLetters(){
                     alert(data["message"]);
                     var nextPageJson = data["nextPageJson"];
                     if(EMPTY != nextPageJson) {
-                        //把初始messageJsonStr转换成messageArray
+                        //把初始letterJsonStr转换成letterArray
                         var array = transferInitJsonStr2Array(nextPageJson);
                         letterArray = letterArray.concat(array);
                     }
-                    //处理消息Json串
+                    //处理站内信Json串
                     processWithJson();
                     //检查是否还有下一页
                     checkHasNextPage();

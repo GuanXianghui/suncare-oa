@@ -89,10 +89,12 @@
                     </a>
                 </td>
                 <td>
-                    <div align="center">
-                        <div style="background-color: green; width: 50px; height: 50px;"></div>
-                    </div>
-                    <div align="center">xxx</div>
+                    <a href="<%=baseUrl%>diary.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">工作日志</div>
+                    </a>
                 </td>
                 <td>
                     <div align="center">

@@ -230,4 +230,26 @@ public class BaseUtil implements SymbolInterface {
                 "',url:'" + url + "'}";
         return result;
     }
+
+    /**
+     * 从工作日志集合得到Json数组
+     * @param list
+     * @return
+     * @throws Exception
+     */
+    public static String getJsonArrayFromDiaries(List<Diary> list) throws Exception {
+        String result = StringUtils.EMPTY;
+        for(Diary diary : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            User user = UserDao.getUserById(diary.getUserId());
+            result += "{id:" + diary.getId() + ",userId:" + diary.getUserId() + ",date:'" + diary.getDate() +
+                    "',createDate:'" + diary.getCreateDate() + "',createTime:'" + diary.getCreateTime() +
+                    "',createIp:'" + diary.getCreateIp() + "',updateDate:'" + diary.getUpdateDate() +
+                    "',updateTime:'" + diary.getUpdateTime() + "',updateIp:'" + diary.getUpdateIp() +
+                    "',userName:'" + user.getName() + "'}";
+        }
+        return result;
+    }
 }

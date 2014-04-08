@@ -61,7 +61,17 @@
     <favorites_list name="suncare-oa" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="diary_review.txt" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/module/01.web/sql/diary_review.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="43" selection-start="535" selection-end="535" vertical-scroll-proportion="0.34234235">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -71,22 +81,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/LetterDao.java" />
-        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/entities/Letter.java" />
-        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/WriteLetterAction.java" />
-        <option value="$PROJECT_DIR$/module/01.web/src/struts.xml" />
-        <option value="$PROJECT_DIR$/module/01.web/web/scripts/letter.js" />
-        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/OperateLetterAction.java" />
-        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/interfaces/LetterInterface.java" />
-        <option value="$PROJECT_DIR$/module/01.web/web/scripts/showLetter.js" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/DiaryReplayDao.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/interfaces/DiaryReplyInterface.java" />
+        <option value="$PROJECT_DIR$/module/01.web/sql/diary_reply.txt" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/interfaces/DiaryReviewInterface.java" />
+        <option value="$PROJECT_DIR$/module/01.web/sql/diary_review.txt" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/DiaryReplyDao.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/DiaryReviewyDao.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/DiaryReviewDao.java" />
         <option value="$PROJECT_DIR$/module/01.web/web/scripts/base.js" />
-        <option value="$PROJECT_DIR$/module/01.web/web/writeLetter.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/main.jsp" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/entities/DiaryReview.java" />
+        <option value="$PROJECT_DIR$/module/01.web/web/showDiary.jsp" />
+        <option value="$PROJECT_DIR$/module/01.web/web/scripts/showDiary.js" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/TestMessageAction.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/OperateDiaryAction.java" />
         <option value="$PROJECT_DIR$/module/01.web/daily/20140407.txt" />
-        <option value="$PROJECT_DIR$/module/01.web/web/letter.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/header.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/headerWithOutCheckLogin.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/showLetter.jsp" />
+        <option value="$PROJECT_DIR$/module/01.web/daily/20140408.txt" />
       </list>
     </option>
   </component>
@@ -161,16 +171,36 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
+      <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="suncare-oa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suncare-oa" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="01.web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suncare-oa" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="01.web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -185,12 +215,16 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane">
+      <pane id="PackagesPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="suncare-oa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="01.web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -213,16 +247,16 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.gxx.oa" />
-      <recent name="com.gxx.oa.dao" />
       <recent name="com.gxx.oa.interfaces" />
+      <recent name="com.gxx.oa.dao" />
       <recent name="com.gxx.oa.entities" />
+      <recent name="com.gxx.oa" />
       <recent name="com.gxx.oa.utils" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -233,29 +267,7 @@
       <recent name="D:\04.my_projects\suncare-oa\module\01.web\web\ueditor\jsp" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.letter.jsp">
-    <configuration default="false" name="DB" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.gxx.oa.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.gxx.oa.dao.DB" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="01.web" />
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Tomcat Server.diary.jsp">
     <configuration default="false" name="userManage.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 6">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:80/userManage.jsp" />
       <option name="UPDATING_POLICY" value="update-resources" />
@@ -404,6 +416,43 @@
         </option>
       </method>
     </configuration>
+    <configuration default="false" name="diary.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 6">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:80/diary.jsp" />
+      <option name="UPDATING_POLICY" value="update-resources" />
+      <deployment>
+        <artifact name="01.web:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="diary_jsp_suncare-oa" />
+      </server-settings>
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="01.web:war exploded" />
+        </option>
+      </method>
+    </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
@@ -424,6 +473,24 @@
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -453,24 +520,6 @@
       <envs />
       <properties />
       <listeners />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -509,17 +558,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -546,6 +584,17 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
       <deployment />
       <server-settings />
@@ -559,11 +608,11 @@
       </method>
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Application.DB" />
-      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.userManage.jsp" />
-      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.main.jsp" />
-      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.letter.jsp" />
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.userManage.jsp" />
+      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.main.jsp" />
+      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.letter.jsp" />
+      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.diary.jsp" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -598,14 +647,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6230637" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -613,16 +661,17 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13449848" sideWeight="0.48364887" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17905918" sideWeight="0.21686748" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24355084" sideWeight="0.24268502" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23784195" sideWeight="0.38726333" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61273664" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2287234" sideWeight="0.43889844" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56110156" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49569708" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -720,114 +769,84 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/contacts.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/pinyin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="40667" selection-start="40667" selection-end="40667" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/header.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/DiaryDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="33" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="125" column="24" selection-start="3634" selection-end="3634" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/headerWithOutCheckLogin.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/interfaces/DiaryReviewInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="57" selection-start="338" selection-end="338" vertical-scroll-proportion="3.642857">
-          <folding />
-        </state>
+        <state line="13" column="28" selection-start="241" selection-end="241" vertical-scroll-proportion="0.44504505" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/index.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/userManage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="18.321428">
-          <folding />
-        </state>
+        <state line="54" column="46" selection-start="1482" selection-end="1482" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/letter.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="20" selection-start="405" selection-end="405" vertical-scroll-proportion="-4.75">
-          <folding />
-        </state>
+        <state line="99" column="4" selection-start="2183" selection-end="2183" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/main.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/sql/diary.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="21" selection-start="4533" selection-end="4533" vertical-scroll-proportion="-72.60714">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/message.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/DiaryReviewDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="17.214285">
-          <folding />
-        </state>
+        <state line="212" column="23" selection-start="8159" selection-end="8159" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/notice.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/showDiary.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="24.678572">
-          <folding />
-        </state>
+        <state line="132" column="105" selection-start="6353" selection-end="6355" vertical-scroll-proportion="-10.178572" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/orgStructureManage.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/entities/DiaryReview.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="15.857142">
-          <folding />
-        </state>
+        <state line="37" column="11" selection-start="670" selection-end="670" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/testMessage.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/showDiary.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="5.678571">
-          <folding />
-        </state>
+        <state line="193" column="29" selection-start="5715" selection-end="5726" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/user.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/UploadHeadPhotoAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="137.32143">
-          <folding />
-        </state>
+        <state line="44" column="20" selection-start="1115" selection-end="1115" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/userManage.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/TestMessageAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="185.28572">
-          <folding />
-        </state>
+        <state line="27" column="8" selection-start="598" selection-end="790" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/writeLetter.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/OperateDiaryAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.191651">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/daily/备注.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="228" column="40" selection-start="12465" selection-end="12465" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/module/01.web/daily/20140407.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="109" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="1" column="5" selection-start="13" selection-end="13" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/showLetter.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/daily/20140408.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="37" selection-start="1112" selection-end="1112" vertical-scroll-proportion="1.0455408">
+        <state line="0" column="0" selection-start="0" selection-end="117" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/sql/diary_review.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="43" selection-start="535" selection-end="535" vertical-scroll-proportion="0.34234235">
           <folding />
         </state>
       </provider>

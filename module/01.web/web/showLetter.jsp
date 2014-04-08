@@ -17,7 +17,7 @@
     }
     //判站内信是否属于该登陆用户
     Letter letter = LetterDao.getLetterById(id);
-    if(letter.getUserId() != user.getId()){
+    if(null == letter || letter.getUserId() != user.getId()){
         response.sendRedirect(baseUrl + "letter.jsp");
         return;
     }
