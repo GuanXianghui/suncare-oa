@@ -97,10 +97,12 @@
                     </a>
                 </td>
                 <td>
-                    <div align="center">
-                        <div style="background-color: green; width: 50px; height: 50px;"></div>
-                    </div>
-                    <div align="center">xxx</div>
+                    <a href="<%=baseUrl%>calendar.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">日历</div>
+                    </a>
                 </td>
                 <td>
                     <div align="center">

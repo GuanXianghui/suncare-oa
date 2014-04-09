@@ -65,6 +65,7 @@
                 /showDiary.jsp?id=${diaryId}
             </result>
         </action>
+        <action name="operateRemind" class="com.gxx.oa.OperateRemindAction"/>
     </package>
 
     <!--

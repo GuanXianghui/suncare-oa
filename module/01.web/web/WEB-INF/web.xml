@@ -31,8 +31,8 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!--监听器-->
-    <!--<listener>-->
-        <!--<listener-class>com.gxx.oa.listener.WedisleStartListener</listener-class>-->
-    <!--</listener>-->
+    <!--启动监听器-->
+    <listener>
+        <listener-class>com.gxx.oa.listener.OAStartListener</listener-class>
+    </listener>
 </web-app>

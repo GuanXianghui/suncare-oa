@@ -64,11 +64,9 @@ public class OperateDiaryAction extends BaseAction {
                     getProperty(BaseInterface.DIARY_PAGE_SIZE)))).replaceAll("\\\'", "\\\\\\\'").
                     replaceAll("\\\"", "\\\\\\\"").replaceAll(SymbolInterface.SYMBOL_NEW_LINE,
                     PropertyUtil.getInstance().getProperty(BaseInterface.GXX_OA_NEW_LINE_UUID));
-            logger.info(nextPageDiaries);
             //返回结果
             resp = "{isSuccess:true,message:'加载下一页工作日志成功！',nextPageJson:'" + nextPageDiaries +
                     "',hasNewToken:true,token:'" + TokenUtil.createToken(request) + "'}";
-            logger.info(resp);
         } else if(TYPE_DELETE.equals(type)){//删除
             Diary diary = DiaryDao.getDiaryById(Integer.parseInt(diaryId));
             //判不存在该工作日志，或者，该工作日志不属于该用户的不能修改

@@ -9,4 +9,4 @@ create table public_user( #公众账号表
 
 #初始sql
 INSERT INTO PUBLIC_USER(ID,NAME,SHORT_NAME,ENGLISH_NAME,HEAD_PHOTO,URL)VALUES
-(NULL,'SuncareOA消息系统','SOA消息','suncare_oa_remind','images/header/default_head.jpg','http://www.baidu.com');
+(NULL,'SuncareOA消息系统','SOA消息','suncare_oa_message','images/header/default_head.jpg','http://www.baidu.com');

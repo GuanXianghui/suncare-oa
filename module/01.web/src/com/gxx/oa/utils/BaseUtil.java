@@ -252,4 +252,27 @@ public class BaseUtil implements SymbolInterface {
         }
         return result;
     }
+
+    /**
+     * 从工作日志集合得到Json数组
+     * @param list
+     * @return
+     * @throws Exception
+     */
+    public static String getJsonArrayFromReminds(List<Remind> list) throws Exception {
+        String result = StringUtils.EMPTY;
+        for(Remind remind : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            result += "{id:" + remind.getId() + ",userId:" + remind.getUserId() + ",date:'" + remind.getDate() +
+                    "',content:'" + remind.getContent() + "',remindType:" + remind.getRemindType() +
+                    ",remindDateTime:'" + remind.getRemindDateTime() + "',remindTarget:'" + remind.getRemindTarget() +
+                    "',createDate:'" + remind.getCreateDate() + "',createTime:'" + remind.getCreateTime() +
+                    "',createIp:'" + remind.getCreateIp() + "',updateDate:'" + remind.getUpdateDate() +
+                    "',updateTime:'" + remind.getUpdateTime() + "',updateIp:'" + remind.getUpdateIp() +
+                    "',remindTypeDesc:'" + remind.getRemindTypeDesc() + "'}";
+        }
+        return result;
+    }
 }
