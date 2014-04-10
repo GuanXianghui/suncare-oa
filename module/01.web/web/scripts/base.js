@@ -112,6 +112,17 @@ var REMIND_TYPE_SMS = 3;
 var REMIND_TYPE_MAIL = 4;
 
 /**
+ * 字段长度
+ */
+var TASK_TITLE_LENGTH = 50;//任务名称长度
+var TASK_CONTENT_LENGTH = 10000;//任务内容长度
+
+/**
+ * 字段长度
+ */
+var TASK_REVIEW_CONTENT_LENGTH = 250;//任务评论内容长度
+
+/**
  * 计算str1中还有几个str2
  * @param str1
  * @param str2

@@ -20,6 +20,7 @@ import java.util.List;
 public class BaseUtil implements SymbolInterface {
     /**
      * 判登录
+     *
      * @param request
      */
     public static void checkLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -32,6 +33,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 更新dao+session用户访问信息
+     *
      * @param request
      */
     public static void refreshUserVisit(HttpServletRequest request){
@@ -49,6 +51,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从公司结构集合得到Json数组
+     *
      * @param list
      * @return
      */
@@ -66,6 +69,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 翻译用户性别
+     *
      * @param sex
      * @return
      */
@@ -81,6 +85,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从用户集合得到Json数组
+     *
      * @param list
      * @return
      */
@@ -103,6 +108,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从公告集合得到Json数组
+     *
      * @param list
      * @return
      */
@@ -123,6 +129,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从消息集合得到Json数组
+     *
      * @param list
      * @return
      */
@@ -157,6 +164,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从站内信集合得到Json数组
+     *
      * @param list
      * @param box
      * @return
@@ -175,6 +183,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从站内信得到Json串
+     *
      * @param letter
      * @param box
      * @return
@@ -233,6 +242,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从工作日志集合得到Json数组
+     *
      * @param list
      * @return
      * @throws Exception
@@ -255,6 +265,7 @@ public class BaseUtil implements SymbolInterface {
 
     /**
      * 从工作日志集合得到Json数组
+     *
      * @param list
      * @return
      * @throws Exception
@@ -272,6 +283,33 @@ public class BaseUtil implements SymbolInterface {
                     "',createIp:'" + remind.getCreateIp() + "',updateDate:'" + remind.getUpdateDate() +
                     "',updateTime:'" + remind.getUpdateTime() + "',updateIp:'" + remind.getUpdateIp() +
                     "',remindTypeDesc:'" + remind.getRemindTypeDesc() + "'}";
+        }
+        return result;
+    }
+
+    /**
+     * 从任务集合得到Json数组
+     *
+     * @param list
+     * @return
+     * @throws Exception
+     */
+    public static String getJsonArrayFromTasks(List<Task> list) throws Exception {
+        String result = StringUtils.EMPTY;
+        for(Task task : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            User fromUser = UserDao.getUserById(task.getFromUserId());
+            User toUser = UserDao.getUserById(task.getToUserId());
+            result += "{id:" + task.getId() + ",fromUserId:" + task.getFromUserId() + ",toUserId:" +
+                    task.getToUserId() + ",title:'" + task.getTitle() + "',content:'" + task.getContent() +
+                    "',state:" + task.getState() + ",beginDate:'" + task.getBeginDate() + "',endDate:'" +
+                    task.getEndDate() + "',createDate:'" + task.getCreateDate() + "',createTime:'" +
+                    task.getCreateTime() + "',createIp:'" + task.getCreateIp() + "',updateDate:'" +
+                    task.getUpdateDate() + "',updateTime:'" + task.getUpdateTime() + "',updateIp:'" +
+                    task.getUpdateIp() + "',fromUserName:'" + fromUser.getName() + "',toUserName:'" +
+                    toUser.getName() + "',stateDesc:'" + task.getStateDesc() + "'}";
         }
         return result;
     }

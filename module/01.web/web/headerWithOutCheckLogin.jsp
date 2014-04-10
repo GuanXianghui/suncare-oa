@@ -1,8 +1,8 @@
 <%@ page import="com.gxx.oa.interfaces.BaseInterface" %>
-<%@ page import="com.gxx.oa.entities.User" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page import="com.gxx.oa.utils.TokenUtil" %>
 <%@ page import="com.gxx.oa.utils.PropertyUtil" %>
+<%@ page import="com.gxx.oa.entities.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     //域名链接

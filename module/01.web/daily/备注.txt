@@ -22,3 +22,12 @@ gbk编码编码文件：txt，java，properties
 3.from_user_id=A,from_user_type=1,to_user_ids=B,C,D,to_user_types=1,1,1,cc_user_ids=E,F,G,cc_user_types=1,1,1,
   delete_state=1,title=标题,content=内容,create_date=创建日期,create_time=创建时间,create_ip=Aip,operate_date=空,
   operate_time=空,operate_ip=空，这些列的值一样
+
+(7)任务的操作规则：
+分配：任何人可以给任何人分配任务(包括自己)，
+查看：任何人都可以查看任务
+修改非状态：任务来源和接受任务的人可以修改任务
+修改状态：任务来源和接受任务的人可以修改任务状态
+删除：只有创建的人可以删除任务
+催：任何人都可以催进度
+评论：任何人都可以评论

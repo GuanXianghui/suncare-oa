@@ -50,4 +50,8 @@ public interface BaseInterface {
      * 工作日志页面大小
      */
     public static final String DIARY_PAGE_SIZE = "diary_page_size";
+    /**
+     * 任务页面大小
+     */
+    public static final String TASK_PAGE_SIZE = "task_page_size";
 }

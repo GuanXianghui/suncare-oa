@@ -66,6 +66,23 @@
             </result>
         </action>
         <action name="operateRemind" class="com.gxx.oa.OperateRemindAction"/>
+        <action name="operateTask" class="com.gxx.oa.OperateTaskAction"/>
+        <action name="writeTask" class="com.gxx.oa.WriteTaskAction">
+            <result>
+                /writeTask.jsp
+            </result>
+            <result name="error">
+                /writeTask.jsp
+            </result>
+        </action>
+        <action name="updateTask" class="com.gxx.oa.UpdateTaskAction">
+            <result>
+                /showTask.jsp?id=${taskId}
+            </result>
+            <result name="error">
+                /showTask.jsp?id=${taskId}
+            </result>
+        </action>
     </package>
 
     <!--

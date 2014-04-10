@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 工作日志回复实体操作类
+ * 工作日志评论实体操作类
  *
  * @author Gxx
  * @module oa
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class DiaryReviewDao {
     /**
-     * 根据工作日志id查工作日志回复
+     * 根据工作日志id查工作日志评论
      *
      * @param diaryId
      * @return
@@ -61,7 +61,7 @@ public class DiaryReviewDao {
     }
 
     /**
-     * 根据id查日志回复
+     * 根据id查日志评论
      *
      * @param id
      * @return
@@ -176,7 +176,7 @@ public class DiaryReviewDao {
     }
 
     /**
-     * 新增日志回复
+     * 新增日志评论
      *
      * @param diaryReview
      * @throws Exception
@@ -192,7 +192,7 @@ public class DiaryReviewDao {
     }
 
     /**
-     * 更新日志回复
+     * 更新日志评论
      *
      * @param diaryReview
      * @throws Exception
@@ -205,7 +205,7 @@ public class DiaryReviewDao {
     }
 
     /**
-     * 删除日志回复
+     * 删除日志评论
      *
      * @param diaryReview
      * @throws Exception

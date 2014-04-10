@@ -1,4 +1,4 @@
-//消息Json数组
+//工作日志Json数组
 var diaryArray = new Array();
 
 /**
@@ -8,7 +8,7 @@ $(document).ready(function() {
     //把初始diaryJsonStr转换成diaryArray
     diaryArray = transferInitJsonStr2Array(diaryJsonStr);
 
-    //处理消息Json串
+    //处理工作日志Json串
     processWithJson();
 
     //检查是否还有下一页
@@ -30,7 +30,7 @@ function transferInitJsonStr2Array(jsonStr){
 }
 
 /**
- * 处理消息Json串
+ * 处理工作日志Json串
  */
 function processWithJson(){
     //循环展示
