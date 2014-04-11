@@ -20,6 +20,7 @@ var SYMBOL_SLASH = "/";
 var SYMBOL_DOT = ".";
 var SYMBOL_COLON = ":";
 var SYMBOL_NEW_LINE = "\r\n";
+var SYMBOL_NEW_LINE2 = "\n";
 var SYMBOL_ARRAY_ALL = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT
     ,SYMBOL_WAVE,SYMBOL_EXCLAMATION,SYMBOL_MOUSE,SYMBOL_WELL,SYMBOL_DOLLAR,SYMBOL_PERCENT,SYMBOL_BIT_DIFF,
     SYMBOL_STAR,SYMBOL_SLASH,SYMBOL_DOT,SYMBOL_COLON);
@@ -121,6 +122,11 @@ var TASK_CONTENT_LENGTH = 10000;//任务内容长度
  * 字段长度
  */
 var TASK_REVIEW_CONTENT_LENGTH = 250;//任务评论内容长度
+
+/**
+ * 字段长度
+ */
+var SMS_CONTENT_LENGTH = 65;//短信内容长度
 
 /**
  * 计算str1中还有几个str2
@@ -239,12 +245,34 @@ function changeNewLine(content){
 }
 
 /**
+ * 将\n->uuid
+ * @param content
+ */
+function changeNewLine2(content){
+    while(content.indexOf(SYMBOL_NEW_LINE2) > -1) {
+        content = content.replace(SYMBOL_NEW_LINE2, GXX_OA_NEW_LINE_UUID);
+    }
+    return content;
+}
+
+/**
  * 将uuid->\r\n
  * @param content
  */
 function changeNewLineBack(content){
     while(content.indexOf(GXX_OA_NEW_LINE_UUID) > -1) {
         content = content.replace(GXX_OA_NEW_LINE_UUID, SYMBOL_NEW_LINE);
+    }
+    return content;
+}
+
+/**
+ * 将uuid->\n
+ * @param content
+ */
+function changeNewLineBack2(content){
+    while(content.indexOf(GXX_OA_NEW_LINE_UUID) > -1) {
+        content = content.replace(GXX_OA_NEW_LINE_UUID, SYMBOL_NEW_LINE2);
     }
     return content;
 }

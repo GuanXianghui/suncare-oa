@@ -54,4 +54,19 @@ public interface BaseInterface {
      * 任务页面大小
      */
     public static final String TASK_PAGE_SIZE = "task_page_size";
+    /**
+     * 短信服务相关配置
+     * 短信服务用户id
+     */
+    public static final String SMS_UID = "sms_uid";
+    /**
+     * 短信服务相关配置
+     * 短信服务key
+     */
+    public static final String SMS_KEY = "sms_key";
+    /**
+     * 短信服务相关配置
+     * 短信日数量限制
+     */
+    public static final String SMS_DAY_LIMIT = "sms_day_limit";
 }

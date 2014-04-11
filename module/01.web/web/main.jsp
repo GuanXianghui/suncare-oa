@@ -113,6 +113,16 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="<%=baseUrl%>sms.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">短信</div>
+                    </a>
+                </td>
+            </tr>
         </table>
     </div>
 </body>

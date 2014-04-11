@@ -313,4 +313,24 @@ public class BaseUtil implements SymbolInterface {
         }
         return result;
     }
+
+    /**
+     * 从短信集合得到Json数组
+     *
+     * @param list
+     * @return
+     */
+    public static String getJsonArrayFromSMS(List<SMS> list) throws Exception {
+        String result = StringUtils.EMPTY;
+        for(SMS sms : list) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            result += "{id:" + sms.getId() + ",userId:" + sms.getId() + ",phone:'" + sms.getPhone() +
+                    "',content:'" + sms.getContent() + "',state:" + sms.getState() + ",date:'" + sms.getDate() +
+                    "',time:'" + sms.getTime() + "',ip:'" + sms.getIp() + "',stateDesc:'" + sms.getStateDesc() +
+                    "'}";
+        }
+        return result;
+    }
 }

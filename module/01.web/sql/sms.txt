@@ -1,0 +1,10 @@
+create table sms( #短信表
+	id int auto_increment primary key comment '主键 自增',
+	user_id int not null comment '用户id 不为空',
+	phone varchar(20) not null comment '手机号 不为空',
+	content varchar(200) not null comment '内容 不为空',
+	state int not null comment '状态 1:成功 2:失败',
+	date varchar(8) not null comment '日期 不为空',
+	time varchar(6) not null comment '时间 不为空',
+	ip varchar(20) not null comment 'IP 不为空'
+);

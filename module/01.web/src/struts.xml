@@ -83,6 +83,7 @@
                 /showTask.jsp?id=${taskId}
             </result>
         </action>
+        <action name="operateSMS" class="com.gxx.oa.OperateSMSAction"/>
     </package>
 
     <!--

@@ -36,4 +36,8 @@ public interface SymbolInterface {
      * »»ÐÐ·û
      */
     public static final String SYMBOL_NEW_LINE = "\r\n";
+    /**
+     * »»ÐÐ·û2
+     */
+    public static final String SYMBOL_NEW_LINE2 = "\n";
 }
