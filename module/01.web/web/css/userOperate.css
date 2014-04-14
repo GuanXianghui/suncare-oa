@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+.leftTd{
+    width: 100px;
+}
+#structure_table tr td {
+    text-align: center;
+}
+.top {
+    background-color: gray;
+}
+.company {
+    background-color: gray;
+}
+.dept {
+    background-color: gray;
+}
+.position {
+    cursor: pointer;
+    background-color: #6a5acd;
+    border: 2px dotted red;
+}

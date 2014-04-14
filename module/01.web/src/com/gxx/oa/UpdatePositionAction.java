@@ -5,6 +5,7 @@ import com.gxx.oa.dao.UserDao;
 import com.gxx.oa.entities.Structure;
 import com.gxx.oa.entities.User;
 import com.gxx.oa.interfaces.StructureInterface;
+import com.gxx.oa.utils.BaseUtil;
 import com.gxx.oa.utils.TokenUtil;
 
 /**
@@ -27,31 +28,10 @@ public class UpdatePositionAction extends BaseAction implements StructureInterfa
     public String execute() throws Exception {
         logger.info("id:" + id);
 
-        Structure company = null;
-        Structure dept = null;
+        // 查看公司，部门，职位信息
         Structure position = StructureDao.getStructureById(id);
-        int pid = position.getPid();
-        while (pid != 0) {
-            Structure temp = StructureDao.getStructureById(pid);
-            if(null == temp) {
-                break;
-            }
-            if(temp.getType() == TYPE_COMPANY) {
-                if(null == company) {
-                    company = temp;
-                }
-                break;//有了公司 就不管部门
-            }
-            if(temp.getType() == TYPE_DEPT) {
-                if(null == dept) {
-                    dept = temp;
-                }
-                pid = dept.getPid();
-            }
-            if(temp.getType() == TYPE_POSITION) {
-                pid = temp.getPid();//继续往上
-            }
-        }
+        Structure dept = BaseUtil.getDeptByPosition(id);
+        Structure company = BaseUtil.getCompanyByPosition(id);
 
         //更新用户
         User user = getUser();

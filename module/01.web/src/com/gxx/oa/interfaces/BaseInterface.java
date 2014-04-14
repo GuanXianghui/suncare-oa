@@ -13,6 +13,14 @@ public interface BaseInterface {
      */
     public static final String MYSQL_CONNECTION = "mysql_connection";
     /**
+     * Ä¬ÈÏÃÜÂë
+     */
+    public static final String DEFAULT_PASSWORD = "default_password";
+    /**
+     * Ä¬ÈÏÍ·Ïñ
+     */
+    public static final String DEFAULT_HEAD_PHOTO = "default_head_photo";
+    /**
      * md5 key
      */
     public static final String MD5_KEY = "md5_key";

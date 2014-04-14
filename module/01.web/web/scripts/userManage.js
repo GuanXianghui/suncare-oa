@@ -107,7 +107,7 @@ function processWithJson() {
         }
     }
     //组织所有公司结构表格
-    var html = "<tr><td onclick='chooseTd(this, 0)' class='top' colspan='" + calculateSize(0) + "'>组织架构</td></tr>";
+    var html = "<tr><td class='top' colspan='" + calculateSize(0) + "'>组织架构</td></tr>";
     /**
      * pids格式:1,2,,,3
      * 空的可能是上一层某个没有子元素了

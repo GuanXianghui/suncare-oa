@@ -1,6 +1,7 @@
 package com.gxx.oa.dao;
 
 import com.gxx.oa.entities.User;
+import org.apache.commons.lang.StringUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -282,5 +283,76 @@ public class UserDao {
                 "',qq='" + user.getQq() + "',msn='" + user.getMsn() + "',address='" + user.getAddress() +
                 "',website='" + user.getWebsite() + "' where id=" + user.getId();
         DB.executeUpdate(sql);
+    }
+
+    /**
+     * 更新职位
+     *
+     * @param user
+     * @throws Exception
+     */
+    public static void updatePosition(User user) throws Exception {
+        String sql = "update user set company=" + user.getCompany() + ",dept=" + user.getDept() +
+                ",position=" + user.getPosition() + " where id=" + user.getId();
+        DB.executeUpdate(sql);
+    }
+
+    /**
+     * 根据姓名或者拼音查用户
+     *
+     * @param name
+     * @return
+     * @throws Exception
+     */
+    public static List<User> queryUserByNameOrLetter(String name) throws Exception {
+        List<User> list = new ArrayList<User>();
+        String sql = "SELECT id,name,password,letter,state,company,dept,position,desk,sex,birthday," +
+                "office_tel,mobile_tel,email,qq,msn,address,head_photo,website,register_date," +
+                "register_time,register_ip,visit_date,visit_time,visit_ip FROM user WHERE name like '%" +
+                name + "%' OR letter like '%" + StringUtils.upperCase(name) + "%' order by id";
+        Connection c = DB.getConn();
+        Statement stmt = DB.createStatement(c);
+        ResultSet rs = DB.executeQuery(c, stmt, sql);
+        try {
+            if (rs == null) {
+                throw new RuntimeException("数据库操作出错，请重试！");
+            }
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String userName = rs.getString("name");
+                String password = rs.getString("password");
+                String letter = rs.getString("letter");
+                int state = rs.getInt("state");
+                int company = rs.getInt("company");
+                int dept = rs.getInt("dept");
+                int position = rs.getInt("position");
+                String desk = rs.getString("desk");
+                int sex = rs.getInt("sex");
+                String birthday = rs.getString("birthday");
+                String officeTel = rs.getString("office_tel");
+                String mobileTel = rs.getString("mobile_tel");
+                String email = rs.getString("email");
+                String qq = rs.getString("qq");
+                String msn = rs.getString("msn");
+                String address = rs.getString("address");
+                String headPhoto = rs.getString("head_photo");
+                String website = rs.getString("website");
+                String registerDate = rs.getString("register_date");
+                String registerTime = rs.getString("register_time");
+                String registerIp = rs.getString("register_ip");
+                String visitDate = rs.getString("visit_date");
+                String visitTime = rs.getString("visit_time");
+                String visitIp = rs.getString("visit_ip");
+                User user = new User(id, userName, password, letter, state, company, dept, position, desk, sex, birthday,
+                        officeTel, mobileTel, email, qq, msn, address, headPhoto, website, registerDate, registerTime,
+                        registerIp, visitDate, visitTime, visitIp);
+                list.add(user);
+            }
+            return list;
+        } finally {
+            DB.close(rs);
+            DB.close(stmt);
+            DB.close(c);
+        }
     }
 }

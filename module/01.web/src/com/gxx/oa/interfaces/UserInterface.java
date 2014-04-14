@@ -9,18 +9,11 @@ package com.gxx.oa.interfaces;
  */
 public interface UserInterface extends BaseInterface {
     /**
-     * 默认密码
-     */
-    public static final String DEFAULT_PASSWORD = "default_password";
-    /**
-     * 默认头像
-     */
-    public static final String DEFAULT_HEAD_PHOTO = "default_head_photo";
-    /**
-     * 状态: 1正常，2锁定
+     * 状态: 1正常，2锁定，3离职
      */
     public static final int STATE_NORMAL = 1;
     public static final int STATE_LOCKED = 2;
+    public static final int STATE_QUIT = 3;
     /**
      * 性别: 1男，0女
      */

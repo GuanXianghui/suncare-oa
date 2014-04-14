@@ -122,6 +122,14 @@
                         <div align="center">短信</div>
                     </a>
                 </td>
+                <td>
+                    <a href="<%=baseUrl%>userOperate.jsp">
+                        <div align="center">
+                            <div style="background-color: green; width: 50px; height: 50px;"></div>
+                        </div>
+                        <div align="center">后台用户管理</div>
+                    </a>
+                </td>
             </tr>
         </table>
     </div>

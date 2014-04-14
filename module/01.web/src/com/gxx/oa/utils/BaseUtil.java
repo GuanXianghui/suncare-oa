@@ -89,19 +89,24 @@ public class BaseUtil implements SymbolInterface {
      * @param list
      * @return
      */
-    public static String getJsonArrayFromUsers(List<User> list) {
+    public static String getJsonArrayFromUsers(List<User> list) throws Exception {
         String result = StringUtils.EMPTY;
         for(User user : list) {
             if(StringUtils.isNotBlank(result)) {
                 result += SYMBOL_BIT_AND;
             }
+            Structure company = StructureDao.getStructureById(user.getCompany());
+            Structure dept = StructureDao.getStructureById(user.getDept());
+            Structure position = StructureDao.getStructureById(user.getPosition());
             result += "{id:" + user.getId() + ",name:'" + user.getName() + "',letter:'" +
                     user.getLetter() + "',state:" + user.getState() + ",company:" + user.getCompany() +
                     ",dept:" + user.getDept() + ",position:" + user.getPosition() + ",desk:'" + user.getDesk() +
                     "',sex:" + user.getSex() +",birthday:'" + user.getBirthday() +"',officeTel:'" + user.getOfficeTel() +
                     "',mobileTel:'" + user.getMobileTel() +"',email:'" + user.getEmail() +"',qq:'" + user.getQq() +
                     "',msn:'" + user.getMsn() +"',address:'" + user.getAddress() +"',headPhoto:'" + user.getHeadPhoto() +
-                    "',website:'" + user.getWebsite() + "'}";
+                    "',website:'" + user.getWebsite() + "',companyName:'" + (null==company?"无":company.getName()) +
+                    "',deptName:'" + (null==dept?"无":dept.getName()) + "',positionName:'" +
+                    (null==position?"无":position.getName()) + "'}";
         }
         return result;
     }
@@ -332,5 +337,93 @@ public class BaseUtil implements SymbolInterface {
                     "'}";
         }
         return result;
+    }
+
+    /**
+     * 得到默认密码
+     * md5(defaultPwd + md5Key)
+     *
+     * @return
+     */
+    public static String generateDefaultPwd(){
+        String md5Key = PropertyUtil.getInstance().getProperty(BaseInterface.MD5_KEY);
+        String defaultPwd = PropertyUtil.getInstance().getProperty(BaseInterface.DEFAULT_PASSWORD);
+        MD5Util md5 = new MD5Util();
+        String password = md5.md5(defaultPwd + md5Key);
+        return password;
+    }
+
+    /**
+     * 根据职位id查部门
+     * 注意：任何一个职位都会属于某个公司 而不一定会属于哪个部门 比如：董事长
+     *
+     * @param positionId
+     * @return
+     */
+    public static Structure getDeptByPosition(int positionId) throws Exception{
+        // 查看公司，部门，职位信息
+        Structure company = null;
+        Structure dept = null;
+        Structure position = StructureDao.getStructureById(positionId);
+        int pid = position.getPid();
+        while (pid != 0) {
+            Structure temp = StructureDao.getStructureById(pid);
+            if(null == temp) {
+                break;
+            }
+            if(temp.getType() == StructureInterface.TYPE_COMPANY) {
+                if(null == company) {
+                    company = temp;
+                }
+                break;//有了公司 就不管部门
+            }
+            if(temp.getType() == StructureInterface.TYPE_DEPT) {
+                if(null == dept) {
+                    dept = temp;
+                }
+                pid = dept.getPid();
+            }
+            if(temp.getType() == StructureInterface.TYPE_POSITION) {
+                pid = temp.getPid();//继续往上
+            }
+        }
+        return dept;
+    }
+
+    /**
+     * 根据职位id查公司
+     * 注意：任何一个职位都会属于某个公司 而不一定会属于哪个部门 比如：董事长
+     *
+     * @param positionId
+     * @return
+     */
+    public static Structure getCompanyByPosition(int positionId) throws Exception{
+        // 查看公司，部门，职位信息
+        Structure company = null;
+        Structure dept = null;
+        Structure position = StructureDao.getStructureById(positionId);
+        int pid = position.getPid();
+        while (pid != 0) {
+            Structure temp = StructureDao.getStructureById(pid);
+            if(null == temp) {
+                break;
+            }
+            if(temp.getType() == StructureInterface.TYPE_COMPANY) {
+                if(null == company) {
+                    company = temp;
+                }
+                break;//有了公司 就不管部门
+            }
+            if(temp.getType() == StructureInterface.TYPE_DEPT) {
+                if(null == dept) {
+                    dept = temp;
+                }
+                pid = dept.getPid();
+            }
+            if(temp.getType() == StructureInterface.TYPE_POSITION) {
+                pid = temp.getPid();//继续往上
+            }
+        }
+        return company;
     }
 }

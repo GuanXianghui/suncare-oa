@@ -84,6 +84,9 @@
             </result>
         </action>
         <action name="operateSMS" class="com.gxx.oa.OperateSMSAction"/>
+        <action name="createUser" class="com.gxx.oa.CreateUserAction"/>
+        <action name="queryUser" class="com.gxx.oa.QueryUserAction"/>
+        <action name="updateUser" class="com.gxx.oa.UpdateUserAction"/>
     </package>
 
     <!--
