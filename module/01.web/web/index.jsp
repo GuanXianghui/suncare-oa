@@ -2,60 +2,60 @@
 <%@ include file="headerWithOutCheckLogin.jsp" %>
 <html>
 <head>
-    <title>登陆页面</title>
+    <title>Suncare-OA</title>
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
     <script type="text/javascript" src="<%=baseUrl%>scripts/jquery-min.js"></script>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/md5.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/index.js"></script>
 </head>
-<body>
-<div align="center">
-    <h1>登陆页面</h1>
+
+<body id="login" onkeypress="keyPress(event)">
+<div id="login-wrapper" class="png_bg">
+    <div id="login-top">
+        <h1>Suncare-OA</h1>
+        <img id="logo" src="images/suncare-files-logo.png" alt="申成-文件系统" />
+    </div>
+    <div id="login-content">
+        <form>
+            <div id="message_id" class="notification information png_bg" style="display: none;">
+                <a href="#" class="close">
+                    <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+                </a>
+                <div id="message_id_content"> 提示信息！ </div>
+            </div>
+            <%
+                if(isLogin){
+            %>
+            <div align="center">
+                <input style="width: 100%" class="button" type="button" value="您已登陆，点击直接进入主页"
+                        onclick="location.href=baseUrl+'main.jsp';">
+            </div>
+            <%
+                } else {
+            %>
+            <p>
+                <label>用户名</label>
+                <input class="text-input" type="text" id="name" />
+            </p>
+            <div class="clear"></div>
+            <p>
+                <label>密码</label>
+                <input class="text-input" type="password" id="password" />
+            </p>
+            <div class="clear"></div>
+            <div class="clear"></div>
+            <p>
+                <input class="button" type="button" onclick="login();" value="Log In" />
+            </p>
+            <%
+                }
+            %>
+        </form>
+    </div>
 </div>
-<%
-    if (!isLogin) {
-%>
-        <div align="center">
-            <table border="1">
-                <tr>
-                    <td>用户名：</td>
-                    <td><input type="text" id="name" value="关向辉"></td>
-                </tr>
-                <tr>
-                    <td>密码：</td>
-                    <td><input type="password" id="password" value="123qwe"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button onclick="login()">登录</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-<%
-    } else {
-%>
-        <div align="center">
-            <table border="1">
-                <tr>
-                    <td colspan="2" align="right"><button onclick="logOut()">退出</button></td>
-                </tr>
-                <tr>
-                    <td colspan="2">欢迎使用suncare-oa！</td>
-                </tr>
-                <tr>
-                    <td>您当前使用的账户是：</td>
-                    <td><%=user.getName()%></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button onclick="location.href='<%=baseUrl%>main.jsp'">直接进入主页</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-<%
-    }
-%>
 </body>
 </html>

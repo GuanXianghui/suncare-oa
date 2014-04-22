@@ -104,11 +104,11 @@ function query(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }
@@ -190,11 +190,11 @@ function createRemind(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }
@@ -262,11 +262,11 @@ function deleteRemind(remindId){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }

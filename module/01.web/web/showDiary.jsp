@@ -46,7 +46,7 @@
 </head>
 <body>
     <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>查看站工作日志<button onclick="logOut()">退出</button></h1>
+        <h1><button onclick="jump2Main()">主页</button>查看工作日志<button onclick="logOut()">退出</button></h1>
         <div>
             <%
                 if(diary.getUserId() == user.getId()){

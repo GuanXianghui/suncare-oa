@@ -28,7 +28,7 @@
     //是否已经登录
     var isLogin = <%=isLogin%>;
     //弹出消息框
-    <%if(StringUtils.isNotBlank(message)) {%>
-    alert('<%=message%>');
-    <%}%>
+    var message = '<%=message%>';
 </script>
+<!-- 图标 -->
+<link rel="shortcut icon" type="image/x-icon" href="images/suncare-file-little-logo.png" />

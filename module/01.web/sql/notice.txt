@@ -4,8 +4,8 @@ create table notice( #公告表
 	content varchar(20000) not null comment '内容 不为空',
 	create_date varchar(8) not null comment '创建日期 不为空',
 	create_time varchar(6) not null comment '创建时间 不为空',
-	create_ip varchar(20) not null comment '创建IP 不为空',
+	create_ip varchar(100) not null comment '创建IP 不为空',
 	update_date varchar(8) comment '修改日期 不为空',
 	update_time varchar(6) comment '修改时间 不为空',
-	update_ip varchar(20) comment '修改IP 不为空'
+	update_ip varchar(100) comment '修改IP 不为空'
 );

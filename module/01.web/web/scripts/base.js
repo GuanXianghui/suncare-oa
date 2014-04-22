@@ -2,6 +2,7 @@
 var EMPTY = "";
 
 //符号集合
+var SYMBOL_BLANK = " ";
 var SYMBOL_COMMA = ",";
 var SYMBOL_EQUAL = "=";
 var SYMBOL_BIT_AND = "&";
@@ -21,11 +22,11 @@ var SYMBOL_DOT = ".";
 var SYMBOL_COLON = ":";
 var SYMBOL_NEW_LINE = "\r\n";
 var SYMBOL_NEW_LINE2 = "\n";
-var SYMBOL_ARRAY_ALL = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT
-    ,SYMBOL_WAVE,SYMBOL_EXCLAMATION,SYMBOL_MOUSE,SYMBOL_WELL,SYMBOL_DOLLAR,SYMBOL_PERCENT,SYMBOL_BIT_DIFF,
-    SYMBOL_STAR,SYMBOL_SLASH,SYMBOL_DOT,SYMBOL_COLON);
-var SYMBOL_ARRAY_1 = new Array(SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
-var SYMBOL_ARRAY_2 = new Array(SYMBOL_COMMA,SYMBOL_EQUAL,SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
+var SYMBOL_ARRAY_1 = new Array(SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT,SYMBOL_SLASH);
+var SYMBOL_ARRAY_2_CHECK_URL = new Array(SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
+
+//默认信息提示框ID
+var DEFAULT_MESSAGE_ID = "message_id";
 
 /**
  * UE的代码功能，每行都是换行的，写到json里会有问题，所以把换行先转换成一个uuid串，展示之前再转回来
@@ -198,7 +199,7 @@ function logOut(){
                     return;
                 } else {
                     //退出成功
-                    alert(data["message"]);
+                    //alert(data["message"]);
                 }
                 //是否跳转页面
                 if (data["isRedirect"]) {
@@ -206,11 +207,11 @@ function logOut(){
                     location.href = redirectUrl;
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }
@@ -275,4 +276,119 @@ function changeNewLineBack2(content){
         content = content.replace(GXX_OA_NEW_LINE_UUID, SYMBOL_NEW_LINE2);
     }
     return content;
+}
+
+/**
+ * 显示信息
+ * @param messageId
+ * @param message
+ */
+function showMessage(messageId, message){
+    $("#" + messageId + "_content").html(message);
+    $("#" + messageId).css("opacity", 1);
+    $("#" + messageId).show(300);
+}
+
+/**
+ * 显示警告消息
+ * @param message
+ */
+function showAttention(message){
+    showAttentionMessage(DEFAULT_MESSAGE_ID, message);
+}
+
+/**
+ * 显示警告消息
+ * @param messageId
+ * @param message
+ */
+function showAttentionMessage(messageId, message){
+    $("#" + messageId).attr("class", "notification attention png_bg");
+    showMessage(messageId, message);
+}
+
+/**
+ * 显示消息
+ * @param message
+ */
+function showInformation(message){
+    showInformationMessage(DEFAULT_MESSAGE_ID, message);
+}
+
+/**
+ * 显示消息
+ * @param messageId
+ * @param message
+ */
+function showInformationMessage(messageId, message){
+    $("#" + messageId).attr("class", "notification information png_bg");
+    showMessage(messageId, message);
+}
+
+/**
+ * 显示成功消息
+ * @param message
+ */
+function showSuccess(message){
+    showSuccessMessage(DEFAULT_MESSAGE_ID, message);
+}
+
+/**
+ * 显示成功消息
+ * @param messageId
+ * @param message
+ */
+function showSuccessMessage(messageId, message){
+    $("#" + messageId).attr("class", "notification success png_bg");
+    showMessage(messageId, message);
+}
+
+/**
+ * 显示错误消息
+ * @param message
+ */
+function showError(message){
+    showErrorMessage(DEFAULT_MESSAGE_ID, message);
+}
+
+/**
+ * 显示错误消息
+ * @param messageId
+ * @param message
+ */
+function showErrorMessage(messageId, message){
+    $("#" + messageId).attr("class", "notification error png_bg");
+    showMessage(messageId, message);
+}
+
+/**
+ * 字符串编码
+ * 采用Ajax传递参数加号(+)和与符号(&)时候，服务端获取到的参数并不如意！
+ * 解决办法：在传到服务端之前先将参数中的"+"和"&"符号都编码一下
+ * @param str
+ */
+function filterStr(str){
+    str = filePlus(str);
+    str = fileBitAnd(str);
+    return str;
+}
+
+/**
+ * 编码+号
+ * @param str
+ * @return {*}
+ */
+function filePlus(str){
+    str = str.replace(/\+/g,"%2B");
+    return str;
+}
+
+/**
+ * 编码&号
+ * @param str
+ * @return {*}
+ */
+function fileBitAnd(str){
+    str = str.replace(/\&/g,"%26");
+    return str;
 }

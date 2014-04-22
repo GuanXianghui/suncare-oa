@@ -15,10 +15,10 @@ create table letter( #站内信表
     content varchar(20000) not null comment '站内信内容 不为空',
 	create_date varchar(8) not null comment '创建日期 不为空',
 	create_time varchar(6) not null comment '创建时间 不为空',
-	create_ip varchar(20) not null comment '创建IP 不为空',
+	create_ip varchar(100) not null comment '创建IP 不为空',
 	operate_date varchar(8) comment '操作日期 可为空',
 	operate_time varchar(6) comment '操作时间 可为空',
-	operate_ip varchar(20) comment '操作IP 可为空'
+	operate_ip varchar(100) comment '操作IP 可为空'
 );
 
 #注意，站内信的操作规则：

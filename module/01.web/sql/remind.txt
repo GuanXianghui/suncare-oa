@@ -3,13 +3,13 @@ create table remind( #提醒表
 	user_id int not null comment '用户id 不为空',
 	date varchar(8) not null comment '日期 不为空',
     content varchar(500) not null comment '提醒内容 不为空',
-	remind_type int not null comment '提醒类型 1:不提醒 2:消息提醒 3:短信提醒 4:邮件提醒(目前只能1或者2)',
+	remind_type int not null comment '提醒类型 1:不提醒 2:消息提醒 3:短信提醒 4:邮件提醒(目前只能1或者2) 不为空',
 	remind_date_time varchar(14) comment '提醒时间 可为空 当need_remind不为1时 不为空',
 	remind_target varchar(100) comment '提醒对象 可为空 目前只有消息提醒，所以为空',
 	create_date varchar(8) not null comment '创建日期 不为空',
 	create_time varchar(6) not null comment '创建时间 不为空',
-	create_ip varchar(20) not null comment '创建IP 不为空',
+	create_ip varchar(100) not null comment '创建IP 不为空',
 	update_date varchar(8) comment '更新日期 可为空',
 	update_time varchar(6) comment '更新时间 可为空',
-	update_ip varchar(20) comment '更新IP 可为空'
+	update_ip varchar(100) comment '更新IP 可为空'
 );

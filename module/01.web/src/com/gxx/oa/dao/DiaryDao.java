@@ -20,15 +20,23 @@ import java.util.List;
 public class DiaryDao {
     /**
      * 查询日志数量
+     * 注意：如果rightUserWithComma(有权限看的下级用户)非空则带上该条件
      *
      * @param userId
      * @param date
+     * @param rightUserWithComma 有权限看的下级用户
      * @return
      * @throws Exception
      */
-    public static int countDiaries(int userId, String date) throws Exception {
+    public static int countDiaries(int userId, String date, String rightUserWithComma) throws Exception {
         int countNum = 0;
         String sql = "SELECT count(1) count_num FROM diary WHERE 1=1";
+        /**
+         * 如果 有权限看的下级用户 rightUserWithComma 非空 则带上该条件
+         */
+        if(StringUtils.isNotBlank(rightUserWithComma)){
+            sql += " AND user_id in (" + rightUserWithComma + ")";
+        }
         /**
          * 如果userId大于0带上该条件
          */
@@ -63,16 +71,27 @@ public class DiaryDao {
      * 根据用户id，日期，范围查日志
      * 注意：如果userId大于0带上该条件
      * 注意：如果date非空带上该条件
+     * 注意：如果rightUserWithComma(有权限看的下级用户)非空则带上该条件
      *
      * @param userId
      * @param date
+     * @param from
+     * @param to
+     * @param rightUserWithComma 有权限看的下级用户
      * @return
      * @throws Exception
      */
-    public static List<Diary> queryDiariesByFromTo(int userId, String date, int from, int to) throws Exception {
+    public static List<Diary> queryDiariesByFromTo(int userId, String date, int from, int to, String rightUserWithComma)
+            throws Exception {
         List<Diary> list = new ArrayList<Diary>();
         String sql = "SELECT id,user_id,date,content,create_date,create_time,create_ip,update_date," +
                 "update_time,update_ip FROM diary WHERE 1=1";
+        /**
+         * 如果 有权限看的下级用户 rightUserWithComma 非空 则带上该条件
+         */
+        if(StringUtils.isNotBlank(rightUserWithComma)){
+            sql += " AND user_id in (" + rightUserWithComma + ")";
+        }
         /**
          * 如果userId大于0带上该条件
          */

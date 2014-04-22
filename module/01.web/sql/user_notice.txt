@@ -4,5 +4,5 @@ create table user_notice( #用户公告表
 	state int not null comment '状态 1:已读 2:已删除 不为空',
 	date varchar(8) not null comment '操作日期 不为空',
 	time varchar(6) not null comment '操作时间 不为空',
-	ip varchar(20) not null comment '操作IP 不为空'
+	ip varchar(100) not null comment '操作IP 不为空'
 );

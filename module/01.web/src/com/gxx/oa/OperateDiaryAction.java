@@ -58,10 +58,11 @@ public class OperateDiaryAction extends BaseAction {
         if(TYPE_NEXT_PAGE.equals(type)){//加载下一页
             int userIdInt = Integer.parseInt(userId);//没有选择人则为0
             int countNowInt = Integer.parseInt(countNow);
+            String rightUserWithComma = BaseUtil.getLowerLevelPositionUserIdWithComma(getUser().getPosition());//有权限看的下级用户
             //根据用户id，日期，范围查工作日志
             String nextPageDiaries = BaseUtil.getJsonArrayFromDiaries(DiaryDao.queryDiariesByFromTo(userIdInt, date,
                     countNowInt, Integer.parseInt(PropertyUtil.getInstance().
-                    getProperty(BaseInterface.DIARY_PAGE_SIZE)))).replaceAll("\\\'", "\\\\\\\'").
+                    getProperty(BaseInterface.DIARY_PAGE_SIZE)), rightUserWithComma)).replaceAll("\\\'", "\\\\\\\'").
                     replaceAll("\\\"", "\\\\\\\"").replaceAll(SymbolInterface.SYMBOL_NEW_LINE,
                     PropertyUtil.getInstance().getProperty(BaseInterface.GXX_OA_NEW_LINE_UUID));
             //返回结果

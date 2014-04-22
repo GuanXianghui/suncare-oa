@@ -3,5 +3,10 @@
 <%@ include file="headerWithOutCheckLogin.jsp" %>
 <%
     //判登录
-    BaseUtil.checkLogin(request, response);
+    if(!BaseUtil.isLogin(request))
+    {
+        //域名链接
+        response.sendRedirect(baseUrl + "index.jsp");
+        return;
+    }
 %>

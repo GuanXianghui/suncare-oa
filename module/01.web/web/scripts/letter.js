@@ -151,11 +151,11 @@ function deleteLetter(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }
@@ -208,11 +208,11 @@ function ctrlDeleteLetter(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }
@@ -278,11 +278,11 @@ function setReaded(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }
@@ -335,11 +335,11 @@ function restore(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }
@@ -394,11 +394,11 @@ function showNextPageLetters(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }

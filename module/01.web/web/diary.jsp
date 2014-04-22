@@ -28,13 +28,18 @@
         var userId = <%=userId%>;
         //塞选日期
         var date = "<%=date%>";
+        <%
+            //有权限看的下级用户
+            String rightUserWithComma = BaseUtil.getLowerLevelPositionUserIdWithComma(user.getPosition());
+        %>
         /**
          * 工作日志Json串
          */
         var diaryJsonStr = "<%=BaseUtil.getJsonArrayFromDiaries(DiaryDao.queryDiariesByFromTo(userId, date, 0,
-                        Integer.parseInt(PropertyUtil.getInstance().getProperty(BaseInterface.DIARY_PAGE_SIZE))))%>";
+                        Integer.parseInt(PropertyUtil.getInstance().getProperty(BaseInterface.DIARY_PAGE_SIZE)),
+                         rightUserWithComma))%>";
         //工作日志总数
-        var diaryCount = <%=DiaryDao.countDiaries(userId, date)%>;
+        var diaryCount = <%=DiaryDao.countDiaries(userId, date, rightUserWithComma)%>;
     </script>
 </head>
 <body>

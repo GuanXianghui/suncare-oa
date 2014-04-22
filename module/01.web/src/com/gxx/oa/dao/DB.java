@@ -1,6 +1,5 @@
 package com.gxx.oa.dao;
 
-import com.gxx.oa.entities.User;
 import com.gxx.oa.interfaces.BaseInterface;
 import com.gxx.oa.utils.PropertyUtil;
 import org.apache.log4j.Logger;
@@ -154,5 +153,47 @@ public class DB implements BaseInterface {
             }
         }
         return pstmt;
+    }
+
+    public static void main(String[] asdf) throws Exception {
+        Connection connection;
+        Statement stmt;
+        ResultSet rs;
+        String sql;
+        try {
+            /*****1. 填写数据库相关信息(请查找数据库详情页)*****/
+            String databaseName = "HAZRplpephWPvKPxuxLN";
+            String host = "sqld.duapp.com";
+            String port = "4050";
+            String username = "TXPYv03bDC11icFdFHhUTCxp";//用户名(api key);
+            String password = "zk4pw6n2yrCaT25x3TsPK0xkecZRLXoT";//密码(secret key)
+
+//            databaseName = "sq_guanxxoa";
+//            host = "mysql.sql61.cdncenter.net";
+//            port = "3306";
+//            username = "sq_guanxxoa";//用户名(api key);
+//            password = "guanxxoa";//密码(secret key)
+
+            String driverName = "com.mysql.jdbc.Driver";
+            String dbUrl = "jdbc:mysql://";
+            String serverName = host + ":" + port + "/";
+            String connName = dbUrl + serverName + databaseName;
+
+            /******2. 接着连接并选择数据库名为databaseName的服务器******/
+            Class.forName(driverName);
+            connection = DriverManager.getConnection(connName, username, password);
+            stmt = connection.createStatement();
+            /*至此连接已完全建立，就可对当前数据库进行相应的操作了*/
+            /* 3. 接下来就可以使用其它标准mysql函数操作进行数据库操作*/
+            //创建一个数据库表
+            sql = "select count(1) count_num from user";
+            rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                int countNum = rs.getInt("count_num");
+                System.out.println(countNum);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

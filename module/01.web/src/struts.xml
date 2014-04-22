@@ -7,6 +7,9 @@
 
     <constant name="struts.devMode" value="true"/>
     <constant name="struts.action.extension" value="do"/>
+    <!-- 搞了半天原来上传图片过大struts2(默认2M封顶)自动跳到input的结果集去，一般是不需要input的结果集的 -->
+    <!-- 修改struts2配置上传文件最大Size 10M -->
+    <constant name="struts.multipart.maxSize" value="10000000"/>
     <package name="default" namespace="/" extends="struts-default">
         <action name="updatePassword" class="com.gxx.oa.UpdatePasswordAction"/>
         <action name="manageOrgStructure" class="com.gxx.oa.ManageOrgStructureAction"/>

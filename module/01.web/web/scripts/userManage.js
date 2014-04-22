@@ -1,12 +1,11 @@
-//所有公司结构Json数组
-var structureArray = new Array();
-
 /**
  * 初始化
  */
 $(document).ready(function() {
-    //处理所有公司结构json串
-    processWithJson();
+    //如果message非空则显示
+    if(EMPTY != message){
+        showInformation(message);
+    }
 });
 
 //点击修改密码
@@ -48,13 +47,13 @@ function updatePassword(){
     //密码md5签名
     var password = document.getElementById("password");
     if (password.value == EMPTY) {
-        alert("请输入密码!");
+        showAttention("请输入密码!");
         return;
     }
     //判断字符串是否含有非法字符
     var result = checkStr(password.value, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("密码包含非法字符:" + result["symbol"]);
+        showAttention("密码包含非法字符:" + result["symbol"]);
         return;
     }
 
@@ -72,12 +71,12 @@ function updatePassword(){
                 data = eval("(" + data + ")");
                 //判修改密码是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     password.value = EMPTY;
                     return;
                 } else {
                     //修改密码成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     document.getElementById("before_update_password_td").style.display = EMPTY;
                     document.getElementById("update_password_td").style.display = "none";
                 }
@@ -86,150 +85,13 @@ function updatePassword(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
-}
-
-/**
- * 处理 所有公司结构json串
- */
-function processWithJson() {
-    //json串转json数组
-    if(structureJsonStr != EMPTY) {
-        var array = structureJsonStr.split(SYMBOL_BIT_AND);
-        for(var i=0;i<array.length;i++) {
-            structureArray[structureArray.length] = eval("(" + array[i] + ")");
-        }
-    }
-    //组织所有公司结构表格
-    var html = "<tr><td class='top' colspan='" + calculateSize(0) + "'>组织架构</td></tr>";
-    /**
-     * pids格式:1,2,,,3
-     * 空的可能是上一层某个没有子元素了
-     * 全空,,,,,,则结束
-     */
-    var pids = "0";
-    //循环每层展示
-    while(true) {
-        var array = pids.split(SYMBOL_COMMA);
-        pids = EMPTY;
-        var tempStr = "<tr>";
-        for(var i=0;i<array.length;i++) {
-            if(array[i] == EMPTY) {
-                tempStr += "<td></td>";
-                pids += ",";
-                continue;
-            }
-            var hasSon = false;
-            for(var j=0;j<structureArray.length;j++) {
-                if(structureArray[j]["pid"] == array[i]) {
-                    hasSon = true;
-                    var className = (STRUCTURE_TYPE_COMPANY== structureArray[j]["type"])?"company":
-                        ((STRUCTURE_TYPE_DEPT== structureArray[j]["type"])?"dept":"position");
-                    tempStr += "<td";
-                    if(structureArray[j]["type"] == STRUCTURE_TYPE_POSITION) {
-                        tempStr += " onclick='chooseTd(this, " + structureArray[j]["id"] + ")'";
-                    }
-                    tempStr += " class='" + className + "' colspan='" +
-                        calculateSize(structureArray[j]["id"]) + "'>" +
-                        structureArray[j]["name"] + "</td>";
-                    pids += structureArray[j]["id"] + "," ;
-                }
-            }
-            if(hasSon == false) {
-                tempStr += "<td></td>";
-                pids += ",";
-                continue;
-            }
-        }
-        tempStr += "</tr>";
-        pids = pids.substr(0, pids.length-1);
-        if(pids.length == containCount(pids, SYMBOL_COMMA)) {
-            break;
-        }
-        html += tempStr;
-    }
-    document.getElementById("structure_table").innerHTML = html;
-}
-
-/**
- * 算id所占用的空间
- * @param id
- */
-function calculateSize(id) {
-    var hasSon = false;//是否有子元素
-    var size = 0;
-    for(var i=0;i<structureArray.length;i++) {
-        if(structureArray[i]["pid"] == id) {
-            hasSon = true;
-            size += calculateSize(structureArray[i]["id"]);
-        }
-    }
-    if(hasSon == false) {
-        size = 1;
-    }
-    return size;
-}
-
-/**
- * 选择节点
- * @param t
- * @param id
- */
-function chooseTd(t, id) {
-    //ajax操作
-    var SUCCESS_STR = "success";//成功编码
-    $.ajax({
-        type:"post",
-        async:false,
-        url:baseUrl + "updatePosition.do",
-        data:"id=" + id + "&token=" + token,
-        success:function (data, textStatus) {
-            if ((SUCCESS_STR == textStatus) && (null != data)) {
-                data = eval("(" + data + ")");
-                //判修改密码是否成功
-                if (false == data["isSuccess"]) {
-                    alert(data["message"]);
-                    return;
-                } else {
-                    //修改密码成功
-                    alert(data["message"]);
-                    cancelUpdatePosition();
-                    document.getElementById("company_td").innerHTML = data["companyName"];
-                    document.getElementById("dept_td").innerHTML = data["deptName"];
-                    document.getElementById("position_td").innerHTML = data["positionName"];
-                }
-                //判是否有新token
-                if (data["hasNewToken"]) {
-                    token = data["token"];
-                }
-            } else {
-                alert("Connection failed,please try again later!");
-            }
-        },
-        error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
-        }
-    });
-}
-
-/**
- * 修改职位
- */
-function updatePosition() {
-    document.getElementById("structure_div").style.display = EMPTY;
-}
-
-/**
- * 取消修改职位
- */
-function cancelUpdatePosition() {
-    document.getElementById("structure_div").style.display = "none";
 }
 
 //用户信息输入项
@@ -262,75 +124,75 @@ function updateInfo(){
     var birthday = document.getElementById("birthday_input").value;
     if(EMPTY != birthday) {
         if(!isNum(birthday) || birthday.length != 8) {
-            alert("生日格式不对!");
+            showAttention("生日格式不对!");
             return;
         }
     }
     //判断字符串是否含有非法字符
     var result = checkStr(birthday, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("生日包含非法字符:" + result["symbol"]);
+        showAttention("生日包含非法字符:" + result["symbol"]);
         return;
     }
 
     var officeTel = document.getElementById("office_tel_input").value;
     result = checkStr(officeTel, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("办公电话包含非法字符:" + result["symbol"]);
+        showAttention("办公电话包含非法字符:" + result["symbol"]);
         return;
     }
     var mobileTel = document.getElementById("mobile_tel_input").value;
     result = checkStr(mobileTel, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("移动电话包含非法字符:" + result["symbol"]);
+        showAttention("移动电话包含非法字符:" + result["symbol"]);
         return;
     }
     var desk = document.getElementById("desk_input").value;
     result = checkStr(desk, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("工位包含非法字符:" + result["symbol"]);
+        showAttention("工位包含非法字符:" + result["symbol"]);
         return;
     }
     var email = document.getElementById("email_input").value;
     if(EMPTY != email && !isEmail(email)) {
-        alert("email格式不对!");
+        showAttention("email格式不对!");
         return;
     }
     result = checkStr(email, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("邮件包含非法字符:" + result["symbol"]);
+        showAttention("邮件包含非法字符:" + result["symbol"]);
         return;
     }
     var qq = document.getElementById("qq_input").value;
     if(EMPTY != qq && !isNum(qq)) {
-        alert("qq格式不对!");
+        showAttention("qq格式不对!");
         return;
     }
     result = checkStr(qq, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("qq包含非法字符:" + result["symbol"]);
+        showAttention("qq包含非法字符:" + result["symbol"]);
         return;
     }
     var msn = document.getElementById("msn_input").value;
     if(EMPTY != msn && !isEmail(msn)) {
-        alert("msn格式不对!");
+        showAttention("msn格式不对!");
         return;
     }
     result = checkStr(msn, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("msn包含非法字符:" + result["symbol"]);
+        showAttention("msn包含非法字符:" + result["symbol"]);
         return;
     }
     var address = document.getElementById("address_input").value;
     result = checkStr(address, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("地址包含非法字符:" + result["symbol"]);
+        showAttention("地址包含非法字符:" + result["symbol"]);
         return;
     }
     var website = document.getElementById("website_input").value;
-    result = checkStr(website, SYMBOL_ARRAY_1);
+    result = checkStr(website, SYMBOL_ARRAY_2_CHECK_URL);
     if (result["isSuccess"] == false) {
-        alert("个人网站包含非法字符:" + result["symbol"]);
+        showAttention("个人网站包含非法字符:" + result["symbol"]);
         return;
     }
 
@@ -340,19 +202,20 @@ function updateInfo(){
         type:"post",
         async:false,
         url:baseUrl + "updateInfo.do",
-        data:"sex=" + sex + "&birthday=" + birthday + "&officeTel=" + officeTel + "&mobileTel=" + mobileTel +
-            "&desk=" + desk + "&email=" + email + "&qq=" + qq + "&msn=" + msn + "&address=" + address +
-            "&website=" + website + "&token=" + token,
+        data:"sex=" + filterStr(sex) + "&birthday=" + filterStr(birthday) + "&officeTel=" + filterStr(officeTel) +
+            "&mobileTel=" + filterStr(mobileTel) + "&desk=" + filterStr(desk) + "&email=" + filterStr(email) +
+            "&qq=" + filterStr(qq) + "&msn=" + filterStr(msn) + "&address=" + filterStr(address) + "&website=" +
+            filterStr(website) + "&token=" + token,
         success:function (data, textStatus) {
             if ((SUCCESS_STR == textStatus) && (null != data)) {
                 data = eval("(" + data + ")");
                 //判修改密码是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //修改密码成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     document.getElementById("sex_td_1").innerHTML = data["sex"];
                     document.getElementById("birthday_td_1").innerHTML = data["birthday"];
                     document.getElementById("office_tel_td_1").innerHTML = officeTel;
@@ -371,11 +234,11 @@ function updateInfo(){
                     token = data["token"];
                 }
             } else {
-                alert("Connection failed,please try again later!");
+                showAttention("服务器连接异常，请稍后再试！");
             }
         },
         error:function (data, textStatus) {
-            alert("Connection failed,please try again later!");
+            showAttention("服务器连接异常，请稍后再试！");
         }
     });
 }

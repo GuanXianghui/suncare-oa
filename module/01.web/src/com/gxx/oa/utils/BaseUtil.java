@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +24,11 @@ public class BaseUtil implements SymbolInterface {
      *
      * @param request
      */
-    public static void checkLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        //域名链接
-        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
+    public static boolean isLogin(HttpServletRequest request) throws Exception {
         if(request.getSession().getAttribute(BaseInterface.USER_KEY) == null) {
-            response.sendRedirect(baseUrl + "index.jsp");
+            return false;
         }
+        return true;
     }
 
     /**
@@ -425,5 +425,92 @@ public class BaseUtil implements SymbolInterface {
             }
         }
         return company;
+    }
+
+    /**
+     * 根据结构得到下级位置结构用户ID用逗号隔开
+     *
+     * @param structureId
+     * @return
+     * @throws Exception
+     */
+    public static String getLowerLevelPositionUserIdWithComma(int structureId) throws Exception {
+        List<User> users = getLowerLevelPositionUsers(structureId);
+        String userIdWithComma = StringUtils.EMPTY;
+        for(User temp : users){
+            if(StringUtils.isNotBlank(userIdWithComma)){
+                userIdWithComma += SYMBOL_COMMA;
+            }
+            userIdWithComma += temp.getId();
+        }
+        return userIdWithComma;
+    }
+
+    /**
+     * 根据结构得到下级位置结构用户集合
+     *
+     * @param structureId
+     * @return
+     * @throws Exception
+     */
+    public static List<User> getLowerLevelPositionUsers(int structureId) throws Exception {
+        Structure structure = StructureDao.getStructureById(structureId);
+        List<Structure> positions = getLowerLevelPositions(structure);
+        String positionWithComma = StringUtils.EMPTY;
+        for(Structure position : positions){
+            if(StringUtils.isNotBlank(positionWithComma)){
+                positionWithComma += SYMBOL_COMMA;
+            }
+            positionWithComma += position.getId();
+        }
+        List<User> users = UserDao.queryUserByPositionWithComma(positionWithComma);
+        return users;
+    }
+
+    /**
+     * 根据结构ID得到下级位置结构集合
+     *
+     * @param structureId
+     * @return
+     */
+    public static List<Structure> getLowerLevelPositions(int structureId) throws Exception {
+        Structure structure = StructureDao.getStructureById(structureId);
+        List<Structure> positions = getLowerLevelPositions(structure);
+        return positions;
+    }
+
+    /**
+     * 根据结构得到下级位置结构集合
+     *
+     * @param structure
+     * @return
+     */
+    public static List<Structure> getLowerLevelPositions(Structure structure) throws Exception {
+        List<Structure> allStructureList = StructureDao.queryAllStructures();
+        List<Structure> positions = getLowerLevelPositions(structure, allStructureList);
+        if(structure.getType() == StructureInterface.TYPE_POSITION){
+            positions.add(structure);
+        }
+        return positions;
+    }
+
+    /**
+     * 根据结构，所有公司结构得到下级位置结构
+     *
+     * @param structure
+     * @param allStructureList
+     * @return
+     */
+    public static List<Structure> getLowerLevelPositions(Structure structure, List<Structure> allStructureList){
+        List<Structure> positions = new ArrayList<Structure>();
+        for(Structure temp : allStructureList){
+            if(temp.getPid() == structure.getId()){
+                if(temp.getType() == StructureInterface.TYPE_POSITION){
+                    positions.add(temp);
+                }
+                positions.addAll(getLowerLevelPositions(temp, allStructureList));
+            }
+        }
+        return positions;
     }
 }

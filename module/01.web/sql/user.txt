@@ -11,11 +11,11 @@ create table user( #用户表
 	position int comment '职位 可为空',
 	desk varchar(50) comment '工位 可为空',
     #3
-    sex int not null comment '性别 1 男 0 女',
-    birthday varchar(8) comment '生日',
+    sex int not null comment '性别 1 男 0 女 不为空',
+    birthday varchar(8) comment '生日 可为空',
 	office_tel varchar(20) comment '办公电话 可为空',
 	mobile_tel varchar(20) comment '移动电话 可为空',
-	email varchar(100) comment '邮件 不为空',
+	email varchar(100) comment '邮件 可为空',
 	qq varchar(20) comment 'qq 可为空',
 	msn varchar(50) comment 'msn 可为空',
 	address varchar(100) comment '地址 可为空',
@@ -25,15 +25,15 @@ create table user( #用户表
     #5
 	register_date varchar(8) not null comment '注册日期 不为空',
 	register_time varchar(6) not null comment '注册时间 不为空',
-	register_ip varchar(20) not null comment '注册IP 不为空',
-	visit_date varchar(8) comment '最后访问日期 不为空',
-	visit_time varchar(6) comment '最后访问时间 不为空',
-	visit_ip varchar(20) comment '最后访问IP 不为空'
+	register_ip varchar(100) not null comment '注册IP 不为空',
+	visit_date varchar(8) comment '最后访问日期 可为空',
+	visit_time varchar(6) comment '最后访问时间 可为空',
+	visit_ip varchar(100) comment '最后访问IP 可为空'
 );
 
 #初始sql
-#User user2 = new User("关向辉", "123qwe MD5", "GXH", 1, 0,0,0, "新厂一楼销售部会议室", 1, "19890916", "61596500-8233", "13764603603",
-#            "419066357@163.com", "419066357", "4190663572008@live.cn", "上海市广衍路18弄申云小区5号楼501室",
-#            "images/header/default_head.jpg", "http://go.johst.cn/gxx/", "20140329", "220000", "127.0.0.1",
-#            "20140329", "220000", "127.0.0.1");
-#UserDao.insertUser(user2);
+User user2 = new User("段利泉", "6f2099461325b5098fd873654329c5a9", "DLQ", 1, 0,0,0, "新厂一楼销售部会议室", 1, "19890916", "61596500-8233", "13764603603",
+            "419066357@163.com", "419066357", "4190663572008@live.cn", "上海市广衍路18弄申云小区5号楼501室",
+            "images/header/default_head.jpg", "http://go.johst.cn/gxx/", "20140329", "220000", "127.0.0.1",
+            "20140329", "220000", "127.0.0.1");
+UserDao.insertUser(user2);
