@@ -152,11 +152,10 @@ function getStructureById(id){
 function chooseTd(t, id) {
     var structure = getStructureById(id);
     positionId = structure["id"];
-    cancelChoosePosition();
 
     //判断 创建用户还是修改用户
     if(createOrUpdate == 'create'){
-        document.getElementById("position_td").innerHTML = structure["name"];
+        document.getElementById("position_input").value = structure["name"];
     } else if(createOrUpdate == 'update'){
         //修改职位
         updatePosition();
@@ -167,14 +166,7 @@ function chooseTd(t, id) {
  * 选择职位
  */
 function choosePosition() {
-    document.getElementById("structure_div").style.display = EMPTY;
-}
-
-/**
- * 取消选择职位
- */
-function cancelChoosePosition() {
-    document.getElementById("structure_div").style.display = "none";
+    $("#showStructureDiv").click();
 }
 
 /**
@@ -182,7 +174,7 @@ function cancelChoosePosition() {
  */
 function changeName() {
     letter = getAllFirstPinYin(document.getElementById("name").value);
-    document.getElementById("letter").innerHTML = letter;
+    document.getElementById("letter").value = letter;
 }
 
 /**
@@ -192,11 +184,11 @@ function createUser(){
     //姓名
     var name = document.getElementById("name").value;
     if(name == EMPTY){
-        alert("请输入姓名！");
+        showAttention("请输入姓名！");
         return;
     }
     if(positionId == 0){
-        alert("请选择职位！")
+        showAttention("请选择职位！")
         return;
     }
 
@@ -212,10 +204,10 @@ function createUser(){
                 data = eval("(" + data + ")");
                 //判是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -237,7 +229,7 @@ function createUser(){
 function queryUser(){
     var name = document.getElementById("user_name").value;
     if(name == EMPTY){
-        alert("请输入姓名！");
+        showAttention("请输入姓名！");
         return;
     }
     //ajax操作
@@ -252,10 +244,10 @@ function queryUser(){
                 data = eval("(" + data + ")");
                 //判是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     userArray = transferInitJsonStr2Array(data["jsonStr"]);
                     fillUserList();
                 }
@@ -277,8 +269,8 @@ function queryUser(){
  * 填充用户
  */
 function fillUserList(){
-    var html = "<table border='1' width='100%'>" +
-        "<tr><td>用户名</td><td>重置密码</td><td>公司</td><td>部门</td><td>职位</td><td>修改职位</td><td>修改状态</td></tr>";
+    var html = "<thead><tr><th>用户名</th><th>重置密码</th><th>公司</th><th>部门</th><th>职位</th>" +
+        "<th>修改职位</th><th>修改状态</th></tr></thead>";
     if(userArray.length == 0){
         html += "<tr><td align='center' colspan='7'>无符合条件的用户</td></tr>"
     } else {
@@ -291,17 +283,17 @@ function fillUserList(){
                 "</select>";
 
             html += "<tr><td><a href=\"user.jsp?id=" + userArray[i]["id"] + "\" target=\"_blank\">" +
-                userArray[i]["name"] + "</a></td><td><button onclick='initPassword(" + userArray[i]["id"] +
-                ")'>重置密码</button></td><td>" + userArray[i]["companyName"] + "</td><td>" +
-                userArray[i]["deptName"] + "</td><td>" + userArray[i]["positionName"] + "</td>" +
-                "<td><button onclick='beforeUpdatePosition(" + userArray[i]["id"] + ")'>修改职位</button></td>" +
-                "<td>" + selectContent + "<button onclick='updateState(" + userArray[i]["id"] + ")'>修改</button></td>" +
-                "</tr>"
+                userArray[i]["name"] + "</a></td><td><input class=\"button\" type=\"button\"" +
+                " onclick='initPassword(" + userArray[i]["id"] + ")' value=\"重置密码\" />" +
+                "</td><td>" + userArray[i]["companyName"] + "</td><td>" + userArray[i]["deptName"] +
+                "</td><td>" + userArray[i]["positionName"] + "</td><td><input class=\"button\" " +
+                "type=\"button\" onclick='beforeUpdatePosition(" + userArray[i]["id"] + ")' " +
+                "value=\"修改职位\" /></td><td>" + selectContent + "<input class=\"button\" type=\"button\" " +
+                "onclick='updateState(" + userArray[i]["id"] + ")' value=\"修改\" /></td></tr>";
         }
     }
-    html += "</table>";
-
     document.getElementById("user_list").innerHTML = html;
+    $('tbody tr:even').addClass("alt-row");
 }
 
 /**
@@ -323,10 +315,10 @@ function initPassword(userId){
                 data = eval("(" + data + ")");
                 //判是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -375,10 +367,10 @@ function updatePosition(){
                 }
                 //判是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     //重新根据用户名字查用户
                     queryUser();
                 }
@@ -417,10 +409,10 @@ function updateState(userId){
                 }
                 //判是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     //重新根据用户名字查用户
                     queryUser();
                 }

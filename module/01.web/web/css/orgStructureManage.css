@@ -1,18 +1,18 @@
 @charset "utf-8";
 /* CSS Document */
-td {
-    border: 1px solid gray;
-    text-align: center;
-}
 .top {
     background-color: green;
+    color: white;
 }
 .company {
     background-color: #fa8072;
+    color: white;
 }
 .dept {
-    background-color: blue;
+    background-color: #a9a9a9;
+    color: white;
 }
 .position {
     background-color: #6a5acd;
+    color: white;
 }

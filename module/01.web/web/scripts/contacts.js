@@ -97,21 +97,25 @@ function processContacts(){
      * 依次展现通讯录中的公司架构
      */
     var html = EMPTY;
+    var head1 = "<div><div class=\"content-box\"><div class=\"content-box-header\"><h3>";
+    var head2 = "</h3><ul class=\"content-box-tabs\"><li><a href=\"\" class=\"default-tab\">通讯录</a></li>" +
+        "</ul><div class=\"clear\"></div></div><div class=\"content-box-content\"><div class=\"tab-content default-tab\">";
+    var foot = "</div></div></div>";
     for(var i=0;i<companies.length;i++){
         var company = getStructureById(companies[i]);
-        html += "<tr><td col5='1' class='company' colspan='5'>" + company["name"] + "</td></tr>";
-        html += "<tr><td>部门</td><td>职位</td><td>姓名</td><td>座机</td><td>手机</td></tr>";
+        html += head1 + company["name"] + head2;
+        html += "<table><thead><tr><th>部门</th><th>职位</th><th>姓名</th><th>座机</th><th>手机</th></tr></thead>";
         var poses = layers["company_" + company["id"] + "_pos"];
         for(var j=0;j<poses.length;j++){
             var pos = getStructureById(poses[j]);
-            html += "<tr><td col2='1' colspan='2' class='position'>" + pos["name"] + "</td><td col3='1' colspan='3'>";
+            html += "<tr><td class='position' col2='1' colspan='2'><b>" + pos["name"] + "</b></td><td col3='1' colspan='3'>";
             var users = queryUsersByPosition(pos["id"]);
             for(var l=0;l<users.length;l++){
                 if(l==0){
                     html += "<table width='100%'>"
                 }
-                html += "<tr><td><a href='" + baseUrl + "user.jsp?id=" + users[l]["id"] + "' target='_blank'>" +
-                    users[l]["name"] + "</a></td><td>" + users[l]["officeTel"] + "</td><td>" +
+                html += "<tr><td><a href='" + baseUrl + "user.jsp?id=" + users[l]["id"] + "' target='_blank'><b>" +
+                    users[l]["name"] + "</b></a></td><td>" + users[l]["officeTel"] + "</td><td>" +
                     users[l]["mobileTel"] + "</td></tr>";
                 if(l==users.length-1){
                     html += "</table>"
@@ -122,21 +126,21 @@ function processContacts(){
         var depts = layers["company_" + company["id"] + "_dept"];
         for(var j=0;j<depts.length;j++){
             var dept = getStructureById(depts[j]);
-            html += "<tr><td class='dept'>" + dept["name"] + "</td><td col4='1' colspan='4'>";
+            html += "<tr><td class='dept'><b>" + dept["name"] + "</b></td><td col4='1' colspan='4'>";
             poses = layers["company_" + company["id"] + "_dept_" + dept["id"]];
             for(var k=0;k<poses.length;k++){
                 if(k==0){
                     html += "<table width='100%'>"
                 }
                 var pos = getStructureById(poses[k]);
-                html += "<tr><td class='position'>" + pos["name"] + "</td><td col3='1' colspan='3'>";
+                html += "<tr><td class='position'><b>" + pos["name"] + "</b></td><td col3='1' colspan='3'>";
                 var users = queryUsersByPosition(pos["id"]);
                 for(var l=0;l<users.length;l++){
                     if(l==0){
                         html += "<table width='100%'>"
                     }
-                    html += "<tr><td><a href='" + baseUrl + "user.jsp?id=" + users[l]["id"] + "' target='_blank'>" +
-                        users[l]["name"] + "</a></td><td>" + users[l]["officeTel"] + "</td><td>" +
+                    html += "<tr><td><a href='" + baseUrl + "user.jsp?id=" + users[l]["id"] + "' target='_blank'><b>" +
+                        users[l]["name"] + "</b></a></td><td>" + users[l]["officeTel"] + "</td><td>" +
                         users[l]["mobileTel"] + "</td></tr>";
                     if(l==users.length-1){
                         html += "</table>"
@@ -149,14 +153,11 @@ function processContacts(){
             }
             html += "</td></tr>";
         }
-//        if(structure["type"] == STRUCTURE_TYPE_COMPANY) {
-//        } else if(structure["type"] == STRUCTURE_TYPE_DEPT) {
-//            html += "<tr><td class='dept'>" + structure["name"] + "</td></tr>";
-//        } else if(structure["type"] == STRUCTURE_TYPE_POSITION) {
-//            html += "<tr><td class='position'>" + structure["name"] + "</td></tr>";
-//        }
+        html += "</table>";
+        html += foot;
+        html += "<div class=\"clear\"></div>";
     }
-    document.getElementById("contacts_table").innerHTML = html;
+    $("#main-content").html(html+$("#main-content").html());
 }
 
 /**

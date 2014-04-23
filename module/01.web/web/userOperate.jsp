@@ -11,6 +11,12 @@
     <script type="text/javascript" src="<%=baseUrl%>scripts/userOperate.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
     <link rel="stylesheet" type="text/css" href="<%=baseUrl%>css/userOperate.css"/>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
+    <script type="text/javascript" src="scripts/facebox.js"></script>
     <script type="text/javascript">
         //所有公司结构json串
         var structureJsonStr = "<%=BaseUtil.getJsonArrayFromStructures(StructureDao.queryAllStructures())%>";
@@ -21,138 +27,165 @@
     </script>
 </head>
 <body>
-<div id="structure_div" align="center" style="position:absolute; background-color: white; width: 100%; height: 100%; display: none;">
-    <h1>组织架构</h1>
-    <div>
-        <table id="structure_table" width="80%"></table>
+<div id="body-wrapper">
+    <div id="sidebar">
+        <div id="sidebar-wrapper">
+            <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+            <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+            <div id="profile-links">
+                Hello, [<%=user.getName()%>],
+                <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+                <br/>
+                <br/>
+                <a href="javascript: logOut()" title="Sign Out">退出</a>
+            </div>
+            <ul id="main-nav">
+                <li><a href="#" class="nav-top-item current"> 用户模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                        <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                        <li><a href="<%=baseUrl%>userOperate.jsp" class="current">后台用户管理</a></li>
+                        <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                        <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 消息模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                        <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                        <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                        <li><a href="<%=baseUrl%>letter.jsp">站内信</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工作模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>diary.jsp">工作日志</a></li>
+                        <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                        <li><a href="<%=baseUrl%>task.jsp">任务</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>sms.jsp">短息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div>
-        <button onclick="cancelChoosePosition()">取消</button>
-    </div>
-</div>
-<div align="center">
-    <h1><button onclick="jump2Main()">主页</button>后台用户管理<button onclick="logOut()">退出</button></h1>
-    <div>
-        <button onclick="location.href='<%=baseUrl%>contacts.jsp'">查看用户</button>
-        <button onclick="chooseCreateUser()">创建用户</button>
-        <button onclick="chooseUpdateUser()">修改用户</button>
-    </div>
-</div>
-<div id="create_user_div" align="center" style="display: none;">
-    <table width="40%" style="border: 1px solid green;">
-        <tr>
-            <td width="50%" style="border: 1px solid green;">
-                <table>
-                    <tr>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td colspan="2">
-                                        <img src="<%=baseUrl%>images/temp1.jpg"><b>个人信息</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="leftTd">
-                                        姓名：
-                                    </td>
-                                    <td>
-                                        <input type="text" id="name" onchange="changeName()" onkeyup="changeName()">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="leftTd">
-                                        拼音缩写：
-                                    </td>
-                                    <td id="letter"/>
-                                </tr>
-                                <tr>
-                                    <td class="leftTd">
-                                        初始密码：
-                                    </td>
-                                    <td id="before_update_password_td">
-                                        <%=PropertyUtil.getInstance().getProperty(BaseInterface.DEFAULT_PASSWORD)%>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td colspan="3">
-                                        <img src="<%=baseUrl%>images/temp1.jpg"><b>工作信息</b>
-                                    </td>
-                                </tr>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--公司：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="company_td">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--部门：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="dept_td">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <tr>
-                                    <td class="leftTd">
-                                        职位：
-                                    </td>
-                                    <td id="position_td">
-                                    </td>
-                                    <td id="update_position_td">
-                                        <button onclick="createOrUpdate='create';choosePosition();">选择职位</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <img src="<%=baseUrl%>images/temp1.jpg"><b>头像信息</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td class="leftTd">
-                                        头像：
-                                    </td>
-                                    <td id="before_upload_head_photo_td">
-                                        <img src="<%=baseUrl + PropertyUtil.getInstance().getProperty(BaseInterface.DEFAULT_HEAD_PHOTO)%>" width="54px"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <button onclick="createUser()">创建</button>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-</div>
-<div id="update_user_div" align="center" style="">
-    <table width="60%" style="border: 1px solid green;">
-        <tr>
-            <td style="border: 1px solid green;" align="center">
-                姓名：<input type="text" id="user_name"><button onclick="queryUser()">查询</button>(可输入缩写如：严明皓->ymh)
-            </td>
-        </tr>
-        <tr>
-            <td id="user_list">
 
-            </td>
-        </tr>
-    </table>
+    <div id="structure_div" align="center" style="width: 100%; display: none;">
+        <h1>组织架构</h1>
+        <div>
+            <table id="structure_table" width="100%"></table>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <ul class="shortcut-buttons-set">
+            <li>
+                <a class="shortcut-button" href="contacts.jsp">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>查看用户
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="javascript: chooseCreateUser();">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>创建用户
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="javascript: chooseUpdateUser();">
+                    <span>
+                        <img src="images/icons/pencil_48.png" alt="icon"/>
+                        <br/>修改用户
+                    </span>
+                </a>
+            </li>
+            <li style="display: none;">
+                <a id="showStructureDiv" class="shortcut-button" href="#structure_div" rel="modal"></a>
+            </li>
+        </ul>
+
+        <div class="clear"></div>
+
+        <div id="message_id" class="notification information png_bg" style="display: none;">
+            <a href="#" class="close">
+                <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+            </a>
+
+            <div id="message_id_content"> 提示信息！</div>
+        </div>
+
+        <div class="content-box" id="create_user_div" style="display: none;">
+            <div class="content-box-header">
+                <h3>创建用户</h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab1" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab1">
+                    <form onsubmit="return false;">
+                        <fieldset>
+                            <p>
+                                <span>姓名</span>&nbsp;&nbsp;
+                                <input class="text-input small-input" type="text" id="name"
+                                       onchange="changeName()" onkeyup="changeName()"/>&nbsp;&nbsp;
+                                <span>拼音缩写</span>&nbsp;&nbsp;
+                                <input id="letter" class="text-input small-input" type="text" disabled="disabled"/>&nbsp;&nbsp;
+                                <span>初始密码</span>&nbsp;&nbsp;
+                                <input class="text-input small-input" type="text" disabled="disabled"
+                                       value="<%=PropertyUtil.getInstance().getProperty(BaseInterface.DEFAULT_PASSWORD)%>"/><br>
+                                <span>职位</span>&nbsp;&nbsp;
+                                <input id="position_input" class="text-input small-input" type="text" disabled="disabled"/>&nbsp;&nbsp;
+                                <input class="button" type="button" onclick="createOrUpdate='create';choosePosition();" value="选择职位" />
+                                <input class="button" type="button" onclick="createUser();" value="创建" />
+                            </p>
+                        </fieldset>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content-box" id="update_user_div" style="display: block;">
+            <div class="content-box-header">
+                <h3>修改用户</h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab2" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab2">
+                    <form onsubmit="return false;">
+                        <fieldset>
+                            <p>
+                                <span>姓名</span>&nbsp;&nbsp;
+                                <input class="text-input small-input" type="text" id="user_name"/>&nbsp;&nbsp;
+                                <input class="button" type="button" onclick="queryUser();" value="查询" />(可输入缩写如：严明皓->ymh)
+                            </p>
+                            <table id="user_list"/>
+                        </fieldset>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <small>
+                &#169; Copyright 2014 Suncare | Powered by 关向辉
+            </small>
+        </div>
+    </div>
 </div>
 </body>
 </html>

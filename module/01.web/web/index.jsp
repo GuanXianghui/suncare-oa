@@ -20,7 +20,7 @@
         <img id="logo" src="images/suncare-files-logo.png" alt="申成-文件系统" />
     </div>
     <div id="login-content">
-        <form>
+        <form onsubmit="return false;">
             <div id="message_id" class="notification information png_bg" style="display: none;">
                 <a href="#" class="close">
                     <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>

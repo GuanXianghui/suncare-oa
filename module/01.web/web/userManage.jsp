@@ -110,7 +110,7 @@
             </div>
             <div class="content-box-content">
                 <div class="tab-content default-tab">
-                    <form>
+                    <form onsubmit="return false;">
                         <table>
                             <tr>
                                 <td>姓名</td>
@@ -126,7 +126,7 @@
                                     <input class="button" type="button" onclick="beforeUpdatePassword();" value="修改密码">
                                 </td>
                                 <td id="update_password_td" style="display: none;">
-                                    <input class="text-input between-medium-large-input" type="password" id="password">
+                                    <input class="text-input medium-input" type="password" id="password">
                                     <input class="button" type="button" onclick="updatePassword();" value="修改">
                                     <input class="button" type="button" onclick="cancelUpdatePassword();" value="取消">
                                 </td>
@@ -142,7 +142,7 @@
             </div>
             <div class="content-box-content">
                 <div class="tab-content default-tab">
-                    <form>
+                    <form onsubmit="return false;">
                         <table>
                             <tr>
                                 <td>公司</td>
@@ -169,7 +169,7 @@
             </div>
             <div class="content-box-content">
                 <div class="tab-content default-tab">
-                    <form>
+                    <form onsubmit="return false;">
                         <table>
                             <tr>
                                 <td>性别</td>
@@ -303,164 +303,6 @@
     </div>
 </div>
 </div>
-
-<%--<div id="structure_div" align="center" style="position:absolute; background-color: white; width: 100%; height: 100%; display: none;">--%>
-    <%--<h1>组织架构</h1>--%>
-    <%--<div>--%>
-        <%--<table id="structure_table" width="80%"></table>--%>
-    <%--</div>--%>
-    <%--<div>--%>
-        <%--<button onclick="cancelUpdatePosition()">取消</button>--%>
-    <%--</div>--%>
-<%--</div>--%>
-
-<%--<div align="center">--%>
-    <%--<h1><button onclick="jump2Main()">主页</button>用户管理<button onclick="logOut()">退出</button></h1>--%>
-<%--</div>--%>
-
-<%--<div align="center" style="border: 1px solid green;">--%>
-    <%--<table width="80%" style="border: 1px solid green;">--%>
-        <%--<tr>--%>
-            <%--<td width="50%" style="border: 1px solid green;">--%>
-                <%--<table>--%>
-                    <%--<tr>--%>
-                        <%--<td>--%>
-                            <%--<table>--%>
-                                <%--<tr>--%>
-                                    <%--<td colspan="2">--%>
-                                        <%--<img src="<%=baseUrl%>images/temp1.jpg"><b>用户信息</b>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--性别：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="sex_td_1">--%>
-                                        <%--<%=BaseUtil.translateUserSex(user.getSex())%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="sex_td_2" style="display: none;">--%>
-                                        <%--<select id="sex_select">--%>
-                                            <%--<option value="<%=UserInterface.SEX_X%>"<%=(UserInterface.SEX_X==user.getSex())?" SELECTED":""%>>男</option>--%>
-                                            <%--<option value="<%=UserInterface.SEX_O%>"<%=(UserInterface.SEX_O==user.getSex())?" SELECTED":""%>>女</option>--%>
-                                        <%--</select>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--生日：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="birthday_td_1">--%>
-                                        <%--<%=DateUtil.getCNDate(DateUtil.getDate(user.getBirthday()))%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="birthday_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="birthday_input" value="<%=user.getBirthday()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--办公电话：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="office_tel_td_1">--%>
-                                        <%--<%=user.getOfficeTel()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="office_tel_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="office_tel_input" value="<%=user.getOfficeTel()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--移动电话：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="mobile_tel_td_1">--%>
-                                        <%--<%=user.getMobileTel()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="mobile_tel_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="mobile_tel_input" value="<%=user.getMobileTel()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--工位：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="desk_td_1">--%>
-                                        <%--<%=user.getDesk()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="desk_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="desk_input" value="<%=user.getDesk()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--邮件：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="email_td_1">--%>
-                                        <%--<%=user.getEmail()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="email_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="email_input" value="<%=user.getEmail()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--qq：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="qq_td_1">--%>
-                                        <%--<%=user.getQq()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="qq_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="qq_input" value="<%=user.getQq()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--msn：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="msn_td_1">--%>
-                                        <%--<%=user.getMsn()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="msn_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="msn_input" value="<%=user.getMsn()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--地址：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="address_td_1">--%>
-                                        <%--<%=user.getAddress()%>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="address_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="address_input" value="<%=user.getAddress()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td class="leftTd">--%>
-                                        <%--个人网站：--%>
-                                    <%--</td>--%>
-                                    <%--<td id="website_td_1">--%>
-                                        <%--<a href="<%=user.getWebsite()%>" target="_blank"><%=user.getWebsite()%></a>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="website_td_2" style="display: none;">--%>
-                                        <%--<input type="text" id="website_input" value="<%=user.getWebsite()%>">--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                                <%--<tr>--%>
-                                    <%--<td id="before_update_info_td">--%>
-                                        <%--<button onclick="beforeUpdateInfo();">修改用户信息</button>--%>
-                                    <%--</td>--%>
-                                    <%--<td id="update_info_td" style="display: none;">--%>
-                                        <%--<input type="button" onclick="updateInfo()" value="修改"/>--%>
-                                        <%--<input type="button" onclick="cancelUpdateInfo();" value="取消"/>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
-                            <%--</table>--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                <%--</table>--%>
-            <%--</td>--%>
-        <%--</tr>--%>
-    <%--</table>--%>
-<%--</div>--%>
 </body>
 </html>
 <%}%>

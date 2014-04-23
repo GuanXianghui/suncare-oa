@@ -25,7 +25,8 @@ function processWithJson() {
         }
     }
     //组织所有公司结构表格
-    var html = "<tr><td onclick='chooseTd(this, 0)' class='top' colspan='" + calculateSize(0) + "'>组织架构</td></tr>";
+    var html = "<tr><td class='top' style='cursor: pointer' onclick='chooseTd(this, 0)' colspan='" +
+        calculateSize(0) + "'>组织架构</td></tr>";
     /**
      * pids格式:1,2,,,3
      * 空的可能是上一层某个没有子元素了
@@ -39,7 +40,7 @@ function processWithJson() {
         var tempStr = "<tr>";
         for(var i=0;i<array.length;i++) {
             if(array[i] == EMPTY) {
-                tempStr += "<td></td>";
+                tempStr += "<td style='border: 0px;'></td>";
                 pids += ",";
                 continue;
             }
@@ -49,7 +50,7 @@ function processWithJson() {
                     hasSon = true;
                     var className = (STRUCTURE_TYPE_COMPANY== structureArray[j]["type"])?"company":
                         ((STRUCTURE_TYPE_DEPT== structureArray[j]["type"])?"dept":"position");
-                    tempStr += "<td onclick='chooseTd(this, " + structureArray[j]["id"] +
+                    tempStr += "<td style='cursor: pointer' onclick='chooseTd(this, " + structureArray[j]["id"] +
                         ")' class='" + className + "' colspan='" +
                         calculateSize(structureArray[j]["id"]) + "'>" +
                         structureArray[j]["name"] + "</td>";
@@ -57,7 +58,7 @@ function processWithJson() {
                 }
             }
             if(hasSon == false) {
-                tempStr += "<td></td>";
+                tempStr += "<td style='border: 0px;'></td>";
                 pids += ",";
                 continue;
             }
@@ -118,7 +119,7 @@ function chooseTd(t, id) {
  */
 function checkNode(type) {
     if(chooseNode == null) {
-        alert("请选择节点");
+        showAttention("请选择节点");
         return false;
     }
     if("move2Left" == type && chooseId == 0) {
@@ -128,24 +129,24 @@ function checkNode(type) {
         return false;
     }
     if("updateNode" == type && chooseId == 0) {
-        alert("该节点不能修改");
+        showAttention("该节点不能修改");
         return false;
     }
     if("deleteNode" == type && chooseId == 0) {
-        alert("该节点不能删除");
+        showAttention("该节点不能删除");
         return false;
     }
     if("addNode" == type) {
         var name = document.getElementById("name1").value;
         if(name == EMPTY) {
-            alert("请输入名称");
+            showAttention("请输入名称");
             return false;
         }
     }
     if("updateNode" == type) {
         var name = document.getElementById("name2").value;
         if(name == EMPTY) {
-            alert("请输入名称");
+            showAttention("请输入名称");
             return false;
         }
     }
@@ -198,9 +199,9 @@ function addNode() {
     var type = document.getElementById("type1").value;
     var name = document.getElementById("name1").value;
     // 判断字符串是否含有非法字符
-    var result = checkStr(name, SYMBOL_ARRAY_ALL);
+    var result = checkStr(name, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("节点名称包含非法字符:" + result["symbol"]);
+        showAttention("节点名称包含非法字符:" + result["symbol"]);
         return;
     }
     manageOrgStructure("addNode", chooseId, type, name);
@@ -216,9 +217,9 @@ function updateNode() {
     var type = document.getElementById("type2").value;
     var name = document.getElementById("name2").value;
     // 判断字符串是否含有非法字符
-    var result = checkStr(name, SYMBOL_ARRAY_ALL);
+    var result = checkStr(name, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("节点名称包含非法字符:" + result["symbol"]);
+        showAttention("节点名称包含非法字符:" + result["symbol"]);
         return;
     }
     manageOrgStructure("updateNode", chooseId, type, name);
@@ -254,11 +255,11 @@ function manageOrgStructure(configType, id, type, name) {
                 data = eval("(" + data + ")");
                 //判修改密码是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //修改密码成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     //所有公司结构json串
                     structureJsonStr = (data["newStructureJsonStr"]);
                     //所有公司结构Json数组
