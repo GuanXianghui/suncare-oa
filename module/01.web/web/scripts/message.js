@@ -39,19 +39,19 @@ function transferInitJsonStr2Array(jsonStr){
  * 处理消息Json串
  */
 function processWithJson(){
+
     //循环展示
-    var html = "<tr><td width=\"20%\">消息来源用户头像</td><td width=\"20%\">消息来源用户名称</td><td width=\"20%\">是否已读</td>" +
-        "<td width=\"20%\">时间</td><td width=\"20%\">操作</td></tr>";
+    var html = "<thead><tr><th>消息来源用户</th><th>是否已读</th><th>时间</th><th>操作</th></tr></thead>";
     for(var i=0;i<messageArray.length;i++){
         var isReaded = "未读";
         if(messageArray[i]["state"] == MESSAGE_STATE_READED){
             isReaded = "已读";
         }
-        html += "<tr><td><img width='54px' src='" + messageArray[i]["headPhoto"] + "'></td><td><a href='" +
+        html += "<tr><td style='vertical-align: middle;'><img width='27px' src='" + messageArray[i]["headPhoto"] + "'><a href='" +
             messageArray[i]["url"] + "' target='_blank'>" + messageArray[i]["fromUserName"] + "</a></td><td>" +
-            isReaded + "</td><td>" + messageArray[i]["date"] + "</td>" + "<td>" +
-            "<button onclick=\"showMessage(" + messageArray[i]["id"] + ")\">查看</button>" +
-            "<button onclick=\"deleteMessage(" + messageArray[i]["id"] + ")\">删除</button>" +
+            isReaded + "</td><td>" + messageArray[i]["date"] + " " + messageArray[i]["time"] + "</td>" + "<td>" +
+            "<input class=\"button\" type=\"button\" onclick=\"showMessageDetail(" + messageArray[i]["id"] + ")\" value=\"查看\" />" +
+            "<input class=\"button\" type=\"button\" onclick=\"deleteMessage(" + messageArray[i]["id"] + ")\" value=\"删除\" />" +
             "</td>" +
             "</tr>";
     }
@@ -101,11 +101,11 @@ function deleteMessage(messageId){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     //根据id删除消息
                     deleteMessageById(messageId);
                     //总共消息的量要减一
@@ -114,6 +114,7 @@ function deleteMessage(messageId){
                     processWithJson();
                     //检查是否还有下一页
                     checkHasNextPage();
+                    $('tbody tr:even').addClass("alt-row");
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -133,7 +134,7 @@ function deleteMessage(messageId){
  * 查看消息
  * @param messageId
  */
-function showMessage(messageId){
+function showMessageDetail(messageId){
     //显示查看框
     document.getElementById("showMessageDiv").style.display = EMPTY;
     //编译html
@@ -167,17 +168,18 @@ function showMessage(messageId){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     //修改已读
                     getMessageById(messageId)["state"] = MESSAGE_STATE_READED
                     //处理消息Json串
                     processWithJson();
                     //检查是否还有下一页
                     checkHasNextPage();
+                    $('tbody tr:even').addClass("alt-row");
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -220,11 +222,11 @@ function showNextPageMessages(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var nextPageJson = data["nextPageJson"];
                     if(EMPTY != nextPageJson) {
                         //把初始messageJsonStr转换成messageArray
@@ -235,6 +237,7 @@ function showNextPageMessages(){
                     processWithJson();
                     //检查是否还有下一页
                     checkHasNextPage();
+                    $('tbody tr:even').addClass("alt-row");
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {

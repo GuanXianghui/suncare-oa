@@ -172,7 +172,7 @@
                                 <input class="text-input small-input" type="text" id="user_name"/>&nbsp;&nbsp;
                                 <input class="button" type="button" onclick="queryUser();" value="查询" />(可输入缩写如：严明皓->ymh)
                             </p>
-                            <table id="user_list"/>
+                            <table id="user_list"></table>
                         </fieldset>
                         <div class="clear"></div>
                     </form>

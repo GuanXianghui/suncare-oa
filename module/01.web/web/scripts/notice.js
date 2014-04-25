@@ -37,7 +37,7 @@ function processWithJson(){
             }
         }
     }
-    var html = "<tr><td width=\"40%\">标题</td><td width=\"20%\">是否已读</td><td width=\"20%\">时间</td><td width=\"20%\">操作</td></tr>";
+    var html = "<thead><tr><th>标题</th><th>是否已读</th><th>时间</th><th>操作</th></tr></thead>";
     for(var i=0;i<noticeArray.length;i++){
         var isReaded = "未读";
         if((SYMBOL_COMMA + readedIds + SYMBOL_COMMA).indexOf(SYMBOL_COMMA + noticeArray[i]["id"] + SYMBOL_COMMA) > -1){
@@ -45,12 +45,13 @@ function processWithJson(){
         }
         html += "<tr><td>" + noticeArray[i]["title"] + "</td><td>" + isReaded + "</td><td>" + noticeArray[i]["createDate"] + "</td>" +
             "<td>" +
-            "<button onclick=\"showNotice(" + noticeArray[i]["id"] + ")\">查看</button>" +
-            "<button onclick=\"deleteNotice(" + noticeArray[i]["id"] + ")\">删除</button>" +
+            "<input class=\"button\" type=\"button\" onclick=\"showNotice(" + noticeArray[i]["id"] + ")\" value=\"查看\" />" +
+            "<input class=\"button\" type=\"button\" onclick=\"deleteNotice(" + noticeArray[i]["id"] + ")\" value=\"删除\" />" +
             "</td>" +
             "</tr>";
     }
     document.getElementById("notice_table").innerHTML = html;
+    $('tbody tr:even').addClass("alt-row");
 }
 
 /**
@@ -83,11 +84,11 @@ function deleteNotice(noticeId){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     if(deletedIds != EMPTY){
                         deletedIds += SYMBOL_COMMA;
                     }
@@ -121,7 +122,7 @@ function showNotice(noticeId){
     //显示查看框
     document.getElementById("showNoticeDiv").style.display = EMPTY;
     //编译html
-    document.getElementById("showNoticeTitleDiv").innerHTML = "<b>标题:" + getNoticeById(noticeId)["title"] + "</b>";
+    document.getElementById("showNoticeTitleDiv").innerHTML = "<h2>" + getNoticeById(noticeId)["title"] + "</h2>";
     var content = getNoticeById(noticeId)["content"];
     //将uuid->\r\n
     content = changeNewLineBack(content);
@@ -152,11 +153,11 @@ function showNotice(noticeId){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     if(readedIds != EMPTY){
                         readedIds += SYMBOL_COMMA;
                     }
@@ -207,11 +208,11 @@ function showNextPageNotices(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var nextPageJson = data["nextPageJson"];
                     if(EMPTY != nextPageJson) {
                         noticeJsonStr += SYMBOL_LOGIC_AND + nextPageJson;
@@ -233,4 +234,19 @@ function showNextPageNotices(){
             showAttention("服务器连接异常，请稍后再试！");
         }
     });
+}
+
+/**
+ * 切换模式
+ */
+function changeMode(){
+    var className = $("#content-box1").attr("class");
+    if("content-box" == className){
+        $("#content-box1").attr("class", "content-box column-left");
+        $("#content-box2").attr("class", "content-box column-right");
+    } else {
+        $("#content-box1").attr("class", "content-box");
+        $("#content-box2").attr("class", "content-box");
+    }
+    return false;
 }
