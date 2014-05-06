@@ -64,7 +64,7 @@
             </li>
             <li><a href="#" class="nav-top-item"> 工具模块 </a>
                 <ul>
-                    <li><a href="<%=baseUrl%>sms.jsp">短息</a></li>
+                    <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
                 </ul>
             </li>
         </ul>

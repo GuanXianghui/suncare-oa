@@ -37,137 +37,259 @@
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.all.min.js"> </script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>
+    <%--<script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>--%>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.parse.min.js"></script>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript">
         //工作日志id
         var diaryId = <%=id%>;
     </script>
+    <style type="text/css">
+        td{
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-    <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>查看工作日志<button onclick="logOut()">退出</button></h1>
-        <div>
-            <%
-                if(diary.getUserId() == user.getId()){
-            %>
-            <button onclick="beforeUpdateDiary()">修改</button>
-            <button onclick="deleteDiary()">删除</button>
-            <%
-                }
-            %>
+<div id="body-wrapper">
+    <div id="sidebar">
+        <div id="sidebar-wrapper">
+            <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+            <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+            <div id="profile-links">
+                Hello, [<%=user.getName()%>],
+                <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+                <br/>
+                <br/>
+                <a href="javascript: logOut()" title="Sign Out">退出</a>
+            </div>
+            <ul id="main-nav">
+                <li><a href="#" class="nav-top-item"> 用户模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                        <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                        <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
+                        <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                        <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 消息模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                        <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                        <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                        <li><a href="<%=baseUrl%>letter.jsp">站内信</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item current"> 工作模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>diary.jsp" class="current">工作日志</a></li>
+                        <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                        <li><a href="<%=baseUrl%>task.jsp">任务</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        <div>
-            <div id="showDiv">
-                <div>日志日期：<b><%=diary.getDate()%></b></div>
-                <div>用户：<a href="<%=baseUrl%>user.jsp?id=<%=diaryUser.getId()%>" target="_blank"><%=diaryUser.getName()%></a></div>
-                <div>创建日期：<%=diary.getCreateDate()%></div>
-                <%
-                    if(StringUtils.isNotBlank(diary.getUpdateDate())){
-                %>
-                <div>修改日期：<%=diary.getUpdateDate()%></div>
-                <%
-                    }
-                %>
-                <div id="showContent">
-                    <%=diary.getContent()%>
-                </div>
-                <div id="initContent" style="display: none"><%=diary.getContent()%></div>
-                <div>
+    </div>
+
+    <div id="main-content">
+
+        <%
+            if(diary.getUserId() == user.getId()){
+        %>
+        <ul class="shortcut-buttons-set">
+            <li>
+                <a class="shortcut-button" href="javascript: beforeUpdateDiary()">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>修改
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="javascript: deleteDiary()">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>删除
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <%
+            }
+        %>
+
+        <div class="clear"></div>
+
+        <div id="message_id" class="notification information png_bg" style="display: none;">
+            <a href="#" class="close">
+                <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+            </a>
+
+            <div id="message_id_content"> 提示信息！</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>查看日志</h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab2" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab2">
                     <div>
-                        点赞：
-                        <%
-                            boolean hasZan = false;//没有点赞过
-                            for(DiaryReview diaryReview : diaryReviews){
-                                //点赞
-                                if(com.gxx.oa.interfaces.DiaryReviewInterface.TYPE_ZAN != diaryReview.getType()){
-                                    continue;
-                                }
-                                User tempUser = UserDao.getUserById(diaryReview.getUserId());
-                                if(tempUser.getId() == user.getId()){
-                                    hasZan = true;
-                                }
-                        %>
-                            <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=diaryReview.getUserId()%>"><img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
-                        <%
-                            }
-                        %>
-                        <%
-                            if(hasZan){//点过赞
-                        %>
-                        <button onclick="cancelZan()">取消赞</button>
-                        <%
-                        } else {//没有点过赞
-                        %>
-                        <button onclick="clickZan()">点赞</button>
-                        <%
-                            }
-                        %>
-                    </div>
-                    <div>
-                        评论： <button onclick="beforeReview()">评论</button>
-                        <table>
-                            <%
-                                for(DiaryReview diaryReview : diaryReviews){
-                                    //不是点赞，而是留言或者回复
-                                    if(com.gxx.oa.interfaces.DiaryReviewInterface.TYPE_ZAN == diaryReview.getType()){
-                                        continue;
-                                    }
-                                    boolean isReply = false;
-                                    User repliedUser = null;
-                                    if(DiaryReviewInterface.TYPE_REPLY == diaryReview.getType()){
-                                        isReply = true;
-                                        repliedUser = UserDao.getUserById(diaryReview.getRepliedUserId());
-                                    }
-                                    User tempUser = UserDao.getUserById(diaryReview.getUserId());
-                            %>
-                            <tr>
-                                <td>
-                                    <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=diaryReview.getUserId()%>">
-                                    <img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
-                                </td>
-                                <td id="review_desc_<%=diaryReview.getId()%>"><b><%=tempUser.getName()%>：</b><%=isReply?"回复<b>" + repliedUser.getName() + "</b>：":""%></td>
-                                <td id="review_content_<%=diaryReview.getId()%>"><%=diaryReview.getContent()%></td>
-                                <td><%=diaryReview.getCreateDate()%></td>
-                                <td>
-                                    <button onclick="beforeReplyDiaryReview(<%=diaryReview.getId()%>)">回复</button>
+                        <div id="showDiv">
+                            <form>
+                                <table>
+                                    <tr><td width="10%">日志日期：</td><td><b><input class="text-input small-input" type="text" value="<%=diary.getDate()%>" disabled="disabled"/></b></td></tr>
+                                    <tr><td>用户：</td><td><a href="<%=baseUrl%>user.jsp?id=<%=diaryUser.getId()%>" target="_blank"><%=diaryUser.getName()%></a></td></tr>
+                                    <tr><td>创建时间：</td><td><input class="text-input small-input" disabled="disabled" type="text" value="<%=diary.getCreateDate()%> <%=diary.getCreateTime()%>"/></td></tr>
                                     <%
-                                        if(tempUser.getId() == user.getId()){
+                                        if(StringUtils.isNotBlank(diary.getUpdateDate())){
                                     %>
-                                    <button onclick="beforeUpdateDiaryReview(<%=diaryReview.getId()%>)">修改</button>
-                                    <button onclick="deleteDiaryReview(<%=diaryReview.getId()%>)">删除</button>
+                                    <tr><td>修改日期：</td><td><input class="text-input small-input" type="text" value="<%=diary.getUpdateDate()%>"/></td></tr>
                                     <%
                                         }
                                     %>
-                                </td>
-                            </tr>
-                            <%
-                                }
-                            %>
-                        </table>
-                        <div id="review_div" style="display: none;">
-                            <span id="review_desc">你的评语：</span><input type="text" id="review_content">
-                            <button onclick="review()">提交</button><button onclick="cancelReview()">取消</button>
+                                    <tr><td>内容：</td><td>
+                                        <div id="showContent" style="overflow: auto;">
+                                            <%=diary.getContent()%>
+                                        </div>
+                                        <div id="initContent" style="display: none;">
+                                            <%=diary.getContent()%>
+                                        </div>
+                                    </td></tr>
+                                    <tr>
+                                        <td>点赞：</td>
+                                        <td>
+                                            <%
+                                                int countZan = 0;//赞数量
+                                                boolean hasZan = false;//没有点赞过
+                                                for(DiaryReview diaryReview : diaryReviews){
+                                                    //点赞
+                                                    if(com.gxx.oa.interfaces.DiaryReviewInterface.TYPE_ZAN != diaryReview.getType()){
+                                                        continue;
+                                                    }
+                                                    countZan ++;
+                                                    User tempUser = UserDao.getUserById(diaryReview.getUserId());
+                                                    if(tempUser.getId() == user.getId()){
+                                                        hasZan = true;
+                                                    }
+                                            %>
+                                            <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=diaryReview.getUserId()%>">
+                                                <img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
+                                            <%
+                                                }
+                                            %>
+                                            <%
+                                                if(hasZan){//点过赞
+                                            %>
+                                            <input class="button" type="button" onclick="cancelZan()" value="取消赞" />
+                                            <%
+                                            } else {//没有点过赞
+                                            %>
+                                            <input class="button" type="button" onclick="clickZan()" value="点赞" />
+                                            <%
+                                                }
+                                            %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>评论：</td>
+                                        <td>
+                                            <input class="button" type="button" onclick="beforeReview()" value="评论" />
+                                        </td>
+                                    </tr>
+                                    <tr <%=diaryReviews.size()==countZan?"style='display: none;'":""%>>
+                                        <td colspan="2">
+                                            <table>
+                                                <%
+                                                    for(DiaryReview diaryReview : diaryReviews){
+                                                        //不是点赞，而是留言或者回复
+                                                        if(com.gxx.oa.interfaces.DiaryReviewInterface.TYPE_ZAN == diaryReview.getType()){
+                                                            continue;
+                                                        }
+                                                        boolean isReply = false;
+                                                        User repliedUser = null;
+                                                        if(DiaryReviewInterface.TYPE_REPLY == diaryReview.getType()){
+                                                            isReply = true;
+                                                            repliedUser = UserDao.getUserById(diaryReview.getRepliedUserId());
+                                                        }
+                                                        User tempUser = UserDao.getUserById(diaryReview.getUserId());
+                                                %>
+                                                <tr>
+                                                    <td width="10%">
+                                                        <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=diaryReview.getUserId()%>">
+                                                            <img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
+                                                    </td>
+                                                    <td width="10%" id="review_desc_<%=diaryReview.getId()%>"><b><%=tempUser.getName()%>：</b><%=isReply?"回复<b>" + repliedUser.getName() + "</b>：":""%></td>
+                                                    <td width="50%" id="review_content_<%=diaryReview.getId()%>"><%=diaryReview.getContent()%></td>
+                                                    <td width="10%"><%=diaryReview.getCreateDate()%></td>
+                                                    <td width="20%">
+                                                        <input class="button" type="button" onclick="beforeReplyDiaryReview(<%=diaryReview.getId()%>)" value="回复" />
+                                                        <%
+                                                            if(tempUser.getId() == user.getId()){
+                                                        %>
+                                                        <input class="button" type="button" onclick="beforeUpdateDiaryReview(<%=diaryReview.getId()%>)" value="修改" />
+                                                        <input class="button" type="button" onclick="deleteDiaryReview(<%=diaryReview.getId()%>)" value="删除" />
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </td>
+                                                </tr>
+                                                <%
+                                                    }
+                                                %>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr id="review_div" style="display: none;">
+                                        <td colspan="2">
+                                            <span id="review_desc">你的评语：</span><input class="text-input small-input" type="text" id="review_content"/>
+                                            <input class="button" type="button" onclick="review()" value="提交" />
+                                            <input class="button" type="button" onclick="cancelReview()" value="取消" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+
+                        <div id="updateDiv" style="display:none;">
+                            <form name="updateDiaryForm" action="<%=baseUrl%>updateDiary.do" method="post">
+                                <table>
+                                    <input type="hidden" id="token" name="token" value="<%=token%>">
+                                    <input type="hidden" id="diaryId" name="diaryId" value="<%=diary.getId()%>">
+                                    <tr><td>日期:</td><td><input class="text-input small-input" type="text" id="date" name="date" value="<%=diary.getDate()%>"/></td></tr>
+                                    <textarea style="display: none;" id="content" name="content"></textarea>
+                                </table>
+                            </form>
+                            <script id="editor" type="text/plain"></script>
+                            <input class="button" type="button" onclick="updateDiary()" value="修改" />
+                            <input class="button" type="button" onclick="cancelUpdateDiary()" value="取消" />
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div id="updateDiv" style="display:none; border: 1px solid gray; width: 80%;">
-                <form name="updateDiaryForm" action="<%=baseUrl%>updateDiary.do" method="post">
-                    <table>
-                        <input type="hidden" id="token" name="token" value="<%=token%>">
-                        <input type="hidden" id="diaryId" name="diaryId" value="<%=diary.getId()%>">
-                        <tr><td>日期:</td><td><input type="text" id="date" name="date" value="<%=diary.getDate()%>"></td></tr>
-                        <textarea style="display: none;" id="content" name="content"></textarea>
-                    </table>
-                </form>
-                <script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
-                <input type="button" value="修改" onclick="updateDiary()">
-                <input type="button" value="取消" onclick="cancelUpdateDiary()">
-            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <small>
+                &#169; Copyright 2014 Suncare | Powered by 关向辉
+            </small>
         </div>
     </div>
+</div>
 </body>
 </html>
 <%}%>

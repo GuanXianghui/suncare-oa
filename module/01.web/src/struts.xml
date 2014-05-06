@@ -44,7 +44,7 @@
         <action name="operateMessage" class="com.gxx.oa.OperateMessageAction"/>
         <action name="writeLetter" class="com.gxx.oa.WriteLetterAction">
             <result>
-                /writeLetter.jsp
+                /letter.jsp?box=sent
             </result>
             <result name="error">
                 /writeLetter.jsp
@@ -54,7 +54,7 @@
         <action name="operateDiary" class="com.gxx.oa.OperateDiaryAction"/>
         <action name="writeDiary" class="com.gxx.oa.WriteDiaryAction">
             <result>
-                /writeDiary.jsp
+                /diary.jsp
             </result>
             <result name="error">
                 /writeDiary.jsp
@@ -72,7 +72,7 @@
         <action name="operateTask" class="com.gxx.oa.OperateTaskAction"/>
         <action name="writeTask" class="com.gxx.oa.WriteTaskAction">
             <result>
-                /writeTask.jsp
+                /task.jsp
             </result>
             <result name="error">
                 /writeTask.jsp

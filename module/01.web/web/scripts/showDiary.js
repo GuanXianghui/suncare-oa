@@ -9,6 +9,9 @@ var updateReviewId = 0;//修改评论id
  * 初始化
  */
 $(document).ready(function() {
+    if(message != EMPTY){
+        showInformation(message);
+    }
     uParse("#showContent", {rootPath: baseUrl + '/ueditor/'});
 
     //实例化编辑器
@@ -39,12 +42,12 @@ function cancelUpdateDiary(){
 function updateDiary(){
     var date = document.getElementById("date").value;
     if(date == EMPTY){
-        alert("请输入日期");
+        showAttention("请输入日期");
         return false;
     }
     var content = editor.getContent();
     if(content.length > DIARY_CONTENT_LENGTH) {
-        alert("工作日志内容大于" + DIARY_CONTENT_LENGTH + "个字符");
+        showAttention("工作日志内容大于" + DIARY_CONTENT_LENGTH + "个字符");
         return false;
     }
     document.getElementById("content").value = content;
@@ -68,11 +71,11 @@ function deleteDiary(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //请求成功
-                    alert(data["message"]);
-                    location.href = baseUrl + "diary.jsp";
+                    //showSuccess(data["message"]);
+                    location.href = baseUrl + "diary.jsp?message=delete diray success!";
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -104,12 +107,12 @@ function clickZan(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    //showSuccess(data["message"]);
                     //刷新页面
-                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId;
+                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId + "&message=click zan success!";
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -141,12 +144,12 @@ function cancelZan(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    //showSuccess(data["message"]);
                     //刷新页面
-                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId;
+                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId + "&message=cancel zan success!";
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -210,11 +213,11 @@ function review(){
     //判断字符串是否含有非法字符
     var result = checkStr(content, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("评语包含非法字符:" + result["symbol"]);
+        showAttention("评语包含非法字符:" + result["symbol"]);
         return;
     }
     if(content.length > DIARY_REVIEW_CONTENT_LENGTH) {
-        alert("评语内容大于" + DIARY_REVIEW_CONTENT_LENGTH + "个字符");
+        showAttention("评语内容大于" + DIARY_REVIEW_CONTENT_LENGTH + "个字符");
         return false;
     }
 
@@ -230,12 +233,12 @@ function review(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    //showSuccess(data["message"]);
                     //刷新页面
-                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId;
+                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId + "&message=review success!";
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -268,12 +271,12 @@ function deleteDiaryReview(diaryReviewId){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    //showSuccess(data["message"]);
                     //刷新页面
-                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId;
+                    location.href = baseUrl + "showDiary.jsp?id=" + diaryId + "&message=delete diary review success!";
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {

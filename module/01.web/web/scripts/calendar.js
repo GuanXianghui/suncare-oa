@@ -21,6 +21,8 @@ $(document).ready(function() {
         //根据日期查询提醒
         query();
     });
+    //页面加载完查询当前日期
+    query();
 });
 
 /**
@@ -59,17 +61,18 @@ function transferJsonStr2Array(jsonStr){
  */
 function processRemindArray(){
     //循环展示
-    var html = "<tr></td><td width=\"10%\">序号</td><td width=\"30%\">内容</td><td width=\"10%\">是否提醒</td>" +
-        "<td width=\"20%\">提醒时间</td><td width=\"30%\">操作</td></tr>";
+    var html = "<thead><tr><th width=\"20%\">内容</th><th width=\"20%\">是否提醒</th>" +
+        "<th width=\"20%\">提醒时间</th><th width=\"40%\">操作</th></tr></thead>";
     for(var i=0;i<remindArray.length;i++){
-        html += "<tr><td>" + remindArray[i]["id"] + "</td><td>" + remindArray[i]["content"] + "</td>" +
+        html += "<tr><td>" + remindArray[i]["content"] + "</td>" +
             "<td>" + remindArray[i]["remindTypeDesc"] + "</td><td>" + remindArray[i]["remindDateTime"] +
-            "</td><td><button onclick=\"showRemind(" + remindArray[i]["id"] + ")\">查看</button>" +
-            "<button onclick=\"beforeUpdateRemind(" + remindArray[i]["id"] + ")\">修改</button>" +
-            "<button onclick=\"deleteRemind(" + remindArray[i]["id"] + ")\">删除</button></td></tr>";
+            "</td><td><input class=\"button\" type=\"button\" onclick=\"showRemind(" + remindArray[i]["id"] + ")\" value=\"查看\" />" +
+            "<input class=\"button\" type=\"button\" onclick=\"beforeUpdateRemind(" + remindArray[i]["id"] + ")\" value=\"修改\" />" +
+            "<input class=\"button\" type=\"button\" onclick=\"deleteRemind(" + remindArray[i]["id"] + ")\" value=\"删除\" /></td></tr>";
     }
-    html += "<tr><td colspan=\"5\" align=\"center\"><button onclick=\"beforeCreateRemind()\">新增提醒</button></td></tr>";
+    html += "<tr><td colspan=\"5\" align=\"center\"><input class=\"button\" type=\"button\" onclick=\"beforeCreateRemind()\" value=\"新增提醒\" /></td></tr>";
     document.getElementById("remind_table").innerHTML = html;
+    $('#remind_table tr:even').addClass("alt-row");
 }
 
 /**
@@ -88,11 +91,11 @@ function query(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var remindsJson = data["remindsJson"];
                     //把json字符串转换object数组
                     remindArray = transferJsonStr2Array(remindsJson);
@@ -118,11 +121,15 @@ function query(){
  */
 function beforeCreateRemind(){
     if(chooseDate == EMPTY){
-        alert("请选择日期");
+        showAttention("请选择日期");
         return;
     }
     document.getElementById("create_remind_table").style.display = EMPTY;
     document.getElementById("show_remind_table").style.display = "none";
+    document.getElementById("create_date").value = EMPTY;
+    document.getElementById("create_content").value = EMPTY;
+    document.getElementById("create_remind_type").value = "1";
+    document.getElementById("create_remind_date_time").value = EMPTY;
     insertOrUpdate = "insertRemind";
 }
 
@@ -132,32 +139,32 @@ function beforeCreateRemind(){
 function createRemind(){
     var date = document.getElementById("create_date").value;
     if(date == EMPTY){
-        alert("请选择日期");
+        showAttention("请选择日期");
         return false;
     }
     var content = document.getElementById("create_content").value;
     if(content == EMPTY){
-        alert("请输入内容");
+        showAttention("请输入内容");
         return false;
     }
     //判断字符串是否含有非法字符
     var result = checkStr(content, SYMBOL_ARRAY_1);
     if (result["isSuccess"] == false) {
-        alert("评语包含非法字符:" + result["symbol"]);
+        showAttention("评语包含非法字符:" + result["symbol"]);
         return;
     }
     if(content.length > REMIND_CONTENT_LENGTH) {
-        alert("内容大于" + REMIND_CONTENT_LENGTH + "个字符");
+        showAttention("内容大于" + REMIND_CONTENT_LENGTH + "个字符");
         return false;
     }
     var remindType = document.getElementById("create_remind_type").value;
     if(remindType == EMPTY){
-        alert("请选择提醒类型");
+        showAttention("请选择提醒类型");
         return false;
     }
     var remindDateTime = document.getElementById("create_remind_date_time").value;
     if(remindType != REMIND_TYPE_NO_REMIND && remindDateTime == EMPTY){
-        alert("请输入提醒时间");
+        showAttention("请输入提醒时间");
         return false;
     }
 
@@ -174,11 +181,11 @@ function createRemind(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var remindsJson = data["remindsJson"];
                     //把json字符串转换object数组
                     remindArray = transferJsonStr2Array(remindsJson);
@@ -207,7 +214,7 @@ function showRemind(remindId){
     var remind = getRemindById(remindId);
     document.getElementById("show_date").innerHTML = remind["date"];
     document.getElementById("show_content").innerHTML = remind["content"];
-    document.getElementById("show_remind_type").innerHTML = remind["remindType"];
+    document.getElementById("show_remind_type").innerHTML = remind["remindTypeDesc"];
     document.getElementById("show_remind_date_time").innerHTML = remind["remindDateTime"];
     document.getElementById("create_remind_table").style.display = "none";
     document.getElementById("show_remind_table").style.display = EMPTY;
@@ -246,11 +253,11 @@ function deleteRemind(remindId){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var remindsJson = data["remindsJson"];
                     //把json字符串转换object数组
                     remindArray = transferJsonStr2Array(remindsJson);
@@ -269,4 +276,19 @@ function deleteRemind(remindId){
             showAttention("服务器连接异常，请稍后再试！");
         }
     });
+}
+
+/**
+ * 切换模式
+ */
+function changeMode(){
+    var className = $("#content-box1").attr("class");
+    if("content-box" == className){
+        $("#content-box1").attr("class", "content-box column-left");
+        $("#content-box2").attr("class", "content-box column-right");
+    } else {
+        $("#content-box1").attr("class", "content-box");
+        $("#content-box2").attr("class", "content-box");
+    }
+    return false;
 }

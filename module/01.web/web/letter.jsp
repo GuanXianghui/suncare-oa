@@ -24,6 +24,11 @@
     <script type="text/javascript" src="<%=baseUrl%>scripts/jquery-min.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/letter.js"></script>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript">
         //标识现在是收件箱，已发送还是已删除
         var box = "<%=box%>";
@@ -44,59 +49,152 @@
     </script>
 </head>
 <body>
-    <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>站内信(<%=box%>)<button onclick="logOut()">退出</button></h1>
-        <div>
-            <a href="<%=baseUrl%>writeLetter.jsp">写信</a>
-            <a href="<%=baseUrl%>letter.jsp">收件箱</a>
-            <a href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_SENT%>">已发送</a>
-            <a href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_DELETED%>">已删除</a>
-        </div>
-        <%
-            if(type == LetterInterface.TYPE_RECEIVED){
-        %>
-        <div>
-            <button onclick="deleteLetter()">删除</button>
-            <button onclick="ctrlDeleteLetter()">彻底删除</button>
-            <button onclick="transmit()">转发</button>
-            <button onclick="setReaded()">标记成已读</button>
-        </div>
-        <%
-            } else if(type == LetterInterface.TYPE_SENT) {
-        %>
-        <div>
-            <button onclick="deleteLetter()">删除</button>
-            <button onclick="ctrlDeleteLetter()">彻底删除</button>
-            <button onclick="transmit()">转发</button>
-        </div>
-        <%
-            } else if(type == LetterInterface.TYPE_DELETED) {
-        %>
-        <div>
-            <button onclick="ctrlDeleteLetter()">彻底删除</button>
-            <button onclick="transmit()">转发</button>
-            <button onclick="setReaded()">标记成已读</button>
-            <button onclick="restore()">还原</button>
-        </div>
-        <%
-            }
-        %>
-        <%--<div>--%>
-            <%--<button onclick="">回复</button>--%>
-            <%--<button onclick="">删除</button>--%>
-            <%--<button onclick="">彻底删除</button>--%>
-            <%--<button onclick="">转发</button>--%>
-            <%--<button onclick="">标记成已读</button>--%>
-            <%--<button onclick="">还原</button>--%>
-            <%--<button onclick="">关闭</button>--%>
-        <%--</div>--%>
-        <table id="letter_table" border="1" width="80%" style="text-align: center"></table>
-    </div>
-    <div align="center">
-        <div id="nextPageDiv" style="display: none; width: 80%; text-align: center; border: 1px solid gray;">
-            <button onclick="showNextPageLetters()">加载下一页</button>
+<div id="body-wrapper">
+    <div id="sidebar">
+        <div id="sidebar-wrapper">
+            <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+            <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+            <div id="profile-links">
+                Hello, [<%=user.getName()%>],
+                <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+                <br/>
+                <br/>
+                <a href="javascript: logOut()" title="Sign Out">退出</a>
+            </div>
+            <ul id="main-nav">
+                <li><a href="#" class="nav-top-item"> 用户模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                        <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                        <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
+                        <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                        <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item current"> 消息模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                        <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                        <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                        <li><a href="<%=baseUrl%>letter.jsp" class="current">站内信</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工作模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>diary.jsp">工作日志</a></li>
+                        <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                        <li><a href="<%=baseUrl%>task.jsp">任务</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
+
+    <div id="main-content">
+        <ul class="shortcut-buttons-set">
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>writeLetter.jsp">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>写信
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>letter.jsp">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>收件箱
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_SENT%>">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>已发送
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_DELETED%>">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>已删除
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="clear"></div>
+
+        <div id="message_id" class="notification information png_bg" style="display: none;">
+            <a href="#" class="close">
+                <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+            </a>
+
+            <div id="message_id_content"> 提示信息！</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>站内信-<%=type==LetterInterface.TYPE_SENT?"已发送":(type==LetterInterface.TYPE_DELETED?"已删除":"收件箱")%></h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab2" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab2">
+                    <%
+                        if(type == LetterInterface.TYPE_RECEIVED){
+                    %>
+                    <div>
+                        <input class="button" type="button" onclick="deleteLetter();" value="删除" />
+                        <input class="button" type="button" onclick="ctrlDeleteLetter();" value="彻底删除" />
+                        <input class="button" type="button" onclick="transmit();" value="转发" />
+                        <input class="button" type="button" onclick="setReaded();" value="标记成已读" />
+                    </div>
+                    <%
+                    } else if(type == LetterInterface.TYPE_SENT) {
+                    %>
+                    <div>
+                        <input class="button" type="button" onclick="deleteLetter();" value="删除" />
+                        <input class="button" type="button" onclick="ctrlDeleteLetter();" value="彻底删除" />
+                        <input class="button" type="button" onclick="transmit();" value="转发" />
+                    </div>
+                    <%
+                    } else if(type == LetterInterface.TYPE_DELETED) {
+                    %>
+                    <div>
+                        <input class="button" type="button" onclick="ctrlDeleteLetter();" value="彻底删除" />
+                        <input class="button" type="button" onclick="transmit();" value="转发" />
+                        <input class="button" type="button" onclick="setReaded();" value="标记成已读" />
+                        <input class="button" type="button" onclick="restore();" value="还原" />
+                    </div>
+                    <%
+                        }
+                    %>
+                    <table id="letter_table"></table>
+                    <div id="nextPageDiv" style="display: none; text-align: center;">
+                        <input class="button" type="button" onclick="showNextPageLetters();" value="加载下一页" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <small>
+                &#169; Copyright 2014 Suncare | Powered by 关向辉
+            </small>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <%}%>

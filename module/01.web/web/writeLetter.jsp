@@ -1,6 +1,8 @@
 <%@ page import="com.gxx.oa.interfaces.LetterInterface" %>
 <%@ page import="com.gxx.oa.entities.Letter" %>
 <%@ page import="com.gxx.oa.dao.LetterDao" %>
+<%@ page import="com.gxx.oa.dao.UserDao" %>
+<%@ page import="com.gxx.oa.dao.StructureDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
 <%if(isLogin){%>
@@ -51,89 +53,181 @@
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" src="<%=baseUrl%>scripts/writeLetter.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=baseUrl%>css/writeLetter.css"/>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!--这一行显示ie会有问题xxxxxx-->
+    <%--<script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>--%>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.parse.min.js"></script>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript">
-        //ueditor编辑器
-        var editor;
-
-        /**
-         * 初始化
-         */
-        $(document).ready(function() {
-            //实例化编辑器
-            //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-            editor = UE.getEditor('editor');
-            //一定要加载页面后隔上1秒钟(时间可能可以短一点)设置编辑器的内容
-            setTimeout("setContent()", 1000);
-        });
-
-        /**
-         * 一定要加载页面后隔上1秒钟(时间可能可以短一点)设置编辑器的内容*
-         */
-        function setContent(){
-            //设置编辑器的内容
-            editor.setContent(document.getElementById("content").value);
-        }
-
-        /**
-         * 写信
-         */
-        function writeLetter(){
-            var toUserIds = document.getElementById("toUserIds").value;
-            if(toUserIds == EMPTY){
-                alert("请选择收件人");
-                return false;
-            }
-            var ccUserIds = document.getElementById("ccUserIds").value;
-            var title = document.getElementById("title").value;
-            if(title == EMPTY){
-                alert("标题不能为空");
-                return false;
-            }
-            //判断字符串是否含有非法字符
-            var result = checkStr(title, SYMBOL_ARRAY_1);
-            if (result["isSuccess"] == false) {
-                alert("标题包含非法字符:" + result["symbol"]);
-                return false;
-            }
-            var content = editor.getContent();
-            if(content.length > LETTER_CONTENT_LENGTH) {
-                alert("站内信内容大于" + LETTER_CONTENT_LENGTH + "个字符");
-                return false;
-            }
-            document.getElementById("content").value = content;
-            //提交表格
-            document.forms["writeLetterForm"].submit();
-        }
+        //所有员工json串
+        var userJsonStr = "<%=BaseUtil.getJsonArrayFromUsers(UserDao.queryAllUsers())%>";
+        //所有公司结构json串
+        var structureJsonStr = "<%=BaseUtil.getJsonArrayFromStructures(StructureDao.queryAllStructures())%>";
+        //初始接受用户id
+        var initToUserIds = "<%=toUserIds%>";
+        //初始抄送用户id
+        var initCcUserIds = "<%=ccUserIds%>";
     </script>
 </head>
-<body onclick="cc()">
-    <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>写信<button onclick="logOut()">退出</button></h1>
-        <div>
-            <a href="<%=baseUrl%>writeLetter.jsp">写信</a>
-            <a href="<%=baseUrl%>letter.jsp">收件箱</a>
-            <a href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_SENT%>">已发送</a>
-            <a href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_DELETED%>">已删除</a>
-        </div>
-        <div style="border: 1px solid gray; width: 80%;">
-            <form name="writeLetterForm" action="<%=baseUrl%>writeLetter.do" method="post">
-                <table>
-                    <input type="hidden" id="token" name="token" value="<%=token%>">
-                    <textarea style="display: none;" id="content" name="content"><%=content%></textarea>
-                    <!--目前默认都是普通用户类型-->
-                    <tr><td>收件人:</td><td><input type="text" id="toUserIds" name="toUserIds" value="<%=toUserIds%>"></td></tr>
-                    <tr><td>抄送:</td><td><input type="text" id="ccUserIds" name="ccUserIds" value="<%=ccUserIds%>"></td></tr>
-                    <tr><td>标题:</td><td><input type="text" id="title" name="title" value="<%=title%>"></td></tr>
-                </table>
-            </form>
-            <script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
-            <input type="button" value="发送" onclick="writeLetter()">
+<body>
+<div id="body-wrapper">
+    <div id="sidebar">
+        <div id="sidebar-wrapper">
+            <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+            <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+            <div id="profile-links">
+                Hello, [<%=user.getName()%>],
+                <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+                <br/>
+                <br/>
+                <a href="javascript: logOut()" title="Sign Out">退出</a>
+            </div>
+            <ul id="main-nav">
+                <li><a href="#" class="nav-top-item"> 用户模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                        <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                        <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
+                        <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                        <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item current"> 消息模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                        <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                        <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                        <li><a href="<%=baseUrl%>letter.jsp" class="current">站内信</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工作模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>diary.jsp">工作日志</a></li>
+                        <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                        <li><a href="<%=baseUrl%>task.jsp">任务</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
+
+    <div id="main-content">
+        <ul class="shortcut-buttons-set">
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>writeLetter.jsp">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>写信
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>letter.jsp">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>收件箱
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_SENT%>">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>已发送
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>letter.jsp?box=<%=LetterInterface.BOX_DELETED%>">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>已删除
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="clear"></div>
+
+        <div id="message_id" class="notification information png_bg" style="display: none;">
+            <a href="#" class="close">
+                <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+            </a>
+
+            <div id="message_id_content"> 提示信息！</div>
+        </div>
+
+        <div class="content-box friends-column-left">
+            <div class="content-box-header">
+                <h3>写信</h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab">
+                    <form name="writeLetterForm" action="<%=baseUrl%>writeLetter.do" method="post">
+                        <input name="toUserIds" id="toUserIdsValue" type="hidden">
+                        <input name="ccUserIds" id="ccUserIdsValue" type="hidden">
+                        <table>
+                            <input type="hidden" id="token" name="token" value="<%=token%>">
+                            <textarea style="display: none;" id="content" name="content"><%=content%></textarea>
+                            <!--目前默认都是普通用户类型-->
+                            <tr id="toUserIdsTr" onclick="changeUserType(USER_TYPE_RECEIVE, this)" style="border: 1px solid gray">
+                                <td id="toUserIds"><b>收件人:</b></td>
+                            </tr>
+                            <tr id="ccUserIdsTr" onclick="changeUserType(USER_TYPE_CC, this)" style="border: 0px solid gray">
+                                <td id="ccUserIds"><b>抄送人:</b></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;<b>标题:</b>
+                                    <input id="title" class="text-input medium-input" type="text"
+                                           name="title" value="<%=title%>"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <script id="editor" type="text/plain" style="width: 100%;"></script>
+                    <input class="button" type="button" onclick="writeLetter();" value="发送" />
+                </div>
+            </div>
+        </div>
+        <div class="content-box friends-column-right">
+            <div class="content-box-header">
+                <h3>联系人</h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab2" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab2">
+                    <table id="friends">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <small>
+                &#169; Copyright 2014 Suncare | Powered by 关向辉
+            </small>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <%}%>

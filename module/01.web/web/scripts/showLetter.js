@@ -2,12 +2,7 @@
  * 初始化
  */
 $(document).ready(function() {
-    /**
-     * 初始化
-     */
-    $(document).ready(function() {
-        uParse("#editor", {rootPath: baseUrl + '/ueditor/'});
-    });
+    uParse("#editor", {rootPath: baseUrl + '/ueditor/'});
 });
 
 /**
@@ -47,12 +42,12 @@ function deleteLetter(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
-                    location.href = baseUrl + "letter.jsp";
+                    //showSuccess(data["message"]);
+                    location.href = baseUrl + "letter.jsp?message=delete success!";
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -84,12 +79,12 @@ function ctrlDeleteLetter(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
-                    location.href = baseUrl + "letter.jsp";
+                    //showSuccess(data["message"]);
+                    location.href = baseUrl + "letter.jsp?message=delete success!";
                 }
                 //判是否有新token
                 if (data["hasNewToken"]) {
@@ -103,4 +98,23 @@ function ctrlDeleteLetter(){
             showAttention("服务器连接异常，请稍后再试！");
         }
     });
+}
+
+/**
+ * 展示详细
+ */
+function showDetail(){
+    var value = $("#detail_button").val();
+    var trs = $(".detail_tr");
+    if(value == "+"){
+        $("#detail_button").val("-");
+        for(var i=0;i<trs.length;i++){
+            trs[i].style.display = "block";
+        }
+    } else {
+        $("#detail_button").val("+");
+        for(var i=0;i<trs.length;i++){
+            trs[i].style.display = "none";
+        }
+    }
 }

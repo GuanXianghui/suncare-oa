@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+.company {
+    cursor: pointer;
+    background-color: #fa8072;
+    color: white;
+    border: 1px solid gray;
+}
+.dept {
+    cursor: pointer;
+    background-color: #a9a9a9;
+    color: white;
+    border: 1px solid gray;
+}
+.position {
+    cursor: pointer;
+    background-color: #6a5acd;
+    color: white;
+    border: 1px solid gray;
+}
+.user {
+    cursor: pointer;
+    border: 1px solid gray;
+}

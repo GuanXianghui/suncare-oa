@@ -43,15 +43,22 @@ public class OperateSMSAction extends BaseAction {
                 resp = "{isSuccess:" + false + ",message:'你发送短信已达上限，请联系管理员，或者明天再试！'," +
                         "hasNewToken:true,token:'" + TokenUtil.createToken(request) + "'}";
             } else {
-                //发送短信
-                int result = SMSUtil.sendSMS(phone, content);
-                boolean isSuccess = SMSUtil.checkSuccess(result);
-                //保存记录
-                SMS sms = new SMS(getUser().getId(), phone, content,
-                        isSuccess?SMSInterface.STATE_SUCCESS:SMSInterface.STATE_FAIL, date, time, getIp());
-                SMSDao.insertSMS(sms);
-                resp = "{isSuccess:" + isSuccess + ",message:'发送完成！',hasNewToken:true,token:'" +
-                        TokenUtil.createToken(request) + "'}";
+                String[] phoneArray = phone.split(SymbolInterface.SYMBOL_COMMA);
+                boolean isAllSuccess = true;//是否都成功
+                for(String phone : phoneArray){
+                    //发送短信
+                    int result = SMSUtil.sendSMS(phone, content);
+                    boolean isSuccess = SMSUtil.checkSuccess(result);
+                    if(!isSuccess){
+                        isAllSuccess = false;
+                    }
+                    //保存记录
+                    SMS sms = new SMS(getUser().getId(), phone, content,
+                            isSuccess?SMSInterface.STATE_SUCCESS:SMSInterface.STATE_FAIL, date, time, getIp());
+                    SMSDao.insertSMS(sms);
+                }
+                resp = "{isSuccess:" + isAllSuccess + ",message:'" + (isAllSuccess?"发送完成！":"未全部发送成功!") +
+                        "',hasNewToken:true,token:'" + TokenUtil.createToken(request) + "'}";
             }
         } else {
             resp = "{isSuccess:false,message:'操作类型有误！',hasNewToken:true,token:'" +

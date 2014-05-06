@@ -1,3 +1,4 @@
+<%@ page import="com.gxx.oa.dao.UserDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
 <%if(isLogin){%>
@@ -10,94 +11,162 @@
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.all.min.js"></script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>
+    <%--<script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>--%>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.parse.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>scripts/writeTask.js"></script>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript">
-        //ueditor编辑器
-        var editor;
-
-        /**
-         * 初始化
-         */
-        $(document).ready(function() {
-            //实例化编辑器
-            //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-            editor = UE.getEditor('editor');
-        });
-
-        /**
-         * 提交
-         */
-        function writeTask(){
-            var fromUserId = document.getElementById("fromUserId").value;
-            if(fromUserId == EMPTY){
-                alert("请选择任务来源用户");
-                return false;
-            }
-            var toUserId = document.getElementById("toUserId").value;
-            if(toUserId == EMPTY){
-                alert("请选择任务接受用户");
-                return false;
-            }
-            var title = document.getElementById("title").value;
-            if(title == EMPTY){
-                alert("请输入任务名称");
-                return false;
-            }
-            if(title.length > TASK_TITLE_LENGTH) {
-                alert("任务名称大于" + TASK_TITLE_LENGTH + "个字符");
-                return false;
-            }
-            //判断字符串是否含有非法字符
-            var result = checkStr(title, SYMBOL_ARRAY_1);
-            if(result["isSuccess"] == false){
-                alert("标题包含非法字符:" + result["symbol"]);
-                return false;
-            }
-            var content = editor.getContent();
-            if(content == EMPTY){
-                alert("请输入任务内容");
-                return false;
-            }
-            if(content.length > TASK_CONTENT_LENGTH) {
-                alert("任务内容大于" + TASK_CONTENT_LENGTH + "个字符");
-                return false;
-            }
-            var beginDate = document.getElementById("beginDate").value;
-            if(beginDate == EMPTY){
-                alert("请输入开始日期");
-                return false;
-            }
-            var endDate = document.getElementById("endDate").value;
-            if(endDate == EMPTY){
-                alert("请输入结束日期");
-                return false;
-            }
-            document.getElementById("content").value = content;
-            //提交表格
-            document.forms["writeTaskForm"].submit();
-        }
+        <%
+            //有权限看的下级用户 用逗号隔开
+            String rightUserWithComma = BaseUtil.getLowerLevelPositionUserIdWithComma(user.getPosition());
+        %>
+        //有权限看的下级用户 用逗号隔开
+        var rightUserWithComma = "<%=rightUserWithComma%>";
+        //所有员工json串
+        var userJsonStr = "<%=BaseUtil.getJsonArrayFromUsers(UserDao.queryAllUsers())%>";
     </script>
 </head>
 <body onclick="cc()">
-    <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>写任务<button onclick="logOut()">退出</button></h1>
-        <div style="border: 1px solid gray; width: 80%;">
-            <form name="writeTaskForm" action="<%=baseUrl%>writeTask.do" method="post">
-                <table>
-                    <input type="hidden" id="token" name="token" value="<%=token%>">
-                    <input type="hidden" id="fromUserId" name="fromUserId" value="<%=user.getId()%>">
-                    <tr><td>任务接受用户id:</td><td><input type="text" id="toUserId" name="toUserId" value=""></td></tr>
-                    <tr><td>任务名称:</td><td><input type="text" id="title" name="title" value=""></td></tr>
-                    <tr><td>开始日期:</td><td><input type="text" id="beginDate" name="beginDate" value=""></td></tr>
-                    <tr><td>结束日期:</td><td><input type="text" id="endDate" name="endDate" value=""></td></tr>
-                    <textarea style="display: none;" id="content" name="content"></textarea>
-                </table>
-            </form>
-            <script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
-            <input type="button" value="提交" onclick="writeTask()">
+<div id="body-wrapper">
+    <div id="sidebar">
+        <div id="sidebar-wrapper">
+            <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+            <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+            <div id="profile-links">
+                Hello, [<%=user.getName()%>],
+                <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+                <br/>
+                <br/>
+                <a href="javascript: logOut()" title="Sign Out">退出</a>
+            </div>
+            <ul id="main-nav">
+                <li><a href="#" class="nav-top-item"> 用户模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                        <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                        <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
+                        <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                        <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 消息模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                        <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                        <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                        <li><a href="<%=baseUrl%>letter.jsp">站内信</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item current"> 工作模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>diary.jsp">工作日志</a></li>
+                        <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                        <li><a href="<%=baseUrl%>task.jsp" class="current">任务</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
+
+    <div id="main-content">
+
+        <ul class="shortcut-buttons-set">
+            <li>
+                <a class="shortcut-button" href="javascript: location.href='<%=baseUrl%>writeTask.jsp'">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>分配任务
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="javascript: location.href='<%=baseUrl%>task.jsp'">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>查看任务
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="clear"></div>
+
+        <div id="message_id" class="notification information png_bg" style="display: none;">
+            <a href="#" class="close">
+                <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+            </a>
+
+            <div id="message_id_content"> 提示信息！</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>分配任务</h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab2" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab2">
+                    <form name="writeTaskForm" action="<%=baseUrl%>writeTask.do" method="post">
+                        <table>
+                            <input type="hidden" id="token" name="token" value="<%=token%>">
+                            <input type="hidden" id="fromUserId" name="fromUserId" value="<%=user.getId()%>">
+                            <tr>
+                                <td width="15%">任务接受用户:</td>
+                                <td>
+                                    <select id="toUserId" name="toUserId" class="medium-input">
+                                        <option value="">选择用户</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>任务名称:</td>
+                                <td>
+                                    <input id="title" class="text-input medium-input" type="text"
+                                       name="title" value=""/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>开始日期:</td>
+                                <td>
+                                    <input id="beginDate" class="text-input medium-input" type="text"
+                                                         name="beginDate" value=""/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>结束日期:</td>
+                                <td>
+                                    <input id="endDate" class="text-input medium-input" type="text"
+                                                         name="endDate" value=""/>
+                                </td>
+                            </tr>
+                            <textarea style="display: none;" id="content" name="content"></textarea>
+                        </table>
+                    </form>
+                    <script id="editor" type="text/plain"></script>
+                    <input class="button" type="button" onclick="writeTask()" value="提交" />
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <small>
+                &#169; Copyright 2014 Suncare | Powered by 关向辉
+            </small>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <%}%>

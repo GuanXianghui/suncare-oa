@@ -65,6 +65,9 @@
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/task.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/userManage.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/userOperate.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/writeDiary.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/writeLetter.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/writeTask.js" charset="UTF-8" />
   </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />

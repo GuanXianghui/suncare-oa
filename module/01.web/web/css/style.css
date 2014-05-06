@@ -231,14 +231,24 @@ a.remove-link:hover {
                 }
 
 .column-left {
-                width: 48%;
-                float: left;
-                }
-                
+    width: 48%;
+    float: left;
+}
+
 .column-right {
-                width: 48%;
-                float: right;
-                }
+    width: 48%;
+    float: right;
+}
+
+.friends-column-left {
+    width: 75%;
+    float: left;
+}
+
+.friends-column-right {
+    width: 23%;
+    float: right;
+}
                
 #page-intro {
                 font-size: 17px;

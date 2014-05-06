@@ -235,6 +235,17 @@ function isNum(num){
 }
 
 /**
+ * 判是否是移动电话
+ * @param num
+ */
+function isMobilePhone(str){
+    if(str.length != 11 || isNum(str) == false){
+        return false;
+    }
+    return true;
+}
+
+/**
  * 将\r\n->uuid
  * @param content
  */
@@ -391,4 +402,19 @@ function filePlus(str){
 function fileBitAnd(str){
     str = str.replace(/\&/g,"%26");
     return str;
+}
+
+/**
+ * 从array数组中把所有等于one的删掉
+ * @param array
+ * @param one
+ */
+function removeAllOneFromArray(array, one){
+    var newArray = new Array();
+    for(var i=0;i<array.length;i++){
+        if(array[i] != one){
+            newArray[newArray.length] = array[i];
+        }
+    }
+    return newArray;
 }

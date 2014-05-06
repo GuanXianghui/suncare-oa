@@ -513,4 +513,27 @@ public class BaseUtil implements SymbolInterface {
         }
         return positions;
     }
+
+    /**
+     * 根据用户id来展示用户
+     *
+     * @param request
+     * @param userIds
+     * @return
+     */
+    public static String displayUsersByIds(HttpServletRequest request, String userIds) throws Exception {
+        //域名链接
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/";
+        String result = StringUtils.EMPTY;
+        String[] idArray = userIds.split(SYMBOL_COMMA);
+        for(String userId : idArray){
+            User user = UserDao.getUserById(Integer.parseInt(userId));
+            if(StringUtils.isNotBlank(result)){
+                result += SYMBOL_COMMA;
+            }
+            result += "<a href=\"" + baseUrl + "user.jsp?id=" + userId + "\" target=\"_blank\">" +
+                    user.getName() + "</a>";
+        }
+        return result;
+    }
 }

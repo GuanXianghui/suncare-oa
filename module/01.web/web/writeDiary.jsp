@@ -7,59 +7,123 @@
     <script type="text/javascript" src="<%=baseUrl%>scripts/jquery-min.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.all.min.js"></script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>
+    <%--<script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>--%>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.parse.min.js"></script>
-    <script type="text/javascript">
-        //ueditor编辑器
-        var editor;
-
-        /**
-         * 初始化
-         */
-        $(document).ready(function() {
-            //实例化编辑器
-            //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-            editor = UE.getEditor('editor');
-        });
-
-        /**
-         * 提交
-         */
-        function writeDiary(){
-            var date = document.getElementById("date").value;
-            if(date == EMPTY){
-                alert("请输入日期");
-                return false;
-            }
-            var content = editor.getContent();
-            if(content.length > DIARY_CONTENT_LENGTH) {
-                alert("工作日志内容大于" + DIARY_CONTENT_LENGTH + "个字符");
-                return false;
-            }
-            document.getElementById("content").value = content;
-            //提交表格
-            document.forms["writeDiaryForm"].submit();
-        }
-    </script>
+    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>scripts/writeDiary.js"></script>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
 </head>
 <body onclick="cc()">
-    <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>写工作日志<button onclick="logOut()">退出</button></h1>
-        <div style="border: 1px solid gray; width: 80%;">
-            <form name="writeDiaryForm" action="<%=baseUrl%>writeDiary.do" method="post">
-                <table>
-                    <input type="hidden" id="token" name="token" value="<%=token%>">
-                    <tr><td>日期:</td><td><input type="text" id="date" name="date" value=""></td></tr>
-                    <textarea style="display: none;" id="content" name="content"></textarea>
-                </table>
-            </form>
-            <script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
-            <input type="button" value="提交" onclick="writeDiary()">
+<div id="body-wrapper">
+    <div id="sidebar">
+        <div id="sidebar-wrapper">
+            <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+            <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+            <div id="profile-links">
+                Hello, [<%=user.getName()%>],
+                <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+                <br/>
+                <br/>
+                <a href="javascript: logOut()" title="Sign Out">退出</a>
+            </div>
+            <ul id="main-nav">
+                <li><a href="#" class="nav-top-item"> 用户模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                        <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                        <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
+                        <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                        <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 消息模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                        <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                        <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                        <li><a href="<%=baseUrl%>letter.jsp">站内信</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item current"> 工作模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>diary.jsp" class="current">工作日志</a></li>
+                        <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                        <li><a href="<%=baseUrl%>task.jsp">任务</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                    <ul>
+                        <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
+
+    <div id="main-content">
+        <ul class="shortcut-buttons-set">
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>writeDiary.jsp">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>写日志
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="shortcut-button" href="<%=baseUrl%>diary.jsp">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>看日志
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="clear"></div>
+
+        <div id="message_id" class="notification information png_bg" style="display: none;">
+            <a href="#" class="close">
+                <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+            </a>
+
+            <div id="message_id_content"> 提示信息！</div>
+        </div>
+
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>写日志</h3>
+                <ul class="content-box-tabs">
+                    <li><a href="#tab2" class="default-tab">Forms</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab2">
+                    <form name="writeDiaryForm" action="<%=baseUrl%>writeDiary.do" method="post">
+                        <input type="hidden" id="token" name="token" value="<%=token%>">
+                        日期:<input class="text-input small-input" type="text" id="date" name="date" value="">
+                        <textarea style="display: none;" id="content" name="content"></textarea>
+                        <script id="editor" type="text/plain"></script>
+                        <input class="button" type="button" onclick="writeDiary();" value="提交" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">
+            <small>
+                &#169; Copyright 2014 Suncare | Powered by 关向辉
+            </small>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <%}%>

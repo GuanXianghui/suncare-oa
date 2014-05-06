@@ -17,6 +17,9 @@
     boolean isLogin = user != null;
     //消息
     String message = StringUtils.trimToEmpty((String)request.getAttribute("message"));
+    if(StringUtils.isBlank(message)){
+        message = StringUtils.trimToEmpty(request.getParameter("message"));
+    }
 %>
 <script type="text/javascript">
     //域名链接

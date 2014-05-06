@@ -5,6 +5,10 @@ var letterArray = new Array();
  * 初始化
  */
 $(document).ready(function() {
+    if(message != EMPTY){
+        showInformation(message);
+    }
+
     //把初始letterJsonStr转换成letterArray
     letterArray = transferInitJsonStr2Array(letterJsonStr);
 
@@ -34,22 +38,22 @@ function transferInitJsonStr2Array(jsonStr){
  */
 function processWithJson(){
     //循环展示
-    var html = "<tr><td width=\"5%\"><input id=\"all_check_box\" type=\"checkbox\" onchange=\"chooseAll(this)\">" +
-        "</td><td width=\"15%\">站内信来源用户头像</td><td width=\"20%\">站内信来源用户名称</td><td width=\"20%\">" +
-        "是否已读</td><td width=\"20%\">标题</td><td width=\"20%\">时间</td></tr>";
+    var html = "<thead><tr><th><input id=\"all_check_box\" type=\"checkbox\" onchange=\"chooseAll(this)\">" +
+        "</th><th>目标用户</th><th>是否已读</th><th>标题</th><th>时间</th></tr></thead>";
     for(var i=0;i<letterArray.length;i++){
         var isReaded = "未读";
         if(letterArray[i]["readState"] == LETTER_READ_STATE_READED){
             isReaded = "已读";
         }
         html += "<tr><td><input class=\"letter_box\" type=\"checkbox\" onchange=\"choose(this, " +
-            letterArray[i]["id"] + ")\"></td><td><a href=\"" + letterArray[i]["url"] + "\" target=\"_blank\">" +
-            "<img width=\"54px\" src=\"" + letterArray[i]["headPhoto"] + "\"></a></td><td>" +
-            letterArray[i]["fromUserName"] + "</td><td>" + isReaded + "</td><td><a href=\"" + baseUrl +
+            letterArray[i]["id"] + ")\"></td><td><img width=\"27px\" src=\"" + letterArray[i]["headPhoto"] +
+            "\"><a href=\"" + letterArray[i]["url"] + "\" target=\"_blank\">" + letterArray[i]["fromUserName"] +
+            "</a></td><td>" + isReaded + "</td><td><a href=\"" + baseUrl +
             "showLetter.jsp?id=" + letterArray[i]["id"] + "\">" + letterArray[i]["title"] + "</a></td><td>" +
-            letterArray[i]["createDate"] + "</td></tr>";
+            letterArray[i]["createDate"] + " " + letterArray[i]["createTime"] + "</td></tr>";
     }
     document.getElementById("letter_table").innerHTML = html;
+    $('tbody tr:even').addClass("alt-row");
 }
 
 /**
@@ -108,7 +112,7 @@ function choose(t, id){
  */
 function deleteLetter(){
     if(chooseLetterIds == EMPTY){
-        alert("请选择站内信");
+        showAttention("请选择站内信");
         return;
     }
     //ajax请求
@@ -123,11 +127,11 @@ function deleteLetter(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var idArray = chooseLetterIds.split(SYMBOL_COMMA);
                     for(var i=0;i<idArray.length;i++){
                         var id = idArray[i];
@@ -165,7 +169,7 @@ function deleteLetter(){
  */
 function ctrlDeleteLetter(){
     if(chooseLetterIds == EMPTY){
-        alert("请选择站内信");
+        showAttention("请选择站内信");
         return;
     }
     //ajax请求
@@ -180,11 +184,11 @@ function ctrlDeleteLetter(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var idArray = chooseLetterIds.split(SYMBOL_COMMA);
                     for(var i=0;i<idArray.length;i++){
                         var id = idArray[i];
@@ -222,11 +226,11 @@ function ctrlDeleteLetter(){
  */
 function transmit(){
     if(chooseLetterIds == EMPTY){
-        alert("请选择站内信");
+        showAttention("请选择站内信");
         return;
     }
     if(chooseLetterIds.split(SYMBOL_COMMA).length > 1){
-        alert("你只能选择一封站内信进行转发");
+        showAttention("你只能选择一封站内信进行转发");
         return;
     }
     location.href = baseUrl + "writeLetter.jsp?type=transmit&id=" + chooseLetterIds;
@@ -237,7 +241,7 @@ function transmit(){
  */
 function setReaded(){
     if(chooseLetterIds == EMPTY){
-        alert("请选择站内信");
+        showAttention("请选择站内信");
         return;
     }
     //ajax请求
@@ -252,11 +256,11 @@ function setReaded(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var idArray = chooseLetterIds.split(SYMBOL_COMMA);
                     for(var i=0;i<idArray.length;i++){
                         var id = idArray[i];
@@ -292,7 +296,7 @@ function setReaded(){
  */
 function restore(){
     if(chooseLetterIds == EMPTY){
-        alert("请选择站内信");
+        showAttention("请选择站内信");
         return;
     }
     //ajax请求
@@ -307,11 +311,11 @@ function restore(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var idArray = chooseLetterIds.split(SYMBOL_COMMA);
                     for(var i=0;i<idArray.length;i++){
                         var id = idArray[i];
@@ -371,11 +375,11 @@ function showNextPageLetters(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                     return;
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var nextPageJson = data["nextPageJson"];
                     if(EMPTY != nextPageJson) {
                         //把初始letterJsonStr转换成letterArray

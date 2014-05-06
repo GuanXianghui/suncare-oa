@@ -38,161 +38,297 @@
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.all.min.js"> </script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>
+    <%--<script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>--%>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.parse.min.js"></script>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript">
         //任务id
         var taskId = <%=id%>;
+        //任务接受用户id
+        var toUserId = <%=task.getToUserId()%>;
+        <%
+            //有权限看的下级用户 用逗号隔开
+            String rightUserWithComma = BaseUtil.getLowerLevelPositionUserIdWithComma(user.getPosition());
+        %>
+        //有权限看的下级用户 用逗号隔开
+        var rightUserWithComma = "<%=rightUserWithComma%>";
+        //所有员工json串
+        var userJsonStr = "<%=BaseUtil.getJsonArrayFromUsers(UserDao.queryAllUsers())%>";
     </script>
 </head>
 <body>
-    <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>查看任务<button onclick="logOut()">退出</button></h1>
-        <div>
-            <%
-                //任务来源和接受任务的人可以修改任务
-                if(task.getFromUserId() == user.getId() || task.getToUserId() == user.getId()){
-            %>
-            <button onclick="beforeUpdateTask()">修改</button>
-            <%
-                }
-            %>
-            <%
-                //只有创建的人可以删除任务
-                if(task.getFromUserId() == user.getId()){
-            %>
-            <button onclick="deleteTask()">删除</button>
-            <%
-                }
-            %>
+<div id="body-wrapper">
+<div id="sidebar">
+    <div id="sidebar-wrapper">
+        <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+        <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+        <div id="profile-links">
+            Hello, [<%=user.getName()%>],
+            <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+            <br/>
+            <br/>
+            <a href="javascript: logOut()" title="Sign Out">退出</a>
         </div>
-        <div>
-            <div id="showDiv">
-                <div>任务名称：<b><%=task.getTitle()%></b></div>
-                <div>任务来源用户：<a href="<%=baseUrl%>user.jsp?id=<%=task.getFromUserId()%>" target="_blank"><%=fromUser.getName()%></a></div>
-                <div>任务接受用户：<a href="<%=baseUrl%>user.jsp?id=<%=task.getToUserId()%>" target="_blank"><%=toUser.getName()%></a></div>
+        <ul id="main-nav">
+            <li><a href="#" class="nav-top-item"> 用户模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                    <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                    <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
+                    <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                    <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="nav-top-item"> 消息模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                    <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                    <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                    <li><a href="<%=baseUrl%>letter.jsp">站内信</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="nav-top-item current"> 工作模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>diary.jsp">工作日志</a></li>
+                    <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                    <li><a href="<%=baseUrl%>task.jsp" class="current">任务</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="main-content">
+
+    <ul class="shortcut-buttons-set">
+        <%
+            //任务来源和接受任务的人可以修改任务
+            if(task.getFromUserId() == user.getId() || task.getToUserId() == user.getId()){
+        %>
+        <li>
+            <a class="shortcut-button" href="javascript: beforeUpdateTask()">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>修改
+                    </span>
+            </a>
+        </li>
+        <%
+            }
+        %>
+        <%
+            //只有创建的人可以删除任务
+            if(task.getFromUserId() == user.getId()){
+        %>
+        <li>
+            <a class="shortcut-button" href="javascript: deleteTask()">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>删除
+                    </span>
+            </a>
+        </li>
+        <%
+            }
+        %>
+
+    </ul>
+
+    <div class="clear"></div>
+
+    <div id="message_id" class="notification information png_bg" style="display: none;">
+        <a href="#" class="close">
+            <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+        </a>
+
+        <div id="message_id_content"> 提示信息！</div>
+    </div>
+
+    <div class="content-box">
+        <div class="content-box-header">
+            <h3>查看任务</h3>
+            <ul class="content-box-tabs">
+                <li><a href="#tab2" class="default-tab">Forms</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="content-box-content">
+            <div class="tab-content default-tab" id="tab2">
                 <div>
-                    状态：<b><%=task.getStateDesc()%></b>
-                    <%
-                        //只有
-                        if(task.getFromUserId() == user.getId() || task.getToUserId() == user.getId()){
-                            if(task.getState() == TaskInterface.STATE_NEW){
-                    %>
-                    <button onclick="updateTaskState(<%=TaskInterface.STATE_ING%>)">开始任务</button>
-                    <%
-                            } if(task.getState() == TaskInterface.STATE_ING){
-                    %>
-                    <button onclick="updateTaskState(<%=TaskInterface.STATE_DONE%>)">完成任务</button>
-                    <button onclick="updateTaskState(<%=TaskInterface.STATE_DROP%>)">废除任务</button>
-                    <%
-                            } if(task.getState() == TaskInterface.STATE_DONE){
-                    %>
-                    <button onclick="updateTaskState(<%=TaskInterface.STATE_ING%>)">重新开始任务</button>
-                    <%
-                            } if(task.getState() == TaskInterface.STATE_DROP){
-                    %>
-                    <button onclick="updateTaskState(<%=TaskInterface.STATE_ING%>)">重新开始任务</button>
-                    <%
-                            }
-                        }
-                    %>
-                </div>
-                <div>开始日期：<b><%=task.getBeginDate()%></b></div>
-                <div>结束日期：<b><%=task.getEndDate()%></b></div>
-                <div>创建日期：<%=task.getCreateDate()%></div>
-                <%
-                    if(StringUtils.isNotBlank(task.getUpdateDate())){
-                %>
-                <div>修改日期：<%=task.getUpdateDate()%></div>
-                <%
-                    }
-                %>
-                <div id="showContent">
-                    <%=task.getContent()%>
-                </div>
-                <div id="initContent" style="display: none"><%=task.getContent()%></div>
-                <div>
-                    <div>
-                        催：
-                        <%
-                            //催过的用户id，已经催过的不重复显示
-                            List<Integer> cuiUserIdList = new ArrayList<Integer>();
-                            for(TaskReview taskReview : cuiTaskReviews){
-                                if(cuiUserIdList.contains(new Integer(taskReview.getUserId()))){
-                                    continue;
-                                }
-                                cuiUserIdList.add(new Integer(taskReview.getUserId()));
-                                User tempUser = UserDao.getUserById(taskReview.getUserId());
-                        %>
-                            <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=taskReview.getUserId()%>"><img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
-                        <%
-                            }
-                        %>
-                        <button onclick="cui()">催</button>
-                    </div>
-                    <div>
-                        评论： <button onclick="beforeReview()">评论</button>
-                        <table>
-                            <%
-                                for(TaskReview taskReview : notCuiTaskReviews){
-                                    boolean isReply = false;
-                                    User repliedUser = null;
-                                    if(TaskReviewInterface.TYPE_REPLY == taskReview.getType()){
-                                        isReply = true;
-                                        repliedUser = UserDao.getUserById(taskReview.getRepliedUserId());
+                    <div id="showDiv">
+                        <form>
+                            <table>
+                                <tr><td width="10%">任务名称：</td><td><%=task.getTitle()%></td></tr>
+                                <tr><td>任务来源用户：</td><td><a href="<%=baseUrl%>user.jsp?id=<%=task.getFromUserId()%>" target="_blank"><%=fromUser.getName()%></a></td></tr>
+                                <tr><td>任务接受用户：</td><td><a href="<%=baseUrl%>user.jsp?id=<%=task.getToUserId()%>" target="_blank"><%=toUser.getName()%></a></td></tr>
+                                <tr>
+                                    <td>状态：</td>
+                                    <td>
+                                        <b><%=task.getStateDesc()%></b>
+                                        <%
+                                            //只有
+                                            if(task.getFromUserId() == user.getId() || task.getToUserId() == user.getId()){
+                                                if(task.getState() == TaskInterface.STATE_NEW){
+                                        %>
+                                        <input class="button" type="button" onclick="updateTaskState(<%=TaskInterface.STATE_ING%>)" value="开始任务" />
+                                        <%
+                                            } if(task.getState() == TaskInterface.STATE_ING){
+                                        %>
+                                        <input class="button" type="button" onclick="updateTaskState(<%=TaskInterface.STATE_DONE%>)" value="完成任务" />
+                                        <input class="button" type="button" onclick="updateTaskState(<%=TaskInterface.STATE_DROP%>)" value="废除任务" />
+                                        <%
+                                            } if(task.getState() == TaskInterface.STATE_DONE){
+                                        %>
+                                        <input class="button" type="button" onclick="updateTaskState(<%=TaskInterface.STATE_ING%>)" value="重新开始任务" />
+                                        <%
+                                            } if(task.getState() == TaskInterface.STATE_DROP){
+                                        %>
+                                        <input class="button" type="button" onclick="updateTaskState(<%=TaskInterface.STATE_ING%>)" value="重新开始任务" />
+                                        <%
+                                                }
+                                            }
+                                        %>
+                                    </td>
+                                </tr>
+                                <tr><td>开始日期：</td><td><b><%=task.getBeginDate()%></b></td></tr>
+                                <tr><td>结束日期：</td><td><b><%=task.getEndDate()%></b></td></tr>
+                                <tr><td>创建日期：</td><td><b><%=task.getCreateDate()%></b></td></tr>
+                                <%
+                                    if(StringUtils.isNotBlank(task.getUpdateDate())){
+                                %>
+                                <tr><td>修改日期：</td><td><b><%=task.getUpdateDate()%></b></td></tr>
+                                <%
                                     }
-                                    User tempUser = UserDao.getUserById(taskReview.getUserId());
-                            %>
+                                %>
+
+                                <tr><td>内容：</td><td>
+                                    <div id="showContent" style="overflow: auto;">
+                                        <%=task.getContent()%>
+                                    </div>
+                                    <div id="initContent" style="display: none;">
+                                        <%=task.getContent()%>
+                                    </div>
+                                </td></tr>
+                                <tr>
+                                    <td>催：</td>
+                                    <td>
+                                        <%
+                                            //催过的用户id，已经催过的不重复显示
+                                            List<Integer> cuiUserIdList = new ArrayList<Integer>();
+                                            for(TaskReview taskReview : cuiTaskReviews){
+                                                if(cuiUserIdList.contains(new Integer(taskReview.getUserId()))){
+                                                    continue;
+                                                }
+                                                cuiUserIdList.add(new Integer(taskReview.getUserId()));
+                                                User tempUser = UserDao.getUserById(taskReview.getUserId());
+                                        %>
+                                        <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=taskReview.getUserId()%>"><img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
+                                        <%
+                                            }
+                                        %>
+                                        <input class="button" type="button" onclick="cui()" value="催" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>评论：</td>
+                                    <td>
+                                        <input class="button" type="button" onclick="beforeReview()" value="评论" />
+                                    </td>
+                                </tr>
+                                <tr <%//=diaryReviews.size()==countZan?"style='display: none;'":""%>>
+                                    <td colspan="2">
+                                        <table>
+                                            <%
+                                                for(TaskReview taskReview : notCuiTaskReviews){
+                                                    boolean isReply = false;
+                                                    User repliedUser = null;
+                                                    if(TaskReviewInterface.TYPE_REPLY == taskReview.getType()){
+                                                        isReply = true;
+                                                        repliedUser = UserDao.getUserById(taskReview.getRepliedUserId());
+                                                    }
+                                                    User tempUser = UserDao.getUserById(taskReview.getUserId());
+                                            %>
+                                            <tr>
+                                                <td width="10%">
+                                                    <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=taskReview.getUserId()%>">
+                                                        <img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
+                                                </td>
+                                                <td width="10%" id="review_desc_<%=taskReview.getId()%>"><b><%=tempUser.getName()%>：</b><%=isReply?"回复<b>" + repliedUser.getName() + "</b>：":""%></td>
+                                                <td width="50%" id="review_content_<%=taskReview.getId()%>"><%=taskReview.getContent()%></td>
+                                                <td width="10%"><%=taskReview.getCreateDate()%></td>
+                                                <td width="20%">
+                                                    <input class="button" type="button" onclick="beforeReplyTaskReview(<%=taskReview.getId()%>)" value="回复" />
+                                                    <%
+                                                        if(tempUser.getId() == user.getId()){
+                                                    %>
+                                                    <input class="button" type="button" onclick="beforeUpdateTaskReview(<%=taskReview.getId()%>)" value="修改" />
+                                                    <input class="button" type="button" onclick="deleteTaskReview(<%=taskReview.getId()%>)" value="删除" />
+                                                    <%
+                                                        }
+                                                    %>
+                                                </td>
+                                            </tr>
+                                            <%
+                                                }
+                                            %>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr id="review_div" style="display: none;">
+                                    <td colspan="2">
+                                        <span id="review_desc">你的评语：</span><input class="text-input small-input" type="text" id="review_content">
+                                        <input class="button" type="button" onclick="review()" value="提交" />
+                                        <input class="button" type="button" onclick="cancelReview()" value="取消" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="updateDiv" style="display:none;">
+                    <form name="updateTaskForm" action="<%=baseUrl%>updateTask.do" method="post">
+                        <table>
+                            <input type="hidden" id="token" name="token" value="<%=token%>">
+                            <input type="hidden" id="taskId" name="taskId" value="<%=task.getId()%>">
                             <tr>
+                                <td width="15%">任务接受用户:</td>
                                 <td>
-                                    <a target="_blank" href="<%=baseUrl%>user.jsp?id=<%=taskReview.getUserId()%>">
-                                    <img width="54px" src="<%=tempUser.getHeadPhoto()%>"></a>
-                                </td>
-                                <td id="review_desc_<%=taskReview.getId()%>"><b><%=tempUser.getName()%>：</b><%=isReply?"回复<b>" + repliedUser.getName() + "</b>：":""%></td>
-                                <td id="review_content_<%=taskReview.getId()%>"><%=taskReview.getContent()%></td>
-                                <td><%=taskReview.getCreateDate()%></td>
-                                <td>
-                                    <button onclick="beforeReplyTaskReview(<%=taskReview.getId()%>)">回复</button>
-                                    <%
-                                        if(tempUser.getId() == user.getId()){
-                                    %>
-                                    <button onclick="beforeUpdateTaskReview(<%=taskReview.getId()%>)">修改</button>
-                                    <button onclick="deleteTaskReview(<%=taskReview.getId()%>)">删除</button>
-                                    <%
-                                        }
-                                    %>
+                                    <select id="toUserId" name="toUserId" class="medium-input">
+                                        <option value="">选择用户</option>
+                                    </select>
                                 </td>
                             </tr>
-                            <%
-                                }
-                            %>
+                            <tr><td>任务名称:</td><td><input class="text-input medium-input" type="text" id="title" name="title" value="<%=task.getTitle()%>"/></td></tr>
+                            <tr><td>开始日期:</td><td><input class="text-input medium-input" type="text" id="beginDate" name="beginDate" value="<%=task.getBeginDate()%>"/></td></tr>
+                            <tr><td>结束日期:</td><td><input class="text-input medium-input" type="text" id="endDate" name="endDate" value="<%=task.getEndDate()%>"/></td></tr>
+                            <textarea style="display: none;" id="content" name="content"></textarea>
                         </table>
-                        <div id="review_div" style="display: none;">
-                            <span id="review_desc">你的评语：</span><input type="text" id="review_content">
-                            <button onclick="review()">提交</button><button onclick="cancelReview()">取消</button>
-                        </div>
-                    </div>
+                    </form>
+                    <script id="editor" type="text/plain"></script>
+                    <input class="button" type="button" onclick="updateTask()" value="修改" />
+                    <input class="button" type="button" onclick="cancelUpdateTask()" value="取消" />
                 </div>
-            </div>
-
-            <div id="updateDiv" style="display:none; border: 1px solid gray; width: 80%;">
-                <form name="updateTaskForm" action="<%=baseUrl%>updateTask.do" method="post">
-                    <table>
-                        <input type="hidden" id="token" name="token" value="<%=token%>">
-                        <input type="hidden" id="taskId" name="taskId" value="<%=task.getId()%>">
-                        <tr><td>任务接受用户:</td><td><input type="text" id="toUserId" name="toUserId" value="<%=task.getToUserId()%>"></td></tr>
-                        <tr><td>任务名称:</td><td><input type="text" id="title" name="title" value="<%=task.getTitle()%>"></td></tr>
-                        <tr><td>开始日期:</td><td><input type="text" id="beginDate" name="beginDate" value="<%=task.getBeginDate()%>"></td></tr>
-                        <tr><td>结束日期:</td><td><input type="text" id="endDate" name="endDate" value="<%=task.getEndDate()%>"></td></tr>
-                        <textarea style="display: none;" id="content" name="content"></textarea>
-                    </table>
-                </form>
-                <script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
-                <input type="button" value="修改" onclick="updateTask()">
-                <input type="button" value="取消" onclick="cancelUpdateTask()">
             </div>
         </div>
     </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <small>
+            &#169; Copyright 2014 Suncare | Powered by 关向辉
+        </small>
+    </div>
+</div>
+</div>
 </body>
 </html>
 <%}%>

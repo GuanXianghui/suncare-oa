@@ -1,10 +1,16 @@
 //任务Json数组
 var taskArray = new Array();
+//所有员工Json数组
+var userArray = new Array();
 
 /**
  * 初始化
  */
 $(document).ready(function() {
+    if(message != EMPTY){
+        showInformation(message);
+    }
+
     //把初始taskJsonStr转换成taskArray
     taskArray = transferInitJsonStr2Array(taskJsonStr);
 
@@ -13,7 +19,27 @@ $(document).ready(function() {
 
     //检查是否还有下一页
     checkHasNextPage();
+
+    //初始化用户
+    initUsers();
 });
+
+/**
+ * 初始化用户
+ */
+function initUsers(){
+    //json串转json数组
+    if(userJsonStr != EMPTY) {
+        var array = userJsonStr.split(SYMBOL_BIT_AND);
+        for(var i=0;i<array.length;i++) {
+            userArray[userArray.length] = eval("(" + array[i] + ")");
+        }
+    }
+    for(var i=0;i<userArray.length;i++){
+        document.getElementById("userId").innerHTML += " <option value=\"" + userArray[i]["id"] + "\"" +
+            (userId==userArray[i]["id"]?" selected":"") + ">" + userArray[i]["name"] + "</option>";
+    }
+}
 
 /**
  * 把初始taskJsonStr转换成taskArray
@@ -34,12 +60,10 @@ function transferInitJsonStr2Array(jsonStr){
  */
 function processWithJson(){
     //循环展示
-    var html = "<tr></td><td width=\"10%\">序号</td><td width=\"15%\">任务来源用户</td>" +
-        "<td width=\"15%\">任务接受用户</td><td width=\"30%\">任务名称</td>" +
-        "<td width=\"10%\">状态</td><td width=\"10%\">开始日期</td>" +
-        "<td width=\"10%\">结束日期</td></tr>";
+    var html = "<tr></td><td>任务来源用户</td><td>任务接受用户</td><td>任务名称</td>" +
+        "<td>状态</td><td>开始日期</td><td>结束日期</td></tr>";
     for(var i=0;i<taskArray.length;i++){
-        html += "<tr><td>" + taskArray[i]["id"] + "</td><td><a href=\"" + baseUrl +"user.jsp?id=" +
+        html += "<tr><td><a href=\"" + baseUrl +"user.jsp?id=" +
             taskArray[i]["fromUserId"] + "\" target=\"_blank\">" + taskArray[i]["fromUserName"] +
             "</a></td>" + "<td><a href=\"" + baseUrl +"user.jsp?id=" + taskArray[i]["toUserId"] + "\" " +
             "target=\"_blank\">" + taskArray[i]["toUserName"] + "</a></td><td><a href=\"" + baseUrl +
@@ -48,6 +72,7 @@ function processWithJson(){
             taskArray[i]["endDate"] + "</td></tr>";
     }
     document.getElementById("task_table").innerHTML = html;
+    $('tbody tr:even').addClass("alt-row");
 }
 
 /**
@@ -65,25 +90,25 @@ function checkHasNextPage(){
  * 塞选任务
  */
 function selectTask(){
-    var fromUserId = document.getElementById("fromUserId").value;
-    var toUserId = document.getElementById("toUserId").value;
+    var type = document.getElementById("type").value;
+    var userId = document.getElementById("userId").value;
     var state = document.getElementById("state").value;
     var condition = EMPTY;
-    if(fromUserId != EMPTY){
+    if(type != EMPTY){
         if(condition == EMPTY){
             condition += "?";
         } else {
             condition += "&";
         }
-        condition += "fromUserId=" + fromUserId;
+        condition += "type=" + type;
     }
-    if(toUserId != EMPTY){
+    if(userId != EMPTY){
         if(condition == EMPTY){
             condition += "?";
         } else {
             condition += "&";
         }
-        condition += "toUserId=" + toUserId;
+        condition += "userId=" + userId;
     }
     if(state != EMPTY){
         if(condition == EMPTY){
@@ -114,10 +139,10 @@ function showNextPageTasks(){
                 data = eval("(" + data + ")");
                 //判请求是否成功
                 if (false == data["isSuccess"]) {
-                    alert(data["message"]);
+                    showError(data["message"]);
                 } else {
                     //请求成功
-                    alert(data["message"]);
+                    showSuccess(data["message"]);
                     var nextPageJson = data["nextPageJson"];
                     if(EMPTY != nextPageJson) {
                         //把初始taskJsonStr转换成taskArray

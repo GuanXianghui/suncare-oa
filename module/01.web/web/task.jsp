@@ -1,22 +1,39 @@
 <%@ page import="com.gxx.oa.dao.TaskDao" %>
+<%@ page import="com.gxx.oa.interfaces.TaskInterface" %>
+<%@ page import="com.gxx.oa.dao.UserDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
 <%if(isLogin){%>
 <%
-    //如果fromUserId大于0带上该条件
-    int fromUserId;//任务来源用户id
+    //类型
+    int type;
     try{
-        fromUserId = Integer.parseInt(StringUtils.trimToEmpty(request.getParameter("fromUserId")));
+        type = Integer.parseInt(StringUtils.trimToEmpty(request.getParameter("type")));
     } catch (Exception e){
-        fromUserId = 0;
+        type = TaskInterface.TYPE_TO_ME;//分配给我的
     }
-    //如果toUserId大于0带上该条件
-    int toUserId;//任务接受用户id
+
+    //用户id
+    int userId;
     try{
-        toUserId = Integer.parseInt(StringUtils.trimToEmpty(request.getParameter("toUserId")));
+        userId = Integer.parseInt(StringUtils.trimToEmpty(request.getParameter("userId")));
     } catch (Exception e){
-        toUserId = 0;
+        userId = 0;
     }
+
+    int fromUserId;
+    int toUserId;
+    if(type == TaskInterface.TYPE_TO_ME){
+        fromUserId = userId;
+        toUserId = user.getId();
+    } else if(type == TaskInterface.TYPE_FROM_ME){
+        fromUserId = user.getId();
+        toUserId = userId;
+    } else {
+        response.sendRedirect(baseUrl + "task.jsp");
+        return;
+    }
+
     //如果state大于0带上该条件
     int state;//状态
     try{
@@ -35,9 +52,16 @@
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.all.min.js"> </script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>
+    <%--<script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/lang/zh-cn/zh-cn.js"></script>--%>
     <script type="text/javascript" charset="utf-8" src="<%=baseUrl%>ueditor/ueditor.parse.min.js"></script>
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/invalid.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript">
+        //选择用户id
+        var userId = <%=userId%>;
         //任务来源用户id
         var fromUserId = <%=fromUserId%>;
         //任务接受用户id
@@ -51,27 +75,140 @@
                         Integer.parseInt(PropertyUtil.getInstance().getProperty(BaseInterface.TASK_PAGE_SIZE))))%>";
         //任务总数
         var taskCount = <%=TaskDao.countTasksByUserIdAndState(fromUserId, toUserId, state)%>;
+        //所有员工json串
+        var userJsonStr = "<%=BaseUtil.getJsonArrayFromUsers(UserDao.queryAllUsers())%>";
     </script>
+    <style type="text/css">
+        td{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div align="center">
-        <h1><button onclick="jump2Main()">主页</button>任务<button onclick="logOut()">退出</button></h1>
-        <div>
-            <input type="button" value="分配任务" onclick="location.href='<%=baseUrl%>writeTask.jsp'">
+<div id="body-wrapper">
+<div id="sidebar">
+    <div id="sidebar-wrapper">
+        <h1 id="sidebar-title"><a href="#">申成-OA系统</a></h1>
+        <img id="logo" src="images/suncare-files-logo.png" alt="Simpla Admin logo"/>
+        <div id="profile-links">
+            Hello, [<%=user.getName()%>],
+            <a href="http://www.suncarechina.com" target="_blank">申成</a>欢迎您！
+            <br/>
+            <br/>
+            <a href="javascript: logOut()" title="Sign Out">退出</a>
         </div>
-        <div>
-            任务来源用户id:<input type="text" id="fromUserId" value="<%=fromUserId>0?fromUserId:""%>">
-            任务接受用户id:<input type="text" id="toUserId" value="<%=toUserId>0?toUserId:""%>">
-            状态:<input type="text" id="state" value="<%=state>0?state:""%>">
-            <input type="button" value="选择" onclick="selectTask()">
-        </div>
-        <table id="task_table" border="1" width="80%" style="text-align: center"></table>
+        <ul id="main-nav">
+            <li><a href="#" class="nav-top-item"> 用户模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>userManage.jsp">用户管理</a></li>
+                    <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
+                    <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
+                    <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
+                    <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="nav-top-item"> 消息模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
+                    <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
+                    <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
+                    <li><a href="<%=baseUrl%>letter.jsp">站内信</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="nav-top-item current"> 工作模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>diary.jsp">工作日志</a></li>
+                    <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
+                    <li><a href="<%=baseUrl%>task.jsp" class="current">任务</a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="nav-top-item"> 工具模块 </a>
+                <ul>
+                    <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
-    <div align="center">
-        <div id="nextPageDiv" style="display: none; width: 80%; text-align: center; border: 1px solid gray;">
-            <button onclick="showNextPageTasks()">加载下一页</button>
+</div>
+
+<div id="main-content">
+
+    <ul class="shortcut-buttons-set">
+        <li>
+            <a class="shortcut-button" href="javascript: location.href='<%=baseUrl%>writeTask.jsp'">
+                    <span>
+                        <img src="images/icons/paper_content_pencil_48.png" alt="icon"/>
+                        <br/>分配任务
+                    </span>
+            </a>
+        </li>
+        <li>
+            <a class="shortcut-button" href="javascript: location.href='<%=baseUrl%>task.jsp'">
+                    <span>
+                        <img src="images/icons/image_add_48.png" alt="icon"/>
+                        <br/>查看任务
+                    </span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="clear"></div>
+
+    <div id="message_id" class="notification information png_bg" style="display: none;">
+        <a href="#" class="close">
+            <img src="images/icons/cross_grey_small.png" title="关闭" alt="关闭"/>
+        </a>
+
+        <div id="message_id_content"> 提示信息！</div>
+    </div>
+
+    <div class="content-box">
+        <div class="content-box-header">
+            <h3>任务</h3>
+            <ul class="content-box-tabs">
+                <li><a href="#tab2" class="default-tab">Forms</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="content-box-content">
+            <div class="tab-content default-tab" id="tab2">
+                <form>
+                    类型:
+                    <select id="type" class="small-input">
+                        <option value="<%=TaskInterface.TYPE_TO_ME%>"<%=type == TaskInterface.TYPE_TO_ME?" selected":""%>>分配给我的</option>
+                        <option value="<%=TaskInterface.TYPE_FROM_ME%>"<%=type == TaskInterface.TYPE_FROM_ME?" selected":""%>>我分配的</option>
+                    </select>
+                    用户:
+                    <select name="userId" id="userId" class="small-input">
+                        <option value="">全部用户</option>
+                    </select>
+                    状态:
+                    <select id="state" class="small-input">
+                        <option value="">全部</option>
+                        <option value="<%=TaskInterface.STATE_NEW%>"<%=state == TaskInterface.STATE_NEW?" selected":""%>>新建</option>
+                        <option value="<%=TaskInterface.STATE_ING%>"<%=state == TaskInterface.STATE_ING?" selected":""%>>进行中</option>
+                        <option value="<%=TaskInterface.STATE_DONE%>"<%=state == TaskInterface.STATE_DONE?" selected":""%>>完成</option>
+                        <option value="<%=TaskInterface.STATE_DROP%>"<%=state == TaskInterface.STATE_DROP?" selected":""%>>废除</option>
+                    </select>
+                    <input class="button" type="button" onclick="selectTask()" value="选择" />
+                    <table id="task_table"></table>
+                    <div align="center">
+                        <div id="nextPageDiv" style="display: none;">
+                            <input class="button" type="button" onclick="showNextPageTasks()" value="加载下一页" />
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <small>
+            &#169; Copyright 2014 Suncare | Powered by 关向辉
+        </small>
+    </div>
+</div>
+</div>
 </body>
 </html>
 <%}%>

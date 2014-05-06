@@ -15,4 +15,10 @@ public interface TaskInterface extends BaseInterface {
     public static final int STATE_ING = 2;
     public static final int STATE_DONE = 3;
     public static final int STATE_DROP = 4;
+
+    /**
+     * 类型 1:分配给我的 2:我分配的
+     */
+    public static final int TYPE_TO_ME = 1;
+    public static final int TYPE_FROM_ME = 2;
 }

@@ -1,26 +1,29 @@
-//短信Json数组
-var smsArray = new Array();
+//ueditor编辑器
+var editor;
 //所有员工Json数组
 var userArray = new Array();
 //所有公司结构Json数组
 var structureArray = new Array();
+//收件人
+var USER_TYPE_RECEIVE = 1;
+//抄送人
+var USER_TYPE_CC = 2;
+//选择用户类型
+var chooseUserType = USER_TYPE_RECEIVE;
+//选择收件人Id数组
+var chooseToUserIds = new Array();
+//选择抄送人Id数组
+var chooseCcUserIds = new Array();
 
 /**
  * 初始化
  */
 $(document).ready(function() {
-    if(message != EMPTY){
-        showInformation(message);
-    }
-    $("#date").datepicker();
-    $( "#date" ).datepicker( "option", "dateFormat", "yymmdd" );
-    $( "#date" ).datepicker( "option", "showAnim", "drop" );
-    $( "#date" ).datepicker( "option", "onSelect", function(dateText, inst ){
-        //根据日期查询短信
-        location.href = baseUrl + "sms.jsp?date=" + dateText;
-    });
-    //把初始smsJsonStr转换成smsArray
-    smsArray = transferInitJsonStr2Array(smsJsonStr);
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    editor = UE.getEditor('editor');
+    //一定要加载页面后隔上1秒钟(时间可能可以短一点)设置编辑器的内容
+    setTimeout("setContent()", 1000);
 
     //处理所有员工json串
     processUserWithJson();
@@ -29,137 +32,28 @@ $(document).ready(function() {
     //处理通讯录
     processContacts();
 
-    //处理短信Json串
-    processWithJson();
+    //初始化收件人和抄送人
+    initUserIds();
 });
 
 /**
- * 把初始smsJsonStr转换成smsArray
+ * 初始化收件人和抄送人
  */
-function transferInitJsonStr2Array(jsonStr){
-    var jsonArray = new Array();
-    if(jsonStr != EMPTY) {
-        var array = jsonStr.split(SYMBOL_LOGIC_AND);
-        for(var i=0;i<array.length;i++) {
-            jsonArray[jsonArray.length] = eval("(" + array[i] + ")");
+function initUserIds(){
+    if(initToUserIds != EMPTY){
+        var chooseToUserIdValues = initToUserIds.split(SYMBOL_COMMA);
+        for(var i=0;i<chooseToUserIdValues.length;i++){
+            chooseToUserIds[chooseToUserIds.length] = parseInt(chooseToUserIdValues[i]);
         }
     }
-    return jsonArray;
-}
-
-/**
- * 处理短信Json串
- */
-function processWithJson(){
-    //循环展示
-    var html = "<thead><tr><th width=\"20%\">电话</th><th width=\"40%\">内容</th><th width=\"10%\">状态</th>" +
-        "<th width=\"10%\">时间</th><th width=\"10%\">操作</th></tr></thead>";
-    for(var i=0;i<smsArray.length;i++){
-        var user = getUserByMobilePhone(smsArray[i]["phone"]);
-        var phoneDisplay = user == null ? smsArray[i]["phone"] : (smsArray[i]["phone"] + "(" + user["name"] + ")");
-        html += "<tr><td>" + phoneDisplay + "</td><td>" + changeNewLineBack2(smsArray[i]["content"]) +
-            "</td><td>" + smsArray[i]["stateDesc"] + "</td><td>" + smsArray[i]["date"] + smsArray[i]["time"] + "</td><td>" +
-            "<input class=\"button\" type=\"button\" onclick=\"transmit(" + smsArray[i]["id"] + ")\" value=\"转发\"></td></tr>";
-    }
-    if(smsArray.length == 0){
-        html += "<tr><td colspan='5'>无</td></tr>";
-    }
-    document.getElementById("sms_table").innerHTML = html;
-    $('#sms_table tr:even').addClass("alt-row");
-
-}
-
-/**
- * 根据id查短信
- * @param smsId
- */
-function getSMSById(smsId){
-    for(var i=0;i<smsArray.length;i++){
-        if(smsId == smsArray[i]["id"]){
-            return smsArray[i];
+    if(initCcUserIds != EMPTY){
+        var chooseCcUserIdValues = initCcUserIds.split(SYMBOL_COMMA);
+        for(var i=0;i<chooseCcUserIdValues.length;i++){
+            chooseCcUserIds[chooseCcUserIds.length] = parseInt(chooseCcUserIdValues[i]);
         }
     }
-    return null;
-}
-
-/**
- * 点击发送短信按钮
- */
-function beforeSendSMS(){
-    document.getElementById("sendSmsDiv").style.display = EMPTY;
-}
-
-/**
- * 点击转发短信按钮
- * @param smsId
- */
-function transmit(smsId){
-    var sms = getSMSById(smsId);
-    document.getElementById("content").value = changeNewLineBack2(sms["content"]);
-    document.getElementById("sendSmsDiv").style.display = EMPTY;
-}
-
-/**
- * 发送短信
- */
-function operateSMS(){
-    var phone = document.getElementById("phone").value;
-    var content = document.getElementById("content").value;
-    if(phone == EMPTY){
-        showAttention("请输入手机号");
-        return false;
-    }
-    var phoneArray = phone.split(SYMBOL_COMMA);
-    for(var i=0;i<phoneArray.length;i++){
-        if(!isMobilePhone(phoneArray[i])){
-            showAttention("手机号不合法");
-            return false;
-        }
-    }
-    if(content == EMPTY){
-        showAttention("请输入内容");
-        return false;
-    }
-    var result = checkStr(content, SYMBOL_ARRAY_1);
-    if (result["isSuccess"] == false) {
-        showAttention("内容包含非法字符:" + result["symbol"]);
-        return false;
-    }
-    if(content.length > SMS_CONTENT_LENGTH) {
-        showAttention("短信内容大于" + SMS_CONTENT_LENGTH + "个字符");
-        return false;
-    }
-
-    //ajax请求
-    var SUCCESS_STR = "success";//成功编码
-    $.ajax({
-        type:"post",
-        async:false,
-        url:baseUrl + "operateSMS.do",
-        data:"type=send&phone=" + phone + "&content=" + content + "&token=" + token,
-        success:function (data, textStatus) {
-            if ((SUCCESS_STR == textStatus) && (null != data)) {
-                data = eval("(" + data + ")");
-                //判请求是否成功
-                if (false == data["isSuccess"]) {
-                    showError(data["message"]);
-                } else {
-                    //请求成功
-                    //showSuccess(data["message"]);
-                    location.href = baseUrl + "sms.jsp?message=send sms success!";
-                }
-                //判是否有新token
-                if (data["hasNewToken"]) {
-                    token = data["token"];
-                }
-            } else {
-                showAttention("服务器连接异常，请稍后再试！");
-            }
-        },
-        error:function (data, textStatus) {
-            showAttention("服务器连接异常，请稍后再试！");
-        }
-    });
+    //展示收件人和抄送人
+    showChooseUsers();
 }
 
 /**
@@ -294,25 +188,88 @@ function chooseUser(t, id){
         }
     }
     if(type == TYPE_USER){
-        var user = getUserById(id);
-        if(user["mobileTel"] == EMPTY){
-            showAttention("[" + user["name"] + "]未设置电话！");
-            return;
-        }
-        var phones = $("#phone").val();
-        var phoneArray = phones.split(SYMBOL_COMMA);
-        for(var i=0;i<phoneArray.length;i++){
-            if(phoneArray[i] == user["mobileTel"]){
-                showAttention("[" + user["name"] + "," + user["mobileTel"] + "]已添加！");
+        if(chooseUserType == USER_TYPE_RECEIVE){
+            if(chooseToUserIds.indexOf(id) > -1){
                 return;
             }
+            chooseToUserIds[chooseToUserIds.length] = id;
         }
-        if(phones != EMPTY){
-            phones += SYMBOL_COMMA;
+        if(chooseUserType == USER_TYPE_CC){
+            if(chooseCcUserIds.indexOf(id) > -1){
+                return;
+            }
+            chooseCcUserIds[chooseCcUserIds.length] = id;
         }
-        phones += user["mobileTel"];
-        $("#phone").val(phones);
+        //展示收件人和抄送人
+        showChooseUsers();
     }
+}
+
+/**
+ * 展示收件人和抄送人
+ */
+function showChooseUsers(){
+    var html = "<b>收件人:</b>";
+    var values = EMPTY;
+    for(var i=0;i<chooseToUserIds.length;i++){
+        var user = getUserById(chooseToUserIds[i]);
+        var spanStr = "<span onclick='deleteUser(" + USER_TYPE_RECEIVE + "," + chooseToUserIds[i] + ")' " +
+            "title='删除' style='cursor: pointer'>[<img src='" + baseUrl + user["headPhoto"] + "' width='27px'>" +
+            user["name"] + "]</span>"
+        html += spanStr;
+
+        if(values != EMPTY){
+            values += SYMBOL_COMMA;
+        }
+        values += chooseToUserIds[i];
+    }
+    $("#toUserIds").html(html);
+    $("#toUserIdsValue").val(values);
+
+    html = "<b>抄送人:</b>";
+    values = EMPTY;
+    for(var i=0;i<chooseCcUserIds.length;i++){
+        var user = getUserById(chooseCcUserIds[i]);
+        var spanStr = "<span onclick='deleteUser(" + USER_TYPE_CC + "," + chooseCcUserIds[i] + ")' " +
+            "title='删除' style='cursor: pointer'>[<img src='" + baseUrl + user["headPhoto"] + "' width='27px'>" +
+            user["name"] + "]</span>"
+        html += spanStr;
+
+        if(values != EMPTY){
+            values += SYMBOL_COMMA;
+        }
+        values += chooseCcUserIds[i];
+    }
+    $("#ccUserIds").html(html);
+    $("#ccUserIdsValue").val(values);
+}
+
+/**
+ * 删除用户
+ * @param array
+ * @param id
+ */
+function deleteUser(type, id){
+    if(type == USER_TYPE_RECEIVE){
+        chooseToUserIds = removeAllOneFromArray(chooseToUserIds, id);
+        showChooseUsers();
+    }
+    if(type == USER_TYPE_CC){
+        chooseCcUserIds = removeAllOneFromArray(chooseCcUserIds, id);
+        showChooseUsers();
+    }
+}
+
+/**
+ * 选择用户类型
+ * @param type
+ * @param t
+ */
+function changeUserType(type, t){
+    chooseUserType = type;
+    document.getElementById("toUserIdsTr").style.borderWidth = "0px";
+    document.getElementById("ccUserIdsTr").style.borderWidth = "0px";
+    t.style.borderWidth = "1px";
 }
 
 /**
@@ -460,14 +417,40 @@ function getUserById(id) {
 }
 
 /**
- * 根据id查用户
- * @param id
+ * 一定要加载页面后隔上1秒钟(时间可能可以短一点)设置编辑器的内容*
  */
-function getUserByMobilePhone(phone) {
-    for(var i=0;i<userArray.length;i++){
-        if(userArray[i]["mobileTel"] == phone){
-            return userArray[i];
-        }
+function setContent(){
+    //设置编辑器的内容
+    editor.setContent(document.getElementById("content").value);
+}
+
+/**
+ * 写信
+ */
+function writeLetter(){
+    var toUserIds = document.getElementById("toUserIdsValue").value;
+    if(toUserIds == EMPTY){
+        showAttention("请选择收件人");
+        return false;
     }
-    return null;
+    var ccUserIds = document.getElementById("ccUserIdsValue").value;
+    var title = document.getElementById("title").value;
+    if(title == EMPTY){
+        showAttention("标题不能为空");
+        return false;
+    }
+    //判断字符串是否含有非法字符
+    var result = checkStr(title, SYMBOL_ARRAY_1);
+    if (result["isSuccess"] == false) {
+        showAttention("标题包含非法字符:" + result["symbol"]);
+        return false;
+    }
+    var content = editor.getContent();
+    if(content.length > LETTER_CONTENT_LENGTH) {
+        showAttention("站内信内容大于" + LETTER_CONTENT_LENGTH + "个字符");
+        return false;
+    }
+    document.getElementById("content").value = content;
+    //提交表格
+    document.forms["writeLetterForm"].submit();
 }
