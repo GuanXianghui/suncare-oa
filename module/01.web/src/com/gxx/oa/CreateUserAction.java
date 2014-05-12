@@ -2,9 +2,12 @@ package com.gxx.oa;
 
 import com.gxx.oa.dao.StructureDao;
 import com.gxx.oa.dao.UserDao;
+import com.gxx.oa.dao.UserRightDao;
 import com.gxx.oa.entities.Structure;
 import com.gxx.oa.entities.User;
+import com.gxx.oa.entities.UserRight;
 import com.gxx.oa.interfaces.BaseInterface;
+import com.gxx.oa.interfaces.ParamInterface;
 import com.gxx.oa.interfaces.StructureInterface;
 import com.gxx.oa.interfaces.UserInterface;
 import com.gxx.oa.utils.*;
@@ -27,6 +30,8 @@ public class CreateUserAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0003_USER_OPERATE);
         logger.info("name:" + name + ",letter=" + letter + ",positionId=" + positionId);
         String resp;
 
@@ -52,6 +57,11 @@ public class CreateUserAction extends BaseAction {
                     StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, defaultPhoto, StringUtils.EMPTY,
                     date, time, getIp(), StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY);
             UserDao.insertUser(user);
+
+            //创建权限
+            user = UserDao.getUserByName(name);
+            UserRight userRight = new UserRight(user.getId(), ParamUtil.getInstance().getValueByName(ParamInterface.DEFAULT_RIGHT));
+            UserRightDao.insertUserRight(userRight);
 
             //返回结果
             resp = "{isSuccess:true,message:'创建用户成功！',hasNewToken:true,token:'" +

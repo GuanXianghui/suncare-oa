@@ -9,4 +9,8 @@
         response.sendRedirect(baseUrl + "index.jsp");
         return;
     }
+    //外层
+    String outLayer = StringUtils.EMPTY;
+    //内层
+    String inLayer = StringUtils.EMPTY;
 %>

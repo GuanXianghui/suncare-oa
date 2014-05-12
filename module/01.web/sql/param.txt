@@ -3,3 +3,5 @@ create table param(		#启动参数表
 	value varchar(500) not null comment '值 不为空',
 	info varchar(50) not null comment '描述 不为空'
 );
+
+INSERT INTO PARAM(name, value, info) VALUES ('default_right','0001,0002,0004,0006,0008,0009,0010,0011,0012,0013','默认权限');

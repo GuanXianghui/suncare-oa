@@ -66,4 +66,34 @@ public class ParamUtil {
         }
         return StringUtils.EMPTY;
     }
+
+    /**
+     * 根据name修改value和info
+     * @param name
+     * @param value
+     * @param info
+     */
+    public void updateParam(String name, String value, String info) throws Exception{
+        //找启动参数
+        Param param = null;
+        for(Param temp : params) {
+            if(temp.getName().equals(name)) {
+                param = temp;
+                break;
+            }
+        }
+
+        //找不到该启动参数
+        if(null == param){
+            throw new RuntimeException("找不到该启动参数:[" + name + "]");
+        }
+
+        //更新启动参数
+        param.setValue(value);
+        param.setInfo(info);
+        ParamDao.updateParam(param);
+
+        //配置缓存刷新
+        refresh();
+    }
 }

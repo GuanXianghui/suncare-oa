@@ -2,7 +2,9 @@ package com.gxx.oa.utils;
 
 import com.gxx.oa.dao.StructureDao;
 import com.gxx.oa.dao.UserDao;
+import com.gxx.oa.dao.UserRightDao;
 import com.gxx.oa.entities.*;
+import com.gxx.oa.exceptions.AjaxException;
 import com.gxx.oa.interfaces.*;
 import org.apache.commons.lang.StringUtils;
 
@@ -535,5 +537,54 @@ public class BaseUtil implements SymbolInterface {
                     user.getName() + "</a>";
         }
         return result;
+    }
+
+    /**
+     * 权限校验
+     * @param userId
+     * @param rightCode
+     * @throws Exception
+     */
+    public static void checkRightWithException(int userId, String rightCode) throws Exception {
+        if(!checkRight(userId,  rightCode)){
+            throw new RuntimeException("您无该权限！");
+        }
+    }
+
+    /**
+     * 权限校验
+     * @param userId
+     * @param rightCode
+     * @throws Exception
+     */
+    public static void checkRightWithAjaxException(int userId, String rightCode) throws Exception {
+        if(!checkRight(userId,  rightCode)){
+            throw new AjaxException("您无该权限！");
+        }
+    }
+
+    /**
+     * 权限校验
+     * @param userId
+     * @param rightCode
+     * @throws Exception
+     */
+    public static boolean checkRight(int userId, String rightCode) throws Exception {
+        //查询权限
+        UserRight userRight = UserRightDao.getUserRightByUserId(userId);
+        if(userRight.getUserRight().indexOf(rightCode) == -1){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 判是否有权限
+     * @param rights
+     * @param right
+     * @return
+     */
+    public static boolean haveRight(String rights, String right){
+        return rights.indexOf(right) > -1;
     }
 }

@@ -3,6 +3,7 @@ package com.gxx.oa;
 import com.gxx.oa.dao.SMSDao;
 import com.gxx.oa.entities.SMS;
 import com.gxx.oa.interfaces.*;
+import com.gxx.oa.utils.BaseUtil;
 import com.gxx.oa.utils.PropertyUtil;
 import com.gxx.oa.utils.SMSUtil;
 import com.gxx.oa.utils.TokenUtil;
@@ -32,6 +33,8 @@ public class OperateSMSAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0013_SMS);
         logger.info("type:" + type + ",phone=" + phone + ",content=" + content);
         //ajax结果
         String resp;

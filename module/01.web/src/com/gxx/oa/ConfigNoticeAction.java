@@ -2,6 +2,7 @@ package com.gxx.oa;
 
 import com.gxx.oa.dao.NoticeDao;
 import com.gxx.oa.entities.Notice;
+import com.gxx.oa.utils.BaseUtil;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -33,6 +34,8 @@ public class ConfigNoticeAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithException(getUser().getId(), RIGHT_0007_CONFIG_NOTICE);
         logger.info("noticeId:" + noticeId + ",type:" + type + ",title:" + title + ",content:" + content);
         //公告类型判断
         if(StringUtils.equals(TYPE_ADD, type)) {

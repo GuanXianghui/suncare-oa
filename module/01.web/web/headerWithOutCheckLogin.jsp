@@ -15,6 +15,8 @@
     User user = (User)request.getSession().getAttribute(BaseInterface.USER_KEY);
     //是否已经登录
     boolean isLogin = user != null;
+    //session中获取userRight
+    String userRight = (String)request.getSession().getAttribute(BaseInterface.USER_RIGHT_KEY);
     //消息
     String message = StringUtils.trimToEmpty((String)request.getAttribute("message"));
     if(StringUtils.isBlank(message)){

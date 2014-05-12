@@ -49,6 +49,8 @@ public class OperateTaskAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0012_TASK);
         logger.info("type:" + type + ",countNow=" + countNow + ",fromUserId=" + fromUserId + ",toUserId=" +
                 toUserId + ",state=" + state + ",taskId=" + taskId + ",newState=" + newState);
         //ajax结果

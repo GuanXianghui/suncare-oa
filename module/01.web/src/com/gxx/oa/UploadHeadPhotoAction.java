@@ -2,6 +2,7 @@ package com.gxx.oa;
 
 import com.gxx.oa.dao.UserDao;
 import com.gxx.oa.entities.User;
+import com.gxx.oa.utils.BaseUtil;
 import com.gxx.oa.utils.FileUtil;
 import org.apache.struts2.ServletActionContext;
 
@@ -26,6 +27,8 @@ public class UploadHeadPhotoAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithException(getUser().getId(), RIGHT_0001_USER_MANAGE);
         logger.info("headPhoto:" + headPhoto);
         //判头像为空
         if(null == headPhoto)

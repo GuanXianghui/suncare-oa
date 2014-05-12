@@ -30,6 +30,8 @@ public class UpdateInfoAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0001_USER_MANAGE);
         logger.info("sex:" + sex + ",birthday=" + birthday + ",officeTel=" + officeTel + ",mobileTel=" +
                 mobileTel + ",desk=" + desk + ",email=" + email + ",qq=" + qq + ",msn=" + msn +
                 ",address=" + address + ",website=" + website);

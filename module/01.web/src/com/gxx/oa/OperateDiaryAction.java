@@ -51,6 +51,8 @@ public class OperateDiaryAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0010_DIARY);
         logger.info("type:" + type + ",countNow=" + countNow + ",userId=" + userId + ",date=" + date +
                 ",diaryId=" + diaryId);
         //ajax结果

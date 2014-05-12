@@ -2,6 +2,7 @@ package com.gxx.oa;
 
 import com.gxx.oa.dao.DiaryDao;
 import com.gxx.oa.entities.Diary;
+import com.gxx.oa.utils.BaseUtil;
 
 /**
  * 修改工作日志action
@@ -23,6 +24,8 @@ public class UpdateDiaryAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithException(getUser().getId(), RIGHT_0010_DIARY);
         logger.info("diaryId:" + diaryId + ",date:" + date + ",content:" + content);
         Diary diary = DiaryDao.getDiaryById(Integer.parseInt(diaryId));
         //判不存在该工作日志，或者，该工作日志不属于该用户的不能修改

@@ -41,6 +41,8 @@ public class OperateUserNoticeAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0006_NOTICE);
         logger.info("type:" + type + ",noticeId=" + noticeId + ",countNow=" + countNow);
         //ajax结果
         String resp;

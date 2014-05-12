@@ -37,6 +37,8 @@ public class UpdateUserAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0003_USER_OPERATE);
         logger.info("updateType:" + updateType + ",userId=" + userId + ",positionId=" + positionId);
         String resp;
 

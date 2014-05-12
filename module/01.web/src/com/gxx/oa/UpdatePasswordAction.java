@@ -2,6 +2,7 @@ package com.gxx.oa;
 
 import com.gxx.oa.dao.UserDao;
 import com.gxx.oa.entities.User;
+import com.gxx.oa.utils.BaseUtil;
 import com.gxx.oa.utils.TokenUtil;
 
 /**
@@ -22,6 +23,8 @@ public class UpdatePasswordAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0001_USER_MANAGE);
         logger.info("password:" + password);
 
         //更新用户

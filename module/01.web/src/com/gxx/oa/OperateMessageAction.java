@@ -39,6 +39,8 @@ public class OperateMessageAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0008_MESSAGE);
         logger.info("type:" + type + ",messageId=" + messageId + ",countNow=" + countNow);
         //ajax结果
         String resp;

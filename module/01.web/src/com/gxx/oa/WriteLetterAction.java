@@ -5,6 +5,7 @@ import com.gxx.oa.entities.Letter;
 import com.gxx.oa.interfaces.LetterInterface;
 import com.gxx.oa.interfaces.SymbolInterface;
 import com.gxx.oa.interfaces.UserInterface;
+import com.gxx.oa.utils.BaseUtil;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -29,6 +30,8 @@ public class WriteLetterAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithException(getUser().getId(), RIGHT_0009_LETTER);
         logger.info("toUserIds:" + toUserIds + ",ccUserIds:" + ccUserIds + ",title:" + title + ",content:" + content);
         // 1 创建一条发送的站内信
         Letter sendLetter = new Letter(getUser().getId(), UserInterface.USER_TYPE_NORMAL, LetterInterface.SEND,

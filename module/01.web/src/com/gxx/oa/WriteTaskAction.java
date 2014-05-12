@@ -3,6 +3,7 @@ package com.gxx.oa;
 import com.gxx.oa.dao.TaskDao;
 import com.gxx.oa.entities.Task;
 import com.gxx.oa.interfaces.TaskInterface;
+import com.gxx.oa.utils.BaseUtil;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -31,6 +32,8 @@ public class WriteTaskAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithException(getUser().getId(), RIGHT_0012_TASK);
         logger.info("fromUserId:" + fromUserId + ",toUserId:" + toUserId + ",title:" + title +
                 ",beginDate:" + beginDate + ",endDate:" + endDate + ",content:" + content);
         Task task = new Task(Integer.parseInt(fromUserId), Integer.parseInt(toUserId), title, content,

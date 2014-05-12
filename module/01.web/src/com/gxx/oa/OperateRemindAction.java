@@ -38,6 +38,8 @@ public class OperateRemindAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0011_CALENDAR);
         logger.info("type:" + type + ",date=" + date);
         //ajax结果
         String resp;

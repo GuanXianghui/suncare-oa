@@ -4,8 +4,17 @@
 <%@ page import="com.gxx.oa.interfaces.UserInterface" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
-<%if(isLogin){%>
     <%
+        //权限校验
+        if(!BaseUtil.checkRight(user.getId(), UserRightInterface.RIGHT_0001_USER_MANAGE)){
+            //域名链接
+            response.sendRedirect(baseUrl + "index.jsp");
+            return;
+        }
+        //外层
+        outLayer = "用户模块";
+        //内层
+        inLayer = "用户管理";
         Structure company = StructureDao.getStructureById(user.getCompany());
         Structure dept = StructureDao.getStructureById(user.getDept());
         Structure position = StructureDao.getStructureById(user.getPosition());
@@ -37,37 +46,7 @@
             <br/>
             <a href="javascript: logOut()" title="Sign Out">退出</a>
         </div>
-        <ul id="main-nav">
-            <li><a href="#" class="nav-top-item current"> 用户模块 </a>
-                <ul>
-                    <li><a href="<%=baseUrl%>userManage.jsp" class="current">用户管理</a></li>
-                    <li><a href="<%=baseUrl%>user.jsp?id=<%=user.getId()%>">个人展示</a></li>
-                    <li><a href="<%=baseUrl%>userOperate.jsp">后台用户管理</a></li>
-                    <li><a href="<%=baseUrl%>contacts.jsp">通讯录</a></li>
-                    <li><a href="<%=baseUrl%>orgStructureManage.jsp">组织架构管理</a></li>
-                </ul>
-            </li>
-            <li><a href="#" class="nav-top-item"> 消息模块 </a>
-                <ul>
-                    <li><a href="<%=baseUrl%>notice.jsp">公告</a></li>
-                    <li><a href="<%=baseUrl%>configNotice.jsp">公告管理</a></li>
-                    <li><a href="<%=baseUrl%>message.jsp">消息</a></li>
-                    <li><a href="<%=baseUrl%>letter.jsp">站内信</a></li>
-                </ul>
-            </li>
-            <li><a href="#" class="nav-top-item"> 工作模块 </a>
-                <ul>
-                    <li><a href="<%=baseUrl%>diary.jsp">工作日志</a></li>
-                    <li><a href="<%=baseUrl%>calendar.jsp">日历</a></li>
-                    <li><a href="<%=baseUrl%>task.jsp">任务</a></li>
-                </ul>
-            </li>
-            <li><a href="#" class="nav-top-item"> 工具模块 </a>
-                <ul>
-                    <li><a href="<%=baseUrl%>sms.jsp">短信</a></li>
-                </ul>
-            </li>
-        </ul>
+        <%@ include file="layers.jsp" %>
     </div>
 </div>
 <div id="main-content">
@@ -305,4 +284,3 @@
 </div>
 </body>
 </html>
-<%}%>

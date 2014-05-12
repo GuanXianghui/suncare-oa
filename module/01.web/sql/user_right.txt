@@ -1,0 +1,7 @@
+create table user_right( #权限表
+	user_id int primary key comment '用户id 主键',
+	user_right varchar(500) not null comment '权限 权限代码逗号分隔'
+);
+
+#初始sql
+INSERT INTO USER_RIGHT(user_id, user_right) VALUES (1, '0001,0002,0003,0004,0005,0006,0007,0008,0009,0010,0011,0012,0013,0014,0015');

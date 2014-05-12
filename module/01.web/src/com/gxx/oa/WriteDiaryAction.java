@@ -2,6 +2,7 @@ package com.gxx.oa;
 
 import com.gxx.oa.dao.DiaryDao;
 import com.gxx.oa.entities.Diary;
+import com.gxx.oa.utils.BaseUtil;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -22,6 +23,8 @@ public class WriteDiaryAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithException(getUser().getId(), RIGHT_0010_DIARY);
         logger.info("date:" + date + ",content:" + content);
         Diary diary = new Diary(getUser().getId(), date, content, super.date, time, getIp(), StringUtils.EMPTY,
                 StringUtils.EMPTY, StringUtils.EMPTY);

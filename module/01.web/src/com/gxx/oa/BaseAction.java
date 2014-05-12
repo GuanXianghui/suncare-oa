@@ -2,6 +2,7 @@ package com.gxx.oa;
 
 import com.gxx.oa.entities.User;
 import com.gxx.oa.interfaces.BaseInterface;
+import com.gxx.oa.interfaces.UserRightInterface;
 import com.gxx.oa.utils.DateUtil;
 import com.gxx.oa.utils.IPAddressUtil;
 import com.opensymphony.xwork2.ActionSupport;
@@ -23,7 +24,7 @@ import java.util.Date;
  * @module oa
  * @datetime 14-3-29 12:44
  */
-public class BaseAction extends ActionSupport implements ServletRequestAware, ServletResponseAware {
+public class BaseAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, UserRightInterface {
     /**
      * 日志处理器
      */

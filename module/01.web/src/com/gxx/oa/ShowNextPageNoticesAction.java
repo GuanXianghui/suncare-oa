@@ -28,6 +28,8 @@ public class ShowNextPageNoticesAction extends BaseAction {
      * @return
      */
     public String execute() throws Exception {
+        //权限校验
+        BaseUtil.checkRightWithAjaxException(getUser().getId(), RIGHT_0007_CONFIG_NOTICE);
         logger.info("countNow:" + countNow);
         //算当前页书
         int nowPage = countNow / Integer.parseInt(PropertyUtil.getInstance().

@@ -37,6 +37,10 @@ public interface BaseInterface {
      */
     public static final String USER_KEY = "user";
     /**
+     * 用户权限键
+     */
+    public static final String USER_RIGHT_KEY = "user_right";
+    /**
      * 公告页面大小
      */
     public static final String NOTICE_PAGE_SIZE = "notice_page_size";
@@ -77,4 +81,8 @@ public interface BaseInterface {
      * 短信日数量限制
      */
     public static final String SMS_DAY_LIMIT = "sms_day_limit";
+    /**
+     * 所有权限 权限代码1=权限名称1,权限代码2=权限名称2,权限代码3=权限名称3,...
+     */
+    public static final String RIGHT_LIST = "right_list";
 }
