@@ -87,7 +87,7 @@
                 <div class="tab-content default-tab">
                     <table>
                         <tr style="border: 1px solid white;">
-                            <td id="before_upload_head_photo_td">
+                            <td id="before_upload_head_photo_td" style="text-align: center;">
                                 <img src="<%=baseUrl + user.getHeadPhoto()%>" width="108px"/>
                                 <input class="button" type="button" onclick="beforeUploadHeadPhoto();" value="修改头像">
                             </td>

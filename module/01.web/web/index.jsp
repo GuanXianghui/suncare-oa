@@ -32,7 +32,7 @@
             %>
             <div align="center">
                 <input style="width: 100%" class="button" type="button" value="您已登陆，点击直接进入主页"
-                        onclick="location.href=baseUrl+'main.jsp';">
+                        onclick="location.href=baseUrl+'userManage.jsp';">
             </div>
             <%
                 } else {

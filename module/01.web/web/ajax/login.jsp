@@ -31,7 +31,7 @@
                 user.setVisitIp(IPAddressUtil.getIPAddress(request));
                 UserDao.updateUserVisitInfo(user);
                 request.getSession().setAttribute(BaseInterface.USER_KEY, user);
-                resp = "{isSuccess:true,message:'登陆成功！',isRedirect:true,redirectUrl:'" + baseUrl + "main.jsp'}";
+                resp = "{isSuccess:true,message:'登陆成功！',isRedirect:true,redirectUrl:'" + baseUrl + "userManage.jsp'}";
             }
         }
     }
