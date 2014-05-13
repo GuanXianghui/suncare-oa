@@ -265,7 +265,7 @@ function processContacts(){
                 for(var l=0;l<users.length;l++){
                     html += "<tr><td class='user' title='com_" + company + "_dept_" + dept + "_pos_" +
                         structure["id"] + "_user_" + users[l]["id"] + "' onclick='chooseUser(this, " + users[l]["id"] + ")' style='display: none;'><img src='" +
-                        baseUrl + users[k]["headPhoto"] + "' width='27px'>" + users[l]["name"] + "</td></tr>";
+                        baseUrl + users[l]["headPhoto"] + "' width='27px'>" + users[l]["name"] + "</td></tr>";
                 }
             }
         }
