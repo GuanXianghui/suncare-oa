@@ -1,5 +1,6 @@
 package com.gxx.oa.utils;
 
+import com.gxx.oa.dao.CloudDao;
 import com.gxx.oa.dao.StructureDao;
 import com.gxx.oa.dao.UserDao;
 import com.gxx.oa.dao.UserRightDao;
@@ -586,5 +587,84 @@ public class BaseUtil implements SymbolInterface {
      */
     public static boolean haveRight(String rights, String right){
         return rights.indexOf(right) > -1;
+    }
+
+    /**
+     * 根据用户id和目录 判目录合法性
+     * 1.如果dir为左斜杠/则允许
+     * 2.其他则dir根据/截取，每段判dir是否存在而且状态正常
+     * @param userId
+     * @param dir
+     * @throws Exception
+     */
+    public static void checkDir(int userId, String dir) throws Exception {
+        if(StringUtils.isBlank(dir)){
+            throw new RuntimeException("文件目录有误:[" + dir + "]");
+        }
+        //如果dir为左斜杠/则允许
+        if(StringUtils.equals(CloudInterface.FRONT_DIR, dir)){
+            return;
+        }
+        //去掉前后的左斜杠/
+        dir = dir.substring(1);
+        if(dir.endsWith(SYMBOL_SLASH)){
+            dir = dir.substring(0, dir.length() - 1);
+        }
+        //逐个文件夹校验状态
+        String[] dirParts = dir.split(SYMBOL_SLASH);
+        for(int i=0;i<dirParts.length;i++){
+            String tempDir = SYMBOL_SLASH;
+            for(int j=0;j<i+1;j++){
+                tempDir += dirParts[j];
+                tempDir += SYMBOL_SLASH;
+            }
+            Cloud tempCloud = CloudDao.getCloudByUserIdAndRoute(userId, tempDir);
+            if(null == tempCloud || tempCloud.getState() != CloudInterface.STATE_NORMAL ||
+                    tempCloud.getType() != CloudInterface.TYPE_DIR){
+                throw new RuntimeException("文件目录有误:[" + tempCloud + "]");
+            }
+        }
+    }
+
+    /**
+     * 从申成云集合得到Json数组
+     *
+     * @param clouds
+     * @return
+     * @throws Exception
+     */
+    public static String getJsonArrayFromClouds(List<Cloud> clouds) throws Exception {
+        String result = StringUtils.EMPTY;
+        for(Cloud cloud : clouds) {
+            if(StringUtils.isNotBlank(result)) {
+                result += SYMBOL_LOGIC_AND;
+            }
+            result += "{id:" + cloud.getId() + ",userId:" + cloud.getUserId() + ",type:" +
+                    cloud.getType() + ",pid:" + cloud.getPid() + ",name:'" + cloud.getName() +
+                    "',state:" + cloud.getState() + ",dir:'" + cloud.getDir() + "',route:'" +
+                    cloud.getRoute() + "',size:" + ((cloud.getType()==CloudInterface.TYPE_FILE)?cloud.getSize():"0") +
+                    ",formatSize:'" + ((cloud.getType()==CloudInterface.TYPE_FILE)?FileUtil.formatFileSize(cloud.getSize()):"0") +
+                    "',createDate:'" + cloud.getCreateDate() + "',createTime:'" + cloud.getCreateTime() +
+                    "',createIp:'" + cloud.getCreateIp() + "'}";
+        }
+        return result;
+    }
+
+    /**
+     * 根据申成云类型得到描述
+     * @param type
+     * @return
+     */
+    public static String getCloudTypeDesc(int type){
+        if(CloudInterface.TYPE_FILE == type){
+            return "文件";
+        }
+        if(CloudInterface.TYPE_DIR == type){
+            return "文件夹";
+        }
+        if(CloudInterface.TYPE_SYSTEM_FILE == type){
+            return "系统文件";
+        }
+        return StringUtils.EMPTY;
     }
 }

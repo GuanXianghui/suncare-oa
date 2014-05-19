@@ -108,6 +108,17 @@
         <action name="updateDefaultRight" class="com.gxx.oa.UpdateDefaultRightAction"/>
         <action name="readUserRight" class="com.gxx.oa.ReadUserRightAction"/>
         <action name="updateUserRight" class="com.gxx.oa.UpdateUserRightAction"/>
+        <action name="cloudUpload" class="com.gxx.oa.CloudUploadAction">
+            <result>
+                /cloud.jsp
+            </result>
+            <result name="error">
+                /cloud.jsp
+            </result>
+        </action>
+        <action name="cloudLoadDir" class="com.gxx.oa.CloudLoadDirAction"/>
+        <action name="cloudNewDir" class="com.gxx.oa.CloudNewDirDirAction"/>
+        <action name="cloudDeleteFile" class="com.gxx.oa.CloudDeleteFileAction"/>
     </package>
 
     <!--

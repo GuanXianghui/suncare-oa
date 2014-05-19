@@ -25,6 +25,11 @@ var SYMBOL_NEW_LINE2 = "\n";
 var SYMBOL_ARRAY_1 = new Array(SYMBOL_BIT_AND,SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT,SYMBOL_SLASH);
 var SYMBOL_ARRAY_2_CHECK_URL = new Array(SYMBOL_SINGLE_QUOT,SYMBOL_DOUBLE_QUOT);
 
+//按键值
+var KEY_CODE_ENTER = 13;
+var KEY_CODE_CTRL = 17;
+var KEY_CODE_DELETE = 46;
+
 //默认信息提示框ID
 var DEFAULT_MESSAGE_ID = "message_id";
 
@@ -128,6 +133,20 @@ var TASK_REVIEW_CONTENT_LENGTH = 250;//任务评论内容长度
  * 字段长度
  */
 var SMS_CONTENT_LENGTH = 65;//短信内容长度
+
+/**
+ * 状态 1 正常 2 删除 3 彻底删除
+ */
+var CLOUD_STATE_NORMAL = 1;
+var CLOUD_STATE_DELETE = 2;
+var CLOUD_STATE_CTRL_DELETE = 3;
+
+/**
+ * 类型 1 文件 2 文件夹 3 系统文件
+ */
+var CLOUD_TYPE_FILE = 1;
+var CLOUD_TYPE_DIR = 2;
+var CLOUD_TYPE_SYSTEM_FILE = 3;
 
 /**
  * 计算str1中还有几个str2
@@ -405,6 +424,23 @@ function fileBitAnd(str){
 }
 
 /**
+ * 得到one在数组array中的index
+ * 未校验是否可用！
+ * @param array
+ * @param one
+ */
+function getIndexOfArray(array, one){
+    var index = -1;
+    for(var i=0;i<array.length;i++){
+        if(array[i] == one){
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
+/**
  * 从array数组中把所有等于one的删掉
  * @param array
  * @param one
@@ -413,6 +449,22 @@ function removeAllOneFromArray(array, one){
     var newArray = new Array();
     for(var i=0;i<array.length;i++){
         if(array[i] != one){
+            newArray[newArray.length] = array[i];
+        }
+    }
+    return newArray;
+}
+
+/**
+ * 从array数组中把第index位置的删掉
+ * 未校验是否可用！
+ * @param array
+ * @param index
+ */
+function removeIndexFromArray(array, index){
+    var newArray = new Array();
+    for(var i=0;i<array.length;i++){
+        if(i != index){
             newArray[newArray.length] = array[i];
         }
     }

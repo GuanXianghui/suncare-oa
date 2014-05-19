@@ -51,3 +51,7 @@ gbk编码编码文件：txt，java，properties
 参考base.js中的方法function filterStr(str){}
 用该方法将参数过滤后传到服务端，服务端即可获取到正确的"+"或"&"符号！
 来自网址：http://www.cnblogs.com/qintianqi/archive/2011/07/27/2117785.html
+
+(10)facebox.js的坑
+$(t).parent().find(".text-input").val()
+注意：这里使用facebox.js，浮层是拷贝一份，直接用id来找对象取出来不是同一个对象，所以用位置关系来查找对象

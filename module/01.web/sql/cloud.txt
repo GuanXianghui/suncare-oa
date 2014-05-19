@@ -1,0 +1,20 @@
+create table cloud( #申成云
+	id int auto_increment primary key comment '主键 自增',
+	user_id int not null comment '用户id 不为空',
+	type int not null comment '类型 不为空 1 文件 2 文件夹 3 系统文件',
+    pid int not null comment '父文件夹id 不为空 首层pid=0',
+    name varchar(100) not null comment '名称 不为空',
+    state int not null comment '状态 不为空 1 正常 2 删除 3 彻底删除',
+    dir varchar(1000) not null comment '所处目录名称 不为空 格式:/dir1/dir2/ 首层:/',
+    route varchar(1100) comment '相对路径 可为空 如果是文件夹则有文件夹路径route=dir+name+/ 如果是文件则为真实文件相对路径',
+    size long comment '文件大小 可为空 只有文件类型才显示大小',
+	create_date varchar(8) not null comment '创建日期 不为空',
+	create_time varchar(6) not null comment '创建时间 不为空',
+	create_ip varchar(100) not null comment '创建IP 不为空'
+);
+
+#申成云操作规则：
+#1.删除文件或者文件夹，将state置成2，回收站中可恢复
+#2.彻底删除文件或者文件夹，将state置成3，不可恢复
+#3.恢复文件或者文件夹，如果父层的文件夹也被删除则自动创建一个新的文件夹，下层的文件或者文件夹指向该文件夹
+#4.恢复文件或者文件夹，如果该目录下已经有相同的文件或者文件夹则，恢复失败

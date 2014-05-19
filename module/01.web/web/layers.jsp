@@ -146,4 +146,9 @@
     <%
         }
     %>
+    <li><a href="#" class="nav-top-item<%=outLayer.equals("申成云")?" current":""%>"> 申成云 </a>
+        <ul>
+            <li><a href="<%=baseUrl%>cloud.jsp"<%=inLayer.equals("申成云")?" class=\"current\"":""%>>申成云</a></li>
+        </ul>
+    </li>
 </ul>

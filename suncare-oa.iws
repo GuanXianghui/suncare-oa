@@ -61,53 +61,7 @@
     <favorites_list name="suncare-oa" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="database.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/module/01.web/sql/database.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="diary.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/module/01.web/sql/diary.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sms.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/sms.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="267" column="82" selection-start="9066" selection-end="9066" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="userRight.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/userRight.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="41" selection-start="4627" selection-end="4628" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="writeLetter.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/writeLetter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="169" column="62" selection-start="5875" selection-end="5875" vertical-scroll-proportion="0.43542436">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -117,22 +71,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/module/01.web/web/showLetter.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/showTask.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/sms.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/task.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/user.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/userManage.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/userOperate.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/userRight.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/writeDiary.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/writeLetter.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/web/writeTask.jsp" />
-        <option value="$PROJECT_DIR$/module/01.web/sql/user.txt" />
-        <option value="$PROJECT_DIR$/module/01.web/daily/20140512.txt" />
-        <option value="$PROJECT_DIR$/module/01.web/web/scripts/sms.js" />
-        <option value="$PROJECT_DIR$/module/01.web/web/scripts/userRight.js" />
-        <option value="$PROJECT_DIR$/module/01.web/web/scripts/writeLetter.js" />
+        <option value="$PROJECT_DIR$/module/01.web/web/css/cloud.css" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/utils/FileUtil.java" />
+        <option value="$PROJECT_DIR$/module/01.web/sql/cloud.txt" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/entities/Cloud.java" />
+        <option value="$PROJECT_DIR$/module/01.web/daily/备注.txt" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudLoadDirAction.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/CloudDao.java" />
+        <option value="$PROJECT_DIR$/module/01.web/web/scripts/base.js" />
+        <option value="$PROJECT_DIR$/module/01.web/src/struts.xml" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/utils/BaseUtil.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudUploadAction.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudNewDirDirAction.java" />
+        <option value="$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudDeleteFileAction.java" />
+        <option value="$PROJECT_DIR$/module/01.web/web/cloud.jsp" />
+        <option value="$PROJECT_DIR$/module/01.web/web/scripts/cloud.js" />
+        <option value="$PROJECT_DIR$/module/01.web/daily/20140520.txt" />
       </list>
     </option>
   </component>
@@ -221,6 +175,16 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -229,14 +193,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suncare-oa" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="01.web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -259,9 +223,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -272,86 +236,14 @@
       <recent name="com.gxx.oa.entities" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\04.my_projects\suncare-oa\module\01.web\web\images\head" />
       <recent name="D:\04.my_projects\suncare-oa\module\01.web\daily" />
-      <recent name="D:\04.my_projects\suncare-oa\module\01.web\web" />
       <recent name="D:\04.my_projects\suncare-oa\module\01.web\web\scripts" />
-      <recent name="D:\04.my_projects\suncare-oa\module\01.web\sql" />
+      <recent name="D:\04.my_projects\suncare-oa\module\01.web\web\css" />
+      <recent name="D:\04.my_projects\suncare-oa\module\01.web\web" />
+      <recent name="D:\04.my_projects\suncare-oa\module\01.web\web\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.defaultRight.jsp">
-    <configuration default="false" name="diary.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 6">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:80/diary.jsp" />
-      <deployment>
-        <artifact name="01.web:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="diary_jsp_suncare-oa_3" />
-      </server-settings>
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <RunnerSettings RunnerId="Cover" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="56211" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="01.web:war exploded" />
-        </option>
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Tomcat Server.index.jsp">
     <configuration default="false" name="index.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 6">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:80/index.jsp" />
       <option name="UPDATING_POLICY" value="update-resources" />
@@ -378,13 +270,13 @@
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
           <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
+          <option name="SCRIPT" value=" " />
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </STARTUP>
         <SHUTDOWN>
           <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
+          <option name="SCRIPT" value=" " />
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
@@ -393,13 +285,13 @@
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
           <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
+          <option name="SCRIPT" value=" " />
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </STARTUP>
         <SHUTDOWN>
           <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
+          <option name="SCRIPT" value=" " />
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
@@ -408,124 +300,13 @@
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
           <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
+          <option name="SCRIPT" value=" " />
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </STARTUP>
         <SHUTDOWN>
           <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="01.web:war exploded" />
-        </option>
-      </method>
-    </configuration>
-    <configuration default="false" name="notice.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 6">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:80/notice.jsp" />
-      <option name="UPDATING_POLICY" value="update-resources" />
-      <deployment>
-        <artifact name="01.web:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="notice_jsp_suncare-oa" />
-      </server-settings>
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="01.web:war exploded" />
-        </option>
-      </method>
-    </configuration>
-    <configuration default="false" name="message.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 6">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:80/message.jsp" />
-      <option name="UPDATING_POLICY" value="update-resources" />
-      <deployment>
-        <artifact name="01.web:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="message_jsp_suncare-oa" />
-      </server-settings>
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="01.web:war exploded" />
-        </option>
-      </method>
-    </configuration>
-    <configuration default="false" name="defaultRight.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 6">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:80/defaultRight.jsp" />
-      <option name="UPDATING_POLICY" value="update-resources" />
-      <deployment>
-        <artifact name="01.web:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="defaultRight_jsp_suncare-oa" />
-      </server-settings>
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
+          <option name="SCRIPT" value=" " />
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
@@ -559,24 +340,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -603,6 +366,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -641,6 +422,17 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -667,17 +459,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
       <deployment />
       <server-settings />
@@ -690,12 +471,8 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.diary.jsp" />
-      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.notice.jsp" />
-      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.message.jsp" />
-      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.defaultRight.jsp" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -751,15 +528,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49569708" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2151463" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6523236" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874355" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13449848" sideWeight="0.48364887" order="2" side_tool="true" content_ui="tabs" />
@@ -771,8 +548,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24355084" sideWeight="0.24268502" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17477204" sideWeight="0.383821" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.616179" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21580547" sideWeight="0.302926" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.697074" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -872,92 +649,120 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/userRight.jsp">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudLoadDirAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="82" selection-start="347" selection-end="347" vertical-scroll-proportion="-4.75" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/writeDiary.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="77" selection-start="190" selection-end="190" vertical-scroll-proportion="-2.7142856" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/writeLetter.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="78" selection-start="437" selection-end="437" vertical-scroll-proportion="-6.107143" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/writeTask.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="76" selection-start="233" selection-end="233" vertical-scroll-proportion="0.18026565" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/letter.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="82" selection-start="513" selection-end="513" vertical-scroll-proportion="-6.785714" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/layers.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="49" selection-start="1674" selection-end="1686" vertical-scroll-proportion="-12.214286" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/OperateMessageAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="33" selection-start="919" selection-end="919" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/sql/user_right.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/sql/user.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="34" selection-start="1453" selection-end="1453" vertical-scroll-proportion="1.1981982" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/daily/20140512.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="25" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/images/head/default_head.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/sql/database.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="36" column="20" selection-start="796" selection-end="796" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/sql/diary.txt">
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="443" column="0" selection-start="11578" selection-end="11578" vertical-scroll-proportion="0.57564574">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/sms.js">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/interfaces/CloudInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="267" column="82" selection-start="9066" selection-end="9066" vertical-scroll-proportion="0.0">
+        <state line="17" column="28" selection-start="329" selection-end="329" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/userRight.js">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/dao/CloudDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="41" selection-start="4627" selection-end="4628" vertical-scroll-proportion="0.0">
+        <state line="149" column="24" selection-start="5198" selection-end="5198" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#614#621#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudUploadAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="22" selection-start="590" selection-end="593" vertical-scroll-proportion="0.88951313">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudNewDirDirAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="60" selection-start="1058" selection-end="1058" vertical-scroll-proportion="0.5374532">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/writeLetter.js">
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/CloudDeleteFileAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="62" selection-start="5875" selection-end="5875" vertical-scroll-proportion="0.43542436">
+        <state line="48" column="65" selection-start="1308" selection-end="1308" vertical-scroll-proportion="1.3351351">
+          <folding>
+            <element signature="e#960#967#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/struts.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="60" selection-start="4911" selection-end="4911" vertical-scroll-proportion="0.56396395">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/interfaces/SymbolInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="31" selection-start="678" selection-end="678" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/entities/Cloud.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="15" selection-start="2191" selection-end="2191" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/utils/BaseUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="647" column="98" selection-start="23958" selection-end="23958" vertical-scroll-proportion="0.6234234">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/cloud.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="30" selection-start="2868" selection-end="2868" vertical-scroll-proportion="-8.821428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="4" selection-start="737" selection-end="737" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/web/scripts/cloud.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="345" column="0" selection-start="8759" selection-end="8759" vertical-scroll-proportion="0.7849057">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/daily/备注.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1225225">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/01.web/daily/20140520.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="53" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

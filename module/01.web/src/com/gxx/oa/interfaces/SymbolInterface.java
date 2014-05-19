@@ -9,6 +9,10 @@ package com.gxx.oa.interfaces;
  */
 public interface SymbolInterface {
     /**
+     * µãºÅ
+     */
+    public static final String SYMBOL_DOT = ".";
+    /**
      * ¶ººÅ
      */
     public static final String SYMBOL_COMMA = ",";
@@ -28,6 +32,10 @@ public interface SymbolInterface {
      * Ë«ÒýºÅ
      */
     public static final String SYMBOL_DOUBLE_QUOT = "\"";
+    /**
+     * ×óÐ±¸Ü
+     */
+    public static final String SYMBOL_SLASH = "/";
     /**
      * Âß¼­ÓëºÅ
      */

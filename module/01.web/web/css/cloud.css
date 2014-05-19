@@ -1,0 +1,14 @@
+
+.dir{
+    font-weight: bold;
+    cursor: pointer;
+}
+.dir:hover{
+    color: blue;
+    text-decoration: underline;
+}
+.dir:active{
+    color: red;
+}
+
+.wrap { table-layout:fixed; word-break: break-all; overflow:hidden; }
