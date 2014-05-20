@@ -35,11 +35,11 @@ public class CloudNewDirDirAction extends BaseAction implements CloudInterface {
          * 1.如果dir为左斜杠/则允许
          * 2.其他则dir根据/截取，每段判dir是否存在而且状态正常
          */
-        BaseUtil.checkDir(getUser().getId(), dir);
+        BaseUtil.checkCloudDir(getUser().getId(), dir);
 
-        //根据用户ID和目录和文件名和文件类型查云
+        //根据用户ID和目录和文件名和文件类型查云 状态为正常
         Cloud cloud = CloudDao.getCloudByUserIdAndDirAndNameAndType(getUser().getId(), dir, newDir, TYPE_DIR);
-        if(cloud != null && cloud.getState() == STATE_NORMAL){
+        if(cloud != null){
             message = "该目录[" + dir + "]下已存在相同名字[" + newDir + "]的文件夹!";
             String resp = "{isSuccess:false,message:'" + message + "',filesJsonStr:''," +
                     "hasNewToken:true,token:'" + TokenUtil.createToken(request) + "'}";

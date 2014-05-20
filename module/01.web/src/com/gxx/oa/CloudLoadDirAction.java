@@ -1,9 +1,7 @@
 package com.gxx.oa;
 
 import com.gxx.oa.dao.CloudDao;
-import com.gxx.oa.dao.UserRightDao;
 import com.gxx.oa.entities.Cloud;
-import com.gxx.oa.entities.UserRight;
 import com.gxx.oa.interfaces.CloudInterface;
 import com.gxx.oa.utils.BaseUtil;
 import com.gxx.oa.utils.TokenUtil;
@@ -34,7 +32,7 @@ public class CloudLoadDirAction extends BaseAction implements CloudInterface {
          * 1.如果dir为左斜杠/则允许
          * 2.其他则dir根据/截取，每段判dir是否存在而且状态正常
          */
-        BaseUtil.checkDir(getUser().getId(), dir);
+        BaseUtil.checkCloudDir(getUser().getId(), dir);
 
         //父目录id
         int pid = FRONT_DIR_PID;

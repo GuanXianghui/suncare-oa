@@ -92,7 +92,7 @@ function displayFiles(){
         html = "无文件！ToT";
     }
     for(var i=0;i<files.length;i++){
-        html += getDisplayFileByIdAndTypeAndName(files[i]["id"], files[i]["type"], files[i]["name"]);
+        html += getDisplayFileByIdAndTypeAndName(files[i]["id"], files[i]["type"], files[i]["name"], files[i]["route"]);
     }
     $("#files").html(html);
 }
@@ -102,12 +102,16 @@ function displayFiles(){
  * @param type
  * @param name
  */
-function getDisplayFileByIdAndTypeAndName(id, type, name){
+function getDisplayFileByIdAndTypeAndName(id, type, name, route){
     var file = "<li>";
     file += "<span class=\"shortcut-button\" onclick=\"chooseCloud(this)\" name=\"" + id + "\">";
     file += "<span class=\"wrap\">";
     if(CLOUD_TYPE_FILE == type){
-        file += "<img src=\"images/file.jpg\" alt=\"icon\" width=\"48\" height=\"48\"/>";
+        if(isImg(name)){
+            file += "<img src=\"" + route + "\" alt=\"icon\" width=\"48\" height=\"48\" ondblclick=\"download()\"/>";
+        } else {
+            file += "<img src=\"images/file.jpg\" alt=\"icon\" width=\"48\" height=\"48\"/>";
+        }
     } else if(CLOUD_TYPE_DIR == type){
         file += "<img src=\"images/dir.jpg\" alt=\"icon\" width=\"48\" height=\"48\" ondblclick=\"openDir('" + name + "')\"/>";
     }
@@ -176,7 +180,7 @@ function beforeNewDir(){
  */
 function newDir(t){
     //新文件夹名字
-    var newDir = ($(t).parent().find(".text-input").val());
+    var newDir = trim($(t).parent().find(".text-input").val());
     //ajax请求
     var SUCCESS_STR = "success";//成功编码
     $.ajax({
@@ -184,6 +188,75 @@ function newDir(t){
         async:false,
         url:baseUrl + "cloudNewDir.do",
         data:"dir=" + dir + "&newDir=" + newDir + "&token=" + token,
+        success:function (data, textStatus) {
+            if ((SUCCESS_STR == textStatus) && (null != data)) {
+                data = eval("(" + data + ")");
+                //判请求是否成功
+                if (false == data["isSuccess"]) {
+                    showError(data["message"]);
+                } else {
+                    //请求成功
+                    showSuccess(data["message"]);
+
+                    //把初始taskJsonStr转换成taskArray
+                    files = transferJsonStr2Array(data["filesJsonStr"]);
+                    //展示所有文件
+                    displayFiles();
+                    //清空选择对象
+                    chooseClouds = new Array();
+                }
+                //判是否有新token
+                if (data["hasNewToken"]) {
+                    token = data["token"];
+                }
+            } else {
+                showAttention("服务器连接异常，请稍后再试！");
+            }
+        },
+        error:function (data, textStatus) {
+            showAttention("服务器连接异常，请稍后再试！");
+        }
+    });
+    //关闭浮层
+    $(".close_image").click();
+}
+
+/**
+ * 点击重命名按钮
+ */
+function beforeRename(){
+    if(chooseClouds.length != 1){
+        showAttention("请选择一个对象！");
+        return;
+    }
+    var id = parseInt($(chooseClouds[0]).attr("name"));;
+    var cloud = getCloudById(id);
+    $("#rename_name").val(cloud["name"]);
+    $("#showRenameDiv").click();
+}
+
+/**
+ * 重命名
+ */
+function rename(t){
+    //新名字
+    var newName = trim($(t).parent().find(".text-input").val());
+    var oldName = getCloudById(parseInt($(chooseClouds[0]).attr("name")))["name"];
+    if(newName == oldName){
+        showInformation("名字与原始一样");
+        //关闭浮层
+        $(".close_image").click();
+        return;
+    }
+    //名字不一致则修改
+    var id = parseInt($(chooseClouds[0]).attr("name"));;
+    //ajax请求
+    var SUCCESS_STR = "success";//成功编码
+    $.ajax({
+        type:"post",
+        async:false,
+        url:baseUrl + "cloudRename.do",
+        data:"id=" + id + "&newName=" + newName + "&token=" + token,
         success:function (data, textStatus) {
             if ((SUCCESS_STR == textStatus) && (null != data)) {
                 data = eval("(" + data + ")");

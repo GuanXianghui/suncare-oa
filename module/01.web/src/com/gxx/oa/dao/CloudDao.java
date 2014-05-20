@@ -59,6 +59,48 @@ public class CloudDao implements CloudInterface {
     }
 
     /**
+     * 根据 查询已删除的 申成云
+     *
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    public static List<Cloud> queryRecycleClouds(int userId)
+            throws Exception {
+        List<Cloud> list = new ArrayList<Cloud>();
+        String sql = "SELECT id,user_id,type,pid,name,state,dir,route,size,create_date,create_time,create_ip FROM" +
+                " cloud WHERE user_id=" + userId + " AND state=" + STATE_DELETE + " ORDER BY id";
+        Connection c = DB.getConn();
+        Statement stmt = DB.createStatement(c);
+        ResultSet rs = DB.executeQuery(c, stmt, sql);
+        try {
+            if (rs == null) {
+                throw new RuntimeException("数据库操作出错，请重试！");
+            }
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int type = rs.getInt("type");
+                int pid = rs.getInt("pid");
+                String name = rs.getString("name");
+                int state = rs.getInt("state");
+                String dir = rs.getString("dir");
+                String route = rs.getString("route");
+                long size = rs.getLong("size");
+                String createDate = rs.getString("create_date");
+                String createTime = rs.getString("create_time");
+                String createIp = rs.getString("create_ip");
+                Cloud cloud = new Cloud(id, userId, type, pid, name, state, dir, route, size, createDate, createTime, createIp);
+                list.add(cloud);
+            }
+            return list;
+        } finally {
+            DB.close(rs);
+            DB.close(stmt);
+            DB.close(c);
+        }
+    }
+
+    /**
      * 根据id查云
      *
      * @param id
@@ -99,7 +141,7 @@ public class CloudDao implements CloudInterface {
     }
 
     /**
-     * 根据用户ID和路径查云
+     * 根据用户ID和路径查云 状态为正常
      *
      * @param userId
      * @param route
@@ -109,7 +151,7 @@ public class CloudDao implements CloudInterface {
     public static Cloud getCloudByUserIdAndRoute(int userId, String route) throws Exception {
         Cloud cloud = null;
         String sql = "SELECT id,user_id,type,pid,name,state,dir,route,size,create_date,create_time,create_ip" +
-                " FROM cloud WHERE user_id=" + userId + " AND route='" + route + "'";
+                " FROM cloud WHERE user_id=" + userId + " AND route='" + route + "' AND state=" + STATE_NORMAL;
         Connection c = DB.getConn();
         Statement stmt = DB.createStatement(c);
         ResultSet rs = DB.executeQuery(c, stmt, sql);
@@ -139,7 +181,7 @@ public class CloudDao implements CloudInterface {
     }
 
     /**
-     * 根据用户ID和目录和文件名和文件类型查云
+     * 根据用户ID和目录和文件名和文件类型查云 状态为正常
      *
      * @param userId
      * @param dir
@@ -150,7 +192,8 @@ public class CloudDao implements CloudInterface {
     public static Cloud getCloudByUserIdAndDirAndNameAndType(int userId, String dir, String name, int type) throws Exception {
         Cloud cloud = null;
         String sql = "SELECT id,user_id,type,pid,name,state,dir,route,size,create_date,create_time,create_ip" +
-                " FROM cloud WHERE user_id=" + userId + " AND dir='" + dir + "' AND name='" + name + "' AND type=" + type;
+                " FROM cloud WHERE user_id=" + userId + " AND dir='" + dir + "' AND name='" + name + "' AND " +
+                "type=" + type + " AND state=" + STATE_NORMAL;
         Connection c = DB.getConn();
         Statement stmt = DB.createStatement(c);
         ResultSet rs = DB.executeQuery(c, stmt, sql);
@@ -203,6 +246,17 @@ public class CloudDao implements CloudInterface {
         String sql = "update cloud set pid=" + cloud.getPid() + ",name='" + cloud.getName() +
                 "',state=" + cloud.getState() + ",dir='" + cloud.getDir() + "',route='" +
                 cloud.getRoute() + "' where id=" + cloud.getId();
+        DB.executeUpdate(sql);
+    }
+
+    /**
+     * 清空回收站
+     *
+     * @param userId
+     * @throws Exception
+     */
+    public static void clearRecycle(int userId) throws Exception {
+        String sql = "update cloud set state=" + STATE_CTRL_DELETE + " where user_id=" + userId + " AND state=" + STATE_DELETE;
         DB.executeUpdate(sql);
     }
 }

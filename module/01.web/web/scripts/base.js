@@ -470,3 +470,66 @@ function removeIndexFromArray(array, index){
     }
     return newArray;
 }
+
+//图片类型
+var IMG_TYPE_ARRAY = new Array("JPG","jpg","JPEG","jpeg","GIF","gif","BMP","bmp","PNG","png");
+/**
+ * 根据文件名判是否图片类型
+ * @param name
+ * @return {Boolean}
+ */
+function isImg(name){
+    if(name == null || name == EMPTY){
+        return false;
+    }
+    var index = name.lastIndexOf(SYMBOL_DOT);
+    if(index == -1 || index+1==name.length){
+        return false;
+    }
+    var type = name.substr(index + 1);
+    for(var i=0;i<IMG_TYPE_ARRAY.length;i++){
+        if(IMG_TYPE_ARRAY[i] == type){
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * 去掉前后空格
+ * @param s
+ * @return {*}
+ */
+function trim(s){
+    return trimRight(trimLeft(s));
+}
+//去掉左边的空格
+function trimLeft(s){
+    if(s == null) {
+        return "";
+    }
+    var whitespace = new String(" \t\n\r");
+    var str = new String(s);
+    if (whitespace.indexOf(str.charAt(0)) != -1) {
+        var j=0, i = str.length;
+        while (j < i && whitespace.indexOf(str.charAt(j)) != -1){
+            j++;
+        }
+        str = str.substring(j, i);
+    }
+    return str;
+}
+//去掉右边的空格 www.2cto.com
+function trimRight(s){
+    if(s == null) return "";
+    var whitespace = new String(" \t\n\r");
+    var str = new String(s);
+    if (whitespace.indexOf(str.charAt(str.length-1)) != -1){
+        var i = str.length - 1;
+        while (i >= 0 && whitespace.indexOf(str.charAt(i)) != -1){
+            i--;
+        }
+        str = str.substring(0, i+1);
+    }
+    return str;
+}

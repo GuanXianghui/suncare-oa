@@ -119,6 +119,10 @@
         <action name="cloudLoadDir" class="com.gxx.oa.CloudLoadDirAction"/>
         <action name="cloudNewDir" class="com.gxx.oa.CloudNewDirDirAction"/>
         <action name="cloudDeleteFile" class="com.gxx.oa.CloudDeleteFileAction"/>
+        <action name="cloudRename" class="com.gxx.oa.CloudRenameAction"/>
+        <action name="cloudRecover" class="com.gxx.oa.CloudRecoverAction"/>
+        <action name="cloudCtrlDelete" class="com.gxx.oa.CloudCtrlDeleteAction"/>
+        <action name="cloudClearRecycle" class="com.gxx.oa.CloudClearRecycleAction"/>
     </package>
 
     <!--

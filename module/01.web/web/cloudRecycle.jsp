@@ -1,4 +1,4 @@
-<%@ page import="com.gxx.oa.interfaces.SymbolInterface" %>
+<%@ page import="com.gxx.oa.dao.CloudDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
 <%
@@ -6,16 +6,14 @@
     outLayer = "申成云";
     //内层
     inLayer = "申成网盘";
-    //查看Action传出来的dir
-    String dir = (String)request.getAttribute("dir");
 %>
 <html>
 <head>
     <title>申成云</title>
     <script type="text/javascript" src="<%=baseUrl%>scripts/jquery-min.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
-    <script type="text/javascript" src="<%=baseUrl%>scripts/cloud.js"></script>
-    <link rel="stylesheet" type="text/css" href="<%=baseUrl%>css/cloud.css"/>
+    <script type="text/javascript" src="<%=baseUrl%>scripts/cloudRecycle.js"></script>
+    <script type="text/javascript" src="<%=baseUrl%>css/cloudRecycle.css"></script>
     <!-- 页面样式 -->
     <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
@@ -23,9 +21,12 @@
     <script type="text/javascript" src="scripts/simpla.jquery.configuration.js"></script>
     <script type="text/javascript" src="scripts/facebox.js"></script>
     <script type="text/javascript">
-        //当前目录 首页为/
-        var dir = '<%=StringUtils.isBlank(dir)?SymbolInterface.SYMBOL_SLASH:dir%>';
-        //当前目录中的文件
+        /**
+         * 回收站文件Json串
+         * replaceAll("\\\"", "\\\\\\\"")，转换双引号
+         */
+        var filesJsonStr = "<%=BaseUtil.getJsonArrayFromClouds(CloudDao.queryRecycleClouds(user.getId()))%>";
+        //回收站里的对象
         var files = new Array();
         //选择对象
         var chooseClouds = new Array();
@@ -50,18 +51,6 @@
         </div>
     </div>
 
-    <div id="new_dir_div" align="center" style="width: 100%; display: none;">
-        <form onsubmit="return false;">
-            文件夹名字：<input class="text-input medium-input" type="text" id="new_dir_name"><input class="button" type="button" onclick="newDir(this);" value="新建">
-        </form>
-    </div>
-
-    <div id="rename_div" align="center" style="width: 100%; display: none;">
-        <form onsubmit="return false;">
-            重命名：<input class="text-input medium-input" type="text" id="rename_name"><input class="button" type="button" onclick="rename(this);" value="修改">
-        </form>
-    </div>
-
     <div id="main-content">
 
         <div id="message_id" class="notification information png_bg" style="display: none;">
@@ -72,36 +61,12 @@
             <div id="message_id_content"> 提示信息！</div>
         </div>
 
-        <input class="button" type="button" onclick="beforeUpload();" value="上传">
-        <input class="button" type="button" onclick="download();" value="下载">
-        <input class="button" type="button" onclick="beforeNewDir();" value="新建文件夹">
-        <div style="display: none;">
-            <a id="showNewDirDiv" class="shortcut-button" href="#new_dir_div" rel="modal"></a>
-        </div>
-        <input class="button" type="button" onclick="beforeRename();" value="重命名">
-        <div style="display: none;">
-            <a id="showRenameDiv" class="shortcut-button" href="#rename_div" rel="modal"></a>
-        </div>
-        <input class="button" type="button" onclick="deleteFile();" value="删除">
-        <input class="button" type="button" onclick="lastDir();" value="返回上一层">
-        <input class="button" type="button" onclick="location.href='cloudRecycle.jsp'" value="回收站>">
+        <input class="button" type="button" onclick="recover();" value="还原">
+        <input class="button" type="button" onclick="ctrlDelete();" value="彻底删除">
+        <input class="button" type="button" onclick="clearRecycle();" value="清空回收站">
+        <input class="button" type="button" onclick="location.href='cloud.jsp'" value="<申成网盘">
 
         <div class="clear"></div>
-
-        <table>
-            <tr>
-                <td style="display: none;">
-                    <form name="uploadForm" method="post" autocomplete="off"
-                          action="" enctype="multipart/form-data">
-                        <input type="text" name="dir" id="uploadDir">
-                        <input type="file" name="file" id="uploadFile" onchange="upload(this)">
-                    </form>
-                </td>
-            </tr>
-            <tr style="border: 1px solid gray">
-                <td id="dir_route"><span class="dir">我的网盘/</span></td>
-            </tr>
-        </table>
 
         <ul class="shortcut-buttons-set" id="files">
             <li>

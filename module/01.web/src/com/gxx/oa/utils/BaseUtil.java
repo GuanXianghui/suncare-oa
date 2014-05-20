@@ -590,43 +590,6 @@ public class BaseUtil implements SymbolInterface {
     }
 
     /**
-     * 根据用户id和目录 判目录合法性
-     * 1.如果dir为左斜杠/则允许
-     * 2.其他则dir根据/截取，每段判dir是否存在而且状态正常
-     * @param userId
-     * @param dir
-     * @throws Exception
-     */
-    public static void checkDir(int userId, String dir) throws Exception {
-        if(StringUtils.isBlank(dir)){
-            throw new RuntimeException("文件目录有误:[" + dir + "]");
-        }
-        //如果dir为左斜杠/则允许
-        if(StringUtils.equals(CloudInterface.FRONT_DIR, dir)){
-            return;
-        }
-        //去掉前后的左斜杠/
-        dir = dir.substring(1);
-        if(dir.endsWith(SYMBOL_SLASH)){
-            dir = dir.substring(0, dir.length() - 1);
-        }
-        //逐个文件夹校验状态
-        String[] dirParts = dir.split(SYMBOL_SLASH);
-        for(int i=0;i<dirParts.length;i++){
-            String tempDir = SYMBOL_SLASH;
-            for(int j=0;j<i+1;j++){
-                tempDir += dirParts[j];
-                tempDir += SYMBOL_SLASH;
-            }
-            Cloud tempCloud = CloudDao.getCloudByUserIdAndRoute(userId, tempDir);
-            if(null == tempCloud || tempCloud.getState() != CloudInterface.STATE_NORMAL ||
-                    tempCloud.getType() != CloudInterface.TYPE_DIR){
-                throw new RuntimeException("文件目录有误:[" + tempCloud + "]");
-            }
-        }
-    }
-
-    /**
      * 从申成云集合得到Json数组
      *
      * @param clouds
@@ -666,5 +629,96 @@ public class BaseUtil implements SymbolInterface {
             return "系统文件";
         }
         return StringUtils.EMPTY;
+    }
+
+    /**
+     * 根据用户id和目录 判目录合法性
+     * 1.如果dir为左斜杠/则允许
+     * 2.其他则dir根据/截取，每段判dir是否存在而且状态正常
+     * @param userId
+     * @param dir
+     * @throws Exception
+     */
+    public static void checkCloudDir(int userId, String dir) throws Exception {
+        if(StringUtils.isBlank(dir)){
+            throw new AjaxException("文件目录有误:[" + dir + "]");
+        }
+        //如果dir为左斜杠/则允许
+        if(StringUtils.equals(CloudInterface.FRONT_DIR, dir)){
+            return;
+        }
+        //去掉前后的左斜杠/
+        dir = dir.substring(1);
+        if(dir.endsWith(SYMBOL_SLASH)){
+            dir = dir.substring(0, dir.length() - 1);
+        }
+        //逐个文件夹校验状态
+        String[] dirParts = dir.split(SYMBOL_SLASH);
+        for(int i=0;i<dirParts.length;i++){
+            String tempDir = SYMBOL_SLASH;
+            for(int j=0;j<i+1;j++){
+                tempDir += dirParts[j];
+                tempDir += SYMBOL_SLASH;
+            }
+            Cloud tempCloud = CloudDao.getCloudByUserIdAndRoute(userId, tempDir);
+            if(null == tempCloud || tempCloud.getType() != CloudInterface.TYPE_DIR){
+                throw new AjaxException("文件目录有误:[" + tempDir + "]");
+            }
+        }
+    }
+
+    /**
+     * 逐层创建目录
+     * @param userId
+     * @param dir
+     */
+    public static void createCloudDir(int userId, String dir, String date, String time, String ip) throws Exception {
+        if(StringUtils.isBlank(dir)){
+            throw new AjaxException("文件目录有误:[" + dir + "]");
+        }
+        //如果dir为左斜杠/则允许
+        if(StringUtils.equals(CloudInterface.FRONT_DIR, dir)){
+            return;
+        }
+        //去掉前后的左斜杠/
+        dir = dir.substring(1);
+        if(dir.endsWith(SYMBOL_SLASH)){
+            dir = dir.substring(0, dir.length() - 1);
+        }
+        int pid = 0;
+        //是否 找到第一个被删除的目录
+        boolean findFirstDeleteDir = false;
+        //逐个文件夹校验状态
+        String[] dirParts = dir.split(SYMBOL_SLASH);
+        for(int i=0;i<dirParts.length;i++){
+            String newDir = StringUtils.EMPTY;
+            String tempDir = SYMBOL_SLASH;
+            for(int j=0;j<i+1;j++){
+                newDir = dirParts[j];
+                tempDir += dirParts[j];
+                tempDir += SYMBOL_SLASH;
+            }
+            /**
+             * 如果没有找到第一个被删除的目录，一直找
+             * 一旦找到，下面每个目录都需要手动来创建
+             */
+            if(!findFirstDeleteDir){
+                Cloud tempCloud = CloudDao.getCloudByUserIdAndRoute(userId, tempDir);
+                if(null != tempCloud){
+                    //更新pid
+                    pid = tempCloud.getId();
+                    continue;
+                } else {
+                    findFirstDeleteDir = true;
+                }
+            }
+            //每个目录都需要手动来创建
+            Cloud cloud = new Cloud(userId, CloudInterface.TYPE_DIR, pid, newDir, CloudInterface.STATE_NORMAL,
+                    tempDir.substring(0, tempDir.length()-newDir.length()-1), tempDir, 0, date, time, ip);
+            CloudDao.insertCloud(cloud);
+            //更新pid
+            cloud = CloudDao.getCloudByUserIdAndRoute(userId, tempDir);
+            pid = cloud.getId();
+        }
     }
 }

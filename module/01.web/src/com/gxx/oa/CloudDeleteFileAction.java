@@ -36,7 +36,7 @@ public class CloudDeleteFileAction extends BaseAction implements CloudInterface 
          * 1.如果dir为左斜杠/则允许
          * 2.其他则dir根据/截取，每段判dir是否存在而且状态正常
          */
-        BaseUtil.checkDir(getUser().getId(), dir);
+        BaseUtil.checkCloudDir(getUser().getId(), dir);
 
         //删除的申成云
         List<Cloud> deleteClouds = new ArrayList<Cloud>();
