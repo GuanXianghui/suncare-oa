@@ -44,11 +44,17 @@ public class CloudUploadAction extends BaseAction implements CloudInterface {
     public String execute() throws Exception {
         logger.info("dir:" + dir + ",file:" + file + ",fileFileName:" + fileFileName +
                 ",fileContentType:" + fileContentType + ",size:" +
-                FileUtil.formatFileSize(file.length()));
+                (file==null?"":FileUtil.formatFileSize(file.length())));
         //判头像为空
         if(null == file)
         {
             message = "服务器未收到文件!";
+            return ERROR;
+        }
+
+        //文件为空
+        if(file.length() == 0){
+            message = "文件不能为空!";
             return ERROR;
         }
 
@@ -68,7 +74,7 @@ public class CloudUploadAction extends BaseAction implements CloudInterface {
 
         //新的文件类型
         String fileType = StringUtils.EMPTY;
-        int dotIndex = fileFileName.indexOf(SymbolInterface.SYMBOL_DOT);
+        int dotIndex = fileFileName.lastIndexOf(SymbolInterface.SYMBOL_DOT);
         if(dotIndex > -1){
             fileType = fileFileName.substring(dotIndex);
         }

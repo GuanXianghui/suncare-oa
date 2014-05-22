@@ -149,6 +149,8 @@
     <li><a href="#" class="nav-top-item<%=outLayer.equals("申成云")?" current":""%>"> 申成云 </a>
         <ul>
             <li><a href="<%=baseUrl%>cloud.jsp"<%=inLayer.equals("申成网盘")?" class=\"current\"":""%>>申成网盘</a></li>
+            <li><a href="<%=baseUrl%>cloudDoc.jsp"<%=inLayer.equals("申成文库")?" class=\"current\"":""%>>申成文库</a></li>
+            <li><a href="<%=baseUrl%>cloudKnow.jsp"<%=inLayer.equals("申成知道")?" class=\"current\"":""%>>申成知道</a></li>
         </ul>
     </li>
 </ul>

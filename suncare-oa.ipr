@@ -54,7 +54,18 @@
     <file url="file://$PROJECT_DIR$/module/01.web/src/com/gxx/oa/BaseAction.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/calendar.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloud.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudDoc.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudKnow.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudKnowAsk.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudKnowMyAnswer.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudKnowMyAsk.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudKnowUpdateAsk.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudMyDoc.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudRecycle.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudUpdateDoc.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudUploadDoc.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudViewDoc.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/cloudViewKnow.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/configNotice.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/diary.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module/01.web/web/scripts/letter.js" charset="UTF-8" />
@@ -246,6 +257,7 @@
         <w>baidu</w>
         <w>colspan</w>
         <w>depts</w>
+        <w>facebox</w>
         <w>jdbc</w>
         <w>pids</w>
         <w>pstmt</w>

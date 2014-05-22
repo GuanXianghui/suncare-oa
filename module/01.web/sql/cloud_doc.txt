@@ -1,0 +1,38 @@
+create table cloud_doc( #申成文库
+	id int auto_increment primary key comment '主键 自增',
+	user_id int not null comment '用户id 不为空',
+    title varchar(100) not null comment '标题 不为空',
+    state int not null comment '状态 不为空 1 正常 2 删除',
+    description varchar(200) comment '描述 可为空',
+    type varchar(50) not null comment '分类 不为空',
+    tags varchar(100) comment '标签 可为空 多个标签逗号分隔',
+    route varchar(1000) not null comment '真实文件相对路径 不为空',
+    size long not null comment '文件大小 不为空',
+    read_times int not null comment '阅读次数 不为空 初始化为0',
+    download_times int not null comment '下载次数 不为空 初始化为0',
+	create_date varchar(8) not null comment '创建日期 不为空',
+	create_time varchar(6) not null comment '创建时间 不为空',
+	create_ip varchar(100) not null comment '创建IP 不为空',
+	update_date varchar(8) not null comment '修改日期 不为空',
+	update_time varchar(6) not null comment '修改时间 不为空',
+	update_ip varchar(100) not null comment '修改IP 不为空'
+);
+
+#申成文库主要功能有：
+#1.上传文档
+#2.查看自己上传过的文档，在线阅读功能，下载文档，修改，删除
+#3.搜索文库
+#4.在线阅读功能，下载文档
+#5.评论
+#在线阅读功能：http://blog.csdn.net/tiedao123456789/article/details/7671530 java实现文档的在线阅读功能
+
+#查询申成文库的规则
+#0.定义条件为doc
+#1.如果doc为空或者空字符串查询，返回结果空
+#2.将doc中的中文逗号和空格 变成 英文逗号
+#3.将doc按英文逗号分隔，逐个(定义为tempDoc)当作搜索条件执行以下查询，将结果合并作为结果返回
+#3.1.根据tempDoc查询用户姓名，查到则将用户id作为条件user_id进行查询
+#3.2.根据tempDoc，对字段title进行模糊查询
+#3.3.根据tempDoc，对字段description进行模糊查询
+#3.4.根据tempDoc，对字段tags进行模糊查询
+#3.5.以上这些条件都用or来拼接

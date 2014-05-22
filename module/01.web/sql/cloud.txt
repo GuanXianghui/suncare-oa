@@ -1,4 +1,4 @@
-create table cloud( #申成云
+create table cloud( #申成网盘
 	id int auto_increment primary key comment '主键 自增',
 	user_id int not null comment '用户id 不为空',
 	type int not null comment '类型 不为空 1 文件 2 文件夹 3 系统文件',

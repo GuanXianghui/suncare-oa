@@ -1,9 +1,6 @@
 package com.gxx.oa.utils;
 
-import com.gxx.oa.dao.CloudDao;
-import com.gxx.oa.dao.StructureDao;
-import com.gxx.oa.dao.UserDao;
-import com.gxx.oa.dao.UserRightDao;
+import com.gxx.oa.dao.*;
 import com.gxx.oa.entities.*;
 import com.gxx.oa.exceptions.AjaxException;
 import com.gxx.oa.interfaces.*;
@@ -720,5 +717,183 @@ public class BaseUtil implements SymbolInterface {
             cloud = CloudDao.getCloudByUserIdAndRoute(userId, tempDir);
             pid = cloud.getId();
         }
+    }
+
+    /**
+     * 是否是支持的文件类型
+     * @param type
+     * @return
+     */
+    public static boolean isSupportCloudDocType(String type){
+        if(StringUtils.isBlank(type)){
+            return false;
+        }
+        type = StringUtils.trim(type);
+        String[] types = PropertyUtil.getInstance().getProperty(BaseInterface.CLOUD_DOC_SUPPORT_TYPES).split(SYMBOL_COMMA);
+        for(String tempType :  types){
+            if(StringUtils.equalsIgnoreCase(tempType, type)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 查找申成文库
+     * #查询申成文库的规则
+     * #0.定义条件为doc
+     * #1.如果doc为空或者空字符串查询，返回结果空
+     * #2.将doc中的中文逗号和空格 变成 英文逗号
+     * #3.将doc按英文逗号分隔，逐个(定义为tempDoc)当作搜索条件执行以下查询，将结果合并作为结果返回
+     * #3.1.根据tempDoc查询用户姓名，查到则将用户id作为条件user_id进行查询
+     * #3.2.根据tempDoc，对字段title进行模糊查询
+     * #3.3.根据tempDoc，对字段description进行模糊查询
+     * #3.4.根据tempDoc，对字段tags进行模糊查询
+     * #3.5.以上这些条件都用or来拼接
+     * @param doc
+     * @return
+     */
+    public static List<CloudDoc> queryCloudDocs(String doc) throws Exception{
+        //定义结果
+        List<CloudDoc> cloudDocs = new ArrayList<CloudDoc>();
+        //如果doc为空返回
+        if(StringUtils.isBlank(doc)){
+            return cloudDocs;
+        }
+        //将中文逗号和空格 变成 英文逗号
+        doc = doc.replaceAll("，", SYMBOL_COMMA);
+        doc = doc.replaceAll(" ", SYMBOL_COMMA);
+        String[] docs = doc.split(SYMBOL_COMMA);
+        for(String tempDoc : docs){
+            if(StringUtils.isBlank(tempDoc)){
+                continue;
+            }
+            //如果非空则带上作为条件
+            User user = UserDao.getUserByName(tempDoc);
+            int userId = 0;
+            if(user != null){
+                userId = user.getId();
+            }
+            cloudDocs.addAll(CloudDocDao.queryCloudDocsByOrConditions(userId, tempDoc));
+        }
+        return cloudDocs;
+    }
+
+    /**
+     * 根据文件名得到文件类型
+     * @param name
+     * @return
+     */
+    public static String getFileType(String name){
+        String fileType = StringUtils.EMPTY;
+        if(StringUtils.isBlank(name)){
+            return fileType;
+        }
+        int dotIndex = name.lastIndexOf(SymbolInterface.SYMBOL_DOT);
+        if(dotIndex > -1){
+            fileType = name.substring(dotIndex + 1);
+        }
+        return fileType;
+    }
+
+    /**
+     * 根据关键词对文档做展示 title
+     * @param title
+     * @param doc
+     * @return
+     */
+    public static String displayCloudDocTitle(String title, String doc) {
+        if(StringUtils.isBlank(title)){
+            return StringUtils.EMPTY;
+        }
+        if(title.length() > 100){
+            title = title.substring(0, 100) + "...";
+        }
+        title = title.replaceAll(doc, "<span style=\"color: red\">" + doc + "</span>");
+        title = "<span style=\"color: blue\">" + title + "</span>";
+        return title;
+    }
+
+    /**
+     * 根据关键词对文档做展示 description
+     * @param description
+     * @param doc
+     * @return
+     */
+    public static String displayCloudDocDescription(String description, String doc) {
+        if(StringUtils.isBlank(description)){
+            return StringUtils.EMPTY;
+        }
+        if(description.length() > 100){
+            description = description.substring(0, 100) + "...";
+        }
+        description = "描述：" + description.replaceAll(doc, "<span style=\"color: red\">" + doc + "</span>");
+        description = "<span style=\"color: black\">" + description + "</span><br>";
+        return description;
+    }
+
+    /**
+     * 根据关键词对文档做展示 tags
+     * @param tags
+     * @param doc
+     * @return
+     */
+    public static String displayCloudDocTags(String tags, String doc) {
+        if(StringUtils.isBlank(tags)){
+            return StringUtils.EMPTY;
+        }
+        String html = StringUtils.EMPTY;
+        String[] tagArray = tags.split(SYMBOL_COMMA);
+        for(String tag : tagArray){
+            if(StringUtils.isNotBlank(html)){
+                html += "&nbsp;" + SYMBOL_COMMA + "&nbsp;";
+            }
+            html += "<span style=\"color: blue; cursor: pointer\" onclick=\"queryDoc('" + tag + "')\">" +
+                    tag.replaceAll(doc, "<span style=\"color: red\">" + doc + "</span>") + "</span>";
+        }
+        html = "标签：" + html + "<br>";
+        return html;
+    }
+
+    /**
+     * 查找申成知道提问
+     * @return
+     */
+    public static List<CloudKnowAsk> queryCloudKnowAsks(String ask) throws Exception{
+        //定义结果
+        List<CloudKnowAsk> cloudKnowAsks = new ArrayList<CloudKnowAsk>();
+        //如果ask为空返回
+        if(StringUtils.isBlank(ask)){
+            return cloudKnowAsks;
+        }
+        //将中文逗号和空格 变成 英文逗号
+        ask = ask.replaceAll("，", SYMBOL_COMMA);
+        ask = ask.replaceAll(" ", SYMBOL_COMMA);
+        String[] asks = ask.split(SYMBOL_COMMA);
+        for(String tempAsk : asks){
+            if(StringUtils.isBlank(tempAsk)){
+                continue;
+            }
+            cloudKnowAsks.addAll(CloudKnowAskDao.queryCloudKnowAsksByQuestion(tempAsk));
+        }
+        return cloudKnowAsks;
+    }
+
+    /**
+     * 根据关键词对申成知道做展示 question
+     * @param question
+     * @param ask
+     * @return
+     */
+    public static String displayCloudKnowQuestion(String question, String ask) {
+        if(StringUtils.isBlank(question)){
+            return StringUtils.EMPTY;
+        }
+        if(question.length() > 100){
+            question = question.substring(0, 100) + "...";
+        }
+        question = question.replaceAll(ask, "<span style=\"color: red\">" + ask + "</span>");
+        question = "<span style=\"color: blue\">" + question + "</span>";
+        return question;
     }
 }

@@ -85,4 +85,8 @@ public interface BaseInterface {
      * 所有权限 权限代码1=权限名称1,权限代码2=权限名称2,权限代码3=权限名称3,...
      */
     public static final String RIGHT_LIST = "right_list";
+    /**
+     * 申成文库支持的文件类型
+     */
+    public static final String CLOUD_DOC_SUPPORT_TYPES = "cloud_doc_support_types";
 }

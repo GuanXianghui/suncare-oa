@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 申成云实体操作类
+ * 申成网盘实体操作类
  *
  * @author Gxx
  * @module oa

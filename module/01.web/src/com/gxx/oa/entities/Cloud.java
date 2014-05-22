@@ -1,7 +1,7 @@
 package com.gxx.oa.entities;
 
 /**
- * 申成云实体 包括文件，文件夹，系统文件
+ * 申成网盘实体 包括文件，文件夹，系统文件
  *
  * @author Gxx
  * @module oa

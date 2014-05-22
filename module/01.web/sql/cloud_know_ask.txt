@@ -1,0 +1,22 @@
+create table cloud_know_ask( #申成知道提问
+	id int auto_increment primary key comment '主键 自增',
+	user_id int not null comment '提问用户id 不为空',
+    question varchar(500) not null comment '问题 不为空',
+    description varchar(10000) comment '问题补充 可为空',
+    type varchar(50) not null comment '分类 不为空',
+    urgent int not null comment '是否紧急 不为空 1 不紧急 2 紧急',
+    state int not null comment '状态 不为空 1 正常 2 删除',
+	create_date varchar(8) not null comment '创建日期 不为空',
+	create_time varchar(6) not null comment '创建时间 不为空',
+	create_ip varchar(100) not null comment '创建IP 不为空',
+	update_date varchar(8) not null comment '修改日期 不为空',
+	update_time varchar(6) not null comment '修改时间 不为空',
+	update_ip varchar(100) not null comment '修改IP 不为空'
+);
+
+#申成知道主要功能有：
+#1.提问
+#2.回答 别人回答过还可以回答
+#3.赞回答，给回答人，发一条消息，同时赞+1
+#4.搜索申成知道
+#5.查看申成知道 修改知道 删除知道 问题和回答均是如此

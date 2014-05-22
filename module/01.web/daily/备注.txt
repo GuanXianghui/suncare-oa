@@ -55,3 +55,5 @@ gbk编码编码文件：txt，java，properties
 (10)facebox.js的坑
 $(t).parent().find(".text-input").val()
 注意：这里使用facebox.js，浮层是拷贝一份，直接用id来找对象取出来不是同一个对象，所以用位置关系来查找对象
+
+(11)FileUtil.copy(file1, file2)拷贝出来的文件多很多空格，这个问题待研究

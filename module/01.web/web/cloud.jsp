@@ -11,7 +11,7 @@
 %>
 <html>
 <head>
-    <title>申成云</title>
+    <title>申成网盘</title>
     <script type="text/javascript" src="<%=baseUrl%>scripts/jquery-min.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/base.js"></script>
     <script type="text/javascript" src="<%=baseUrl%>scripts/cloud.js"></script>

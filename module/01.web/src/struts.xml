@@ -123,6 +123,78 @@
         <action name="cloudRecover" class="com.gxx.oa.CloudRecoverAction"/>
         <action name="cloudCtrlDelete" class="com.gxx.oa.CloudCtrlDeleteAction"/>
         <action name="cloudClearRecycle" class="com.gxx.oa.CloudClearRecycleAction"/>
+        <action name="cloudUploadDoc" class="com.gxx.oa.CloudUploadDocAction">
+            <result>
+                /cloudMyDoc.jsp
+            </result>
+            <result name="error">
+                /cloudUploadDoc.jsp
+            </result>
+        </action>
+        <action name="cloudUpdateDoc" class="com.gxx.oa.CloudUpdateDocAction">
+            <result>
+                /cloudMyDoc.jsp
+            </result>
+            <result name="error">
+                /cloudUpdateDoc.jsp
+            </result>
+        </action>
+        <action name="cloudDeleteDoc" class="com.gxx.oa.CloudDeleteDocAction">
+            <result>
+                /cloudMyDoc.jsp
+            </result>
+            <result name="error">
+                /cloudMyDoc.jsp
+            </result>
+        </action>
+        <action name="cloudKnowAsk" class="com.gxx.oa.CloudKnowAskAction">
+            <result>
+                /cloudKnowAsk.jsp
+            </result>
+            <result name="error">
+                /cloudKnowAsk.jsp
+            </result>
+        </action>
+        <action name="cloudKnowAnswer" class="com.gxx.oa.CloudKnowAnswerAction">
+            <result>
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+            <result name="error">
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+        </action>
+        <action name="cloudKnowUpdateAsk" class="com.gxx.oa.CloudKnowUpdateAskAction">
+            <result>
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+            <result name="error">
+                /cloudKnowUpdateAsk.jsp
+            </result>
+        </action>
+        <action name="cloudKnowDeleteAsk" class="com.gxx.oa.CloudKnowDeleteAskAction">
+            <result>
+                /cloudKnowMyAsk.jsp
+            </result>
+            <result name="error">
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+        </action>
+        <action name="cloudKnowDeleteAnswer" class="com.gxx.oa.CloudKnowDeleteAnswerAction">
+            <result>
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+            <result name="error">
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+        </action>
+        <action name="cloudKnowZanAnswer" class="com.gxx.oa.CloudKnowZanAnswerAction">
+            <result>
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+            <result name="error">
+                /cloudViewKnow.jsp?id=${askId}
+            </result>
+        </action>
     </package>
 
     <!--

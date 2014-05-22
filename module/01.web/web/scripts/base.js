@@ -149,6 +149,18 @@ var CLOUD_TYPE_DIR = 2;
 var CLOUD_TYPE_SYSTEM_FILE = 3;
 
 /**
+ * 申成文库相关字段
+ */
+var CLOUD_UPLOAD_DOC_EMPTY_TITLE = "请输入标题";
+var CLOUD_UPLOAD_DOC_EMPTY_DESCRIPTION = "填写文档简介，能帮助文档传播更广~";
+var CLOUD_UPLOAD_DOC_EMPTY_TAGS = "多个标签请用逗号隔开";
+
+/**
+ * 申成知道相关字段
+ */
+var CLOUD_KNOW_ASK_EMPTY_QUESTION = "请输入问题";
+
+/**
  * 计算str1中还有几个str2
  * @param str1
  * @param str2

@@ -1,0 +1,14 @@
+create table cloud_know_answer( #申成知道回答
+	id int auto_increment primary key comment '主键 自增',
+	ask_id int not null comment '提问id 不为空',
+	user_id int not null comment '回答用户id 不为空',
+    answer varchar(10000) not null comment '回答 不为空',
+    zan int not null comment '被赞次数 不为空',
+    state int not null comment '状态 不为空 1 正常 2 删除',
+	create_date varchar(8) not null comment '创建日期 不为空',
+	create_time varchar(6) not null comment '创建时间 不为空',
+	create_ip varchar(100) not null comment '创建IP 不为空',
+	update_date varchar(8) not null comment '修改日期 不为空',
+	update_time varchar(6) not null comment '修改时间 不为空',
+	update_ip varchar(100) not null comment '修改IP 不为空'
+);
